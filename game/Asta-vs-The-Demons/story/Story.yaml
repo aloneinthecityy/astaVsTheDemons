@@ -1,0 +1,521 @@
+start:
+  - play lofi1: LOOPED
+  - show atencao: CENTER WITH FADE CONTINUE
+  - text: Este jogo não tem o propósito de relacionar transtornos mentais à crenças religiosas ou qualquer situação do tipo.
+  - text: O roteiro e enredo foram analisados e aprovados por uma psicóloga. 
+  - text: “Asta vs The Demons” é um jogo que faz o uso de metáforas. 
+  - text: Traumas, medos e outros sentimentos e sensações humanas serão por vezes, representados como demônios. E Todos temos demônios interiores. 
+  - text: Ajuda e acompanhamento profissional são fundamentais em tratamentos psicológicos. Auxiliam na qualidade de nossa saúde mental e bem-estar, 
+  - text: bem como melhora o autoconhecimento do paciente. 
+  - text: Ainda há um grande preconceito quando falamos sobre consultas regulares com psicólogos, terapeutas, psiquiatras, etc.
+  - text: Mas quando reconhecemos que precisamos de ajuda, isso é um ato de coragem e autoamor (jamais esqueça disso).
+  - hide ALL:
+  - wait: 2000
+  - show helpme: CENTER WITH FADE CONTINUE
+  - asta says: Faz algum tempo que estou aqui. Sinto como se fosse amaldiçoada por uma espécie de espectro ruim que tomou conta da minha mente e corpo.
+  - asta says: Não tenho certeza do momento exato em que tudo isso começou… mas sei que foi há muito tempo, quando eu era bem pequena. 
+  - asta says: Sempre fui uma pessoa ansiosa. Pequenas coisas me incomodavam em grandes proporções.
+  - asta says: Costumo pensar muito sobre tudo, o que gera ansiedade.  
+  - asta says: Também lembro de episódios onde não conseguia dormir por pensar excessivamente em coisas que haviam acontecido no passado, ou até mesmo por coisas que nem haviam acontecido.
+  - asta says: E, mesmo assim, minha mente me assombrava com essas ideias. 
+  - asta says: De alguma forma, um sentimento que ansiava por pressa e perfeição sempre esteve dentro de mim. E sempre dei ouvidos a ele. 
+  - asta says: Com o tempo, aprendemos a ignorar algumas vozes dentro de nós. 
+  - asta says: Mas, infelizmente, às vezes, elas se calam apenas temporariamente e se manifestam de outras maneiras.
+  - asta says: Apenas nós mesmos somos capazes de matar nossos próprios demônios.
+  - asta says: No entanto, precisamos de ajuda no processo, para enfim, conseguir matá-los. 
+  - hide ALL:
+  - wait: 2000
+
+  - show telapreta: CENTER WITH FADE CONTINUE
+  - text: "Escolha uma jornada:"
+  - choice:
+    - "Lidando com crises de ansiedade":
+      - wait: 1000
+      - hide ALL:
+      - show telapreta: CENTER WITH FADE CONTINUE
+      - asta says: Nos últimos anos, ocorreram alguns eventos importantes em minha vida. 
+      - asta says: Pessoas próximas a mim faleceram, presenciei diversos problemas familiares, etc.
+      - asta says: Na época, não me importei muito com isso. Apenas ignorava tudo e seguia adiante. Era como se houvessem me anestesiado e eu não pudesse sentir nada.
+      - asta says: Estava apática, ou apenas tentava ignorar o que sentia verdadeiramente lá no fundo. 
+      - asta says: Mas as consequências desses traumas apareceram mais tarde.  
+      - asta says: Não adianta ignorar. Se não encarar de frente, toda a poeira que jogou embaixo do tapete vai se manifestar em algum momento. 
+      - wait: 1200
+      - hide ALL:
+      - show salaDeAula: CENTER WITH FADE CONTINUE
+      - show asta: preocupada1
+      - asta says: Hoje haverá as apresentações dos trabalhos de história, durante a aula. 
+      - asta says preocupada2: E eu odeio apresentações (ou qualquer tipo de situação em que preciso me expor diante de pessoas).
+      - asta says: Geralmente, consigo controlar o nervosismo diante de situações como essa. Mas hoje é diferente.
+      - asta says: Estou me sentindo muito mal.
+      - asta says preocupada3: O nervosismo está tomando conta de meus pensamentos.
+      - hide asta: WITH CUT CONTINUE
+      - demonios says preocupada1: E se eu fracassar?
+      - demonios says triste2: E se esquecer minha fala no meio da apresentação?
+      - demonios says triste2: Meu grupo é o 4º na sequência, em breve todos irão ver o quanto estou nervosa e vão rir de mim!
+      - hide demonios: WITH CUT CONTINUE
+      - asta says confusa: Definitivamente, estou desconfortável. Ninguém parece estar passando mal da mesma forma que eu. 
+      - asta says triste2: Minhas mãos estão trêmulas, frias e suadas.
+      - asta says triste2: Meu coração está muito acelerado e estou com dificuldade para respirar.
+      - asta says preocupada3: Também sinto um pouco de dor de barriga. 
+      - asta says triste2: O que devo fazer?
+      - hide ALL:
+      - show telapreta: CENTER WITH FADE CONTINUE
+      - choice:
+        - "Ir ao banheiro e lavar o rosto":
+          - show salaDeAula: AT CENTER WITH FADE
+          - show asta triste2: AT DEFAULT WITH CUT
+          - asta says triste2: Certo. Vou pedir licença e ir ao banheiro para tentar me acalmar. 
+          - hide ALL: WITH FADE
+          - show banheiroEscola: AT CENTER WITH FADE
+          - show asta: triste3
+          - asta says: Estava com medo, mas não sabia exatamente a razão para tanto nervosismo.
+          - asta says triste1: Fechei os olhos e tentei encontrar algum pensamento bom, que pudesse servir como um refúgio. 
+          - asta says: Lavei meu rosto e respirei fundo, sentindo a entrada e saída do ar em meus pulmões. Também bebi um pouco de água e foquei minha atenção em objetos, 
+          - asta says: toques e sensações exteriores.
+          - asta says: Repeti esse processo algumas vezes, tentando amenizar o medo e desespero que gritavam dentro de mim.
+          - asta says preocupada1: Aos poucos e com muita dificuldade consegui me acalmar.
+          - asta says: Ainda estava nervosa, certamente. Mas dessa vez, ciente de que minha mente deturpou a situação e fez com que tudo se tornasse mais apavorante do que realmente é.
+          - asta says: Ciente de que meus demônios estavam tentando controlar a situação. 
+          - asta says tranquila: Em algumas horas, essa apresentação acabaria e eu voltaria para o conforto da minha casa. 
+          - asta says preocupada1: Mas sei que a ansiedade ainda estaria lá, escondida dentro de mim. Esse monstro me acompanha há algum tempo.
+          - asta says: Hoje consegui amenizar a situação, mas e amanhã? Como terei certeza de que conseguirei lidar com isso novamente?
+          - asta says: Já enfrentei outras crises como esta. Todas indicando que os sintomas da ansiedade estavam aumentando gradativamente...
+          - asta says: Preciso fazer algo por mim.
+          - hide ALL:
+          - show telapreta:
+          - asta says: Que escolha farei?
+          - choice:
+            - "Reconhecer que preciso de ajuda":
+            - "Tentar relevar o que aconteceu hoje":
+              - var pontuacao_escolha_errada: 0
+              - text: Olá, caro jogador(a)! Você não tomou a melhor decisão :(
+              - text: Crises de ansiedade e nervosismo como essa, não devem ser ignoradas. 
+              - text: Uma crise aqui, outra ali, e de forma gradual a frequência irá aumentar... 
+              - text: Deve-se ter uma atenção especial em casos como este, onde os sintomas são intensos e surgem sem nem percebemos.
+              - text: Você concluiu esta jornada com {pontuacao_escolha_errada} pontos. Tente novamente, Asta precisa de ajuda.
+              - wait: 1200
+              - hide ALL:
+              - scene: showEscolha1
+
+          - hide ALL:
+          - var pontuacao_escolha_correta: 100
+          - wait: 1200
+          - text: Olá, caro jogador(a)! Você fez uma escolha inteligente e ajudou nossa Asta a lidar com essa situação difícil.
+          - text: Você concluiu esta jornada com {pontuacao_escolha_correta} pontos. Parabéns!
+          - text: E lembre-se de que você não precisa passar por isso sozinho. Ligue para 188 (Centro de Valorização da Vida) e peça ajuda. 
+          - text: O CVV oferece apoio emocional e prevenção do suicídio, atendendo voluntária e gratuitamente todas as pessoas que querem e precisam conversar, 
+          - text: sob total sigilo por telefone, email e chat 24 horas todos os dias.
+          - wait: 1200
+          - hide ALL:
+          - scene: showEscolha1
+        
+
+
+        - "Tentar ignorar os sintomas":
+          - show salaDeAula: CENTER WITH FADE CONTINUE
+          - show asta: preocupada1
+          - asta says: Tentarei ignorar o que estou sentindo. Fingir que não estou sentindo nada. Alguma hora isso tudo terá de passar e ficarei bem.
+          - show asta: triste1
+          - asta says: '...'
+          - asta says seria: Com dificuldade, aos poucos fui ignorando o turbilhão de pensamentos e sensações ruins que tomavam conta de mim. Continuei nervosa e com fortes palpitações no peito. 
+          - asta says: A apresentação acabou e voltei para casa. 
+          - hide ALL:
+          - show quartoAsta: CENTER WITH FADE CONTINUE
+          - show asta: seria
+          - asta says: No fim, as coisas saíram como o planejado na apresentação. 
+          - asta says preocupada1: Mas comigo, sozinha, não. As coisas não estavam saindo como o planejado.
+          - hide ALL:
+          - show telapreta: CENTER WITH FADE CONTINUE
+          - text: O que farei?
+          - choice:
+            - "enfrentar essa situação sozinha":
+            - "Se ignorar, ficará tudo bem...":
+          - hide ALL:
+          - wait: 1200
+          - show telapreta: CENTER WITH FADE CONTINUE
+          - asta says: Durante muito tempo pensei que as crises de ansiedade que havia tido eram normais e iriam passar naturalmente um dia.
+          - asta says: Mas estava errada.
+          - asta says: Aquilo não era normal, e só ficava pior com o passar do tempo.
+          - show asta: triste1 
+          - asta says: Aos poucos, a frequência das crises foi aumentando e o desgaste mental também.
+          - asta says: Comecei a me irritar profundamente com coisas pequenas. Os nervos estavam sempre à flor da pele.
+          - show asta: triste2
+          - asta says: Minha mente estava constantemente em um estado ansioso, mesmo que inconscientemente.
+          - asta says: De repente, comecei a sentir falta de ar. Como se minha respiração estivesse pesada.
+          - asta says: Situações comuns que exigiam paciência tomavam conta dos meus pensamentos e causavam muito estresse. 
+          - asta says: A grande verdade é que eu me importava demais com coisas que não estavam sob meu controle. 
+          - asta says: O que tornava as crises de ansiedade mais frequentes.  
+          - show asta: triste3
+          - asta says: Demorei para aprender que devemos viver um dia de cada vez e que nem tudo está sob nosso controle.
+          - asta says: Há momentos em que não podemos fazer nada, e não precisamos nos culpar por isso.  
+          - asta says: Pausas para respirar são importantes. 
+          - show asta: triste4
+          - asta says: Mas eu nunca pausava.
+          - asta says: Comecei a sentir um grande vazio formando-se dentro de mim...
+          - hide ALL:
+          - var pontuacao_escolha_errada: 0
+          - wait: 1200
+          - text: Olá, caro jogador(a)! Você não tomou a melhor decisão :(
+          - text: Em casos como esse, onde a ansiedade e o nervosismo ultrapassam os limites de maneira drástica (e em episódios frequentes),
+          - text: não se deve ignorar os sintomas. Mas entender o que está acontecendo e buscar ajuda profissional.
+          - text: lembre-se de que você não precisa passar por isso sozinho. Ligue para 188 (Centro de Valorização da Vida) e peça ajuda. 
+          - text: O CVV oferece apoio emocional e prevenção do suicídio, atendendo voluntária e gratuitamente todas as pessoas que querem e precisam conversar, 
+          - text: sob total sigilo por telefone, email e chat 24 horas todos os dias.
+          - text: Você concluiu esta jornada com {pontuacao_escolha_errada} pontos. Tente novamente, Asta precisa de ajuda.
+          - wait: 1200
+          - hide ALL:
+          - scene: showEscolha1
+
+
+
+        - "Pedir ajuda para alguém em quem confio":
+          - show salaDeAula: CENTER WITH FADE CONTINUE
+          - show asta: preocupada2
+          - asta says: Acho que não vou conseguir passar por isso sozinha hoje.
+          - asta says: Preciso falar com alguém…
+          - hide ALL:
+          - wait: 1200
+          - show patio: CENTER WITH FADE CONTINUE
+          - show asta: triste2 AT LEFT WITH FADE
+          - show hilda: hildaPreocupada AT RIGHT WITH FADE
+          - asta says: Após dizer à Hilda que não estava nem um pouco bem, ela me acompanhou até o pátio e soube lidar com a situação melhor do que eu mesma.
+          - asta says: Sentamos em um banco, na parte mais reservada da área externa da escola. Hilda me abraçou e deixou com que eu chorasse, para aliviar o medo que estava sentindo.
+          - show asta: triste2 WITH CUT
+          - show hilda: hildaPreocupada WITH CUT
+          - asta says: Ouviu atentamente tudo o que disse para ela, sobre como estava me sentindo e o quanto isso era horrível.
+          - show asta: triste3 WITH CUT
+          - show hilda: hilda WITH CUT
+          - asta says: Quando parei de chorar, praticamos um exercício de respiração juntas e caminhamos um pouco, enquanto ela lembrava de momentos engraçados 
+          - text: e felizes que vivemos juntas.
+          - show asta: feliz WITH CUT
+          - hide ALL:
+          - wait: 1200
+          - show salaDeAula: CENTER WITH FADE CONTINUE
+          - show asta: feliz AT LEFT WITH FADE
+          - show hilda: hilda AT RIGHT WITH FADE
+          - asta says: Hilda trouxe uma garrafinha de água para mim e disse que estaria ao meu lado para me ajudar com as falas na hora de apresentar, caso eu as esquecesse.
+          - show quartoAsta: CENTER WITH FADE CONTINUE
+          - show asta: feliz AT LEFT WITH FADE
+          - show hilda: hilda AT RIGHT WITH FADE
+          - asta says: A apresentação acabou e no fim, deu tudo certo.
+          - asta says: Hilda ficou comigo aquele dia, até dormiu em minha casa.
+          - asta says: Conversou comigo e disse que eu deveria procurar ajuda profissional, assim como ela. Ela também já passou por problemas com ansiedade.
+          - asta says: Conversamos sobre marcar uma consulta com a psicóloga que Hilda frequenta.
+          - hide ALL:
+          - show telapreta:
+          - asta says: O que farei?
+          - choice:
+            - "Marcar consulta":
+            - "Não preciso de ajuda agora":
+              - wait: 1200
+              - var pontuacao_escolha_errada: 0
+              - text: Olá, caro jogador(a)! Você não tomou a melhor decisão :(
+              - text: Crises de ansiedade e nervosismo como essa, não devem ser ignoradas. 
+              - text: Uma crise aqui, outra ali, e de forma gradual a frequência irá aumentar... 
+              - text: Deve-se ter uma atenção especial em casos como este, onde os sintomas são intensos e surgem sem nem percebemos.
+              - text: Lembre-se de que você não precisa passar por isso sozinho. Ligue para 188 (Centro de Valorização da Vida) e peça ajuda. 
+              - text: O CVV oferece apoio emocional e prevenção do suicídio, atendendo voluntária e gratuitamente todas as pessoas que querem e precisam conversar, 
+              - text: sob total sigilo por telefone, email e chat 24 horas todos os dias.
+              - text: Você concluiu esta jornada com {pontuacao_escolha_errada} pontos. Tente novamente, Asta precisa de ajuda.
+              - wait: 1200
+              - hide ALL:
+              - scene: showEscolha1
+            
+          - hide ALL:
+          - var pontuacao_escolha_correta2: 100
+          - wait: 1200
+          - text: Olá, caro jogador(a)! Você fez uma escolha inteligente e ajudou nossa Asta a lidar com essa situação difícil. Seja como Hilda, 
+          - text: receptiva e aberta a ajudar pessoas que passam por situações como essa.
+          - text: A compreensão e o apoio da família e amigos são importantes nesse processo. Procure formas de ajudar e lidar com pessoas que estão em crise de ansiedade, 
+          - text: pois a abordagem correta também ajuda a trazer calma para a pessoa.
+          - text: Em casos como esse, onde a ansiedade e o nervosismo ultrapassam os limites de maneira drástica (e em episódios frequentes),
+          - text: não se deve ignorar os sintomas. Mas entender o que está acontecendo e buscar ajuda profissional.
+          - text: Lembre-se de que você não precisa passar por isso sozinho. Ligue para 188 (Centro de Valorização da Vida) e peça ajuda. 
+          - text: O CVV oferece apoio emocional e prevenção do suicídio, atendendo voluntária e gratuitamente todas as pessoas que querem e precisam conversar, 
+          - text: sob total sigilo por telefone, email e chat 24 horas todos os dias.
+          - text: Você concluiu esta jornada com {pontuacao_escolha_correta2} pontos. Parabéns!
+          - wait: 1200
+          - hide ALL:
+          - scene: showEscolha1
+
+
+    - "O que fazer em uma crise de pânico?":
+      - stop bgm:
+      - play lofi2: LOOPED
+      - wait: 1000
+      - hide ALL:
+      - show quartoAsta: CENTER WITH FADE CONTINUE
+      - show asta: preocupada1 AT DEFAULT WITH CUT
+      - asta says: Meus pais saíram para trabalhar. Só há eu e minha irmã em casa.
+      - asta says: Mas mesmo acompanhada, estou com medo (não sei do quê, especificamente) e não me sinto em paz.
+      - asta says: É como se minha mente não parasse nunca. 
+      - asta says: Como se acontecesse um milhão de coisas dentro de mim e ninguém ao meu redor pudesse ver. 
+      - show asta: preocupada2 AT DEFAULT WITH CUT
+      - asta says: Não tenho para onde fugir. Não posso simplesmente me afastar de mim.
+      - asta says: E isso é perturbador. Minha mente é uma prisão.
+      - show asta: triste2 AT DEFAULT WITH CUT
+      - asta says: Cercada por pensamentos e sensações ruins, como se algo terrível estivesse prestes a acontecer a todo momento.
+      - show asta: triste3 AT DEFAULT WITH CUT
+      - asta says: A dor emocional é tão grande que chego a confundir com dor física. Meu peito dói, aperta. Minha respiração acelera.
+      - asta says: Sinto calafrios por todo o corpo com um misto de náuseas.
+      - show asta: triste4 AT DEFAULT WITH CUT
+      - asta says: De repente, sinto medo de morrer.
+      - asta says: Minhas mãos começam a adormecer e estão frias como um cubo de gelo.  
+      - asta says: Não consigo puxar ar para os pulmões. Há um nó em minha garganta me impedindo de respirar. 
+      - asta says: Meus pensamentos estão confusos e agitados, constantes como baquetas tocando uma bateria. Cada batida é um pensamento em minha mente.
+      - show asta: triste3 AT DEFAULT WITH CUT.
+      - asta says: Mas a música não para e o ritmo só aumenta. A sensação de morte é maior do que qualquer outro pensamento lúcido. 
+      - asta says: Estou enlouquecendo. 
+      - asta says: Não aguento mais...
+      - asta says triste3: O que posso fazer para amenizar essa sensação horrível?
+      - hide ALL:
+      - show telapreta: CENTER WITH FADE CONTINUE
+      - choice:
+        - "Respirar e tentar pensar":
+          - show quartoAsta: CENTER WITH FADE CONTINUE
+          - show asta: triste3 AT DEFAULT WITH FADE
+          - asta says: Estou passando mal, com uma sensação terrível de que vou morrer. O que farei?
+          - hide ALL:
+          - show telapreta: CENTER WITH FADE CONTINUE
+          - choice: 
+            - "Ir até o quarto de minha irmã":
+            - "Ficar sozinha":
+              - wait: 1200
+              - var pontuacao_escolha_errada: 0
+              - text: Olá, caro jogador(a)! Você não tomou a melhor decisão :(
+              - text: Sua escolha é compreensível, mas não foi a melhor nessa situação…
+              - text: Temos medo em pedir ajuda, pois pensamos que não entenderão nosso sofrimento, mas se você tiver alguém em quem confia, 
+              - text: procure ajuda e tente explicar o que está sentindo.
+              - text: Enfrentar esse momento angustiante com alguém para lhe apoiar pode ajudar a se sentir mais seguro.
+              - text: Lembre-se de que você não precisa passar por isso sozinho. Ligue para 188 (Centro de Valorização da Vida) e peça ajuda. 
+              - text: O CVV oferece apoio emocional e prevenção do suicídio, atendendo voluntária e gratuitamente todas as pessoas que querem e precisam conversar, 
+              - text: sob total sigilo por telefone, email e chat 24 horas todos os dias.
+              - text: Você concluiu esta jornada com {pontuacao_escolha_errada} pontos. Tente novamente, Asta precisa de ajuda.
+              - wait: 1200
+              - hide ALL:
+              - scene: showEscolha2 
+
+          - asta says: Com dificuldade para respirar e trêmula, fui até o quarto de minha irmã, Clara.
+          - asta says: Ela já havia me ajudado em episódios como esse. Mesmo que não conseguisse me acalmar, sempre ficava comigo. Até que me sentisse bem o suficiente novamente. 
+          - asta says: Ao abrir a porta, comecei a chorar. Tentando aliviar o desespero que sentia.
+          - show quartoClara: CENTER WITH FADE CONTINUE
+          - show asta: triste3 AT LEFT WITH CUT
+          - show clara: claraBemTriste AT RIGHT WITH CUT
+          - asta says: Fui acolhida pela minha irmã, que me abraçou e deitou-me em seu colo. Chorei enquanto tremia, relatando meu medo irreal da morte
+          - asta says: e a sensação de que algo muito ruim estava prestes a acontecer a qualquer momento. 
+          - show clara: claraMaisPreocupada AT RIGHT WITH CUT
+          - asta says: Ela ouviu minhas palavras atentamente e disse que, por mais que tudo o que estivesse sentindo naquele momento fosse assustador e apavorante,
+          - asta says: não era perigoso e iria passar.
+          - show clara: claraPreocupadaMasFeliz AT RIGHT WITH CUT
+          - clara says: “Sei que pode ser terrível, mas você está segura e nada de ruim acontecerá. Estarei aqui com você, até que volte a ficar tudo bem.”
+          - hide ALL:
+          - show telapreta: CENTER WITH FADE CONTINUE
+          - wait: 1000
+          - show quartoAsta: CENTER WITH FADE CONTINUE
+          - show asta: preocupada1 AT DEFAULT WITH CUT
+          - asta says: No dia seguinte, eu ainda estava mal.
+          - asta says: As crises continuaram por mais uma semana.
+          - asta says: Mas aos poucos, foi amenizando. Foi um alívio contar com o apoio de minha irmã.
+          - asta says: Nunca havia tratado a ansiedade que sentia, o que levou o quadro a evoluir para crises de pânico.
+          - show clara: claraNormal AT RIGHT WITH FADE 
+          - asta says: Então, marcamos consulta com um psicólogo e demos início ao meu tratamento.
+          - asta says: Com ajuda médica e apoio da minha família, consegui alcançar uma saúde mental saudável e estável. Mas até alcançar isso, houve um longo processo…
+          - hide ALL:
+          - var pontuacao_escolha_correta1: 100
+          - wait: 1200
+          - text: Olá, caro jogador(a)! Obrigada por ajudar Asta a lidar com essa situação difícil. Foi uma escolha inteligente buscar ajuda de alguém em quem confia, 
+          - text: ninguém deve passar por isso sozinho.
+          - text: Ligue para 188 (Centro de Valorização da Vida) e peça ajuda. 
+          - text: O CVV oferece apoio emocional e prevenção do suicídio, atendendo voluntária e gratuitamente todas as pessoas que querem e precisam conversar, 
+          - text: sob total sigilo por telefone, email e chat 24 horas todos os dias. 
+          - text: Você concluiu esta jornada com {pontuacao_escolha_correta1} pontos. Parabéns!
+          - wait: 1200
+          - hide ALL:
+          - scene: showEscolha2
+
+        - "Talvez um banho quente e chá ajude…":
+          - show banheiroCasa: CENTER WITH FADE CONTINUE
+          - show asta: triste3 AT DEFAULT WITH FADE
+          - asta says: Decidi que um pouco de água quente ajudaria a relaxar a tensão do meu corpo, trazendo um pouco de alívio mental.
+          - show asta: triste1 AT DEFAULT WITH CUT
+          - asta says: Tomei um banho demorado, prestando atenção em todas sensações físicas que sentia naquele momento.
+          - asta says tranquila: A água caindo em minha pele;
+          - asta says: O toque da esponja com sabão;
+          - asta says: O cheirinho de chocolate do shampoo…
+          - asta says: Foquei em tudo que podia me trazer a realidade novamente.
+          - asta says: Ataques de pânico tendem a nos afastar da realidade e a nos colocar em uma prisão assustadora e fria (criada pela nossa mente).
+          - asta says: Também fiz o exercício de respirar fundo diversas vezes, até me sentir mais calma e coloquei uma música calma para ouvir.
+          - hide ALL:
+          - show quartoAsta: CENTER WITH FADE CONTINUE
+          - show asta seria: AT DEFAULT WITH FADE
+          - asta says: Após o banho, ainda estava nervosa e aflita, mas um pouco mais calma. E isso já era um grande passo.
+          - asta says tranquila: Preparei um chá de camomila e cheirei meu frasco de essência de lavanda. Essa combinação sempre ajuda a me acalmar,
+          - asta says: já que camomila e lavanda possuem propriedades calmantes.
+          - hide ALL: 
+          - show quartoClara: CENTER WITH FADE CONTINUE
+          - show asta: feliz AT DEFAULT WITH FADE
+          - show clara: claraNormal AT RIGHT WITH FADE 
+          - asta says: Além disso, optei por ficar deitada com minha irmã em seu quarto, já que é um lugar onde me sinto bem e segura. 
+          - asta says: Disse para ela tudo o que estava sentindo, e fui compreendida e acolhida.
+          - asta says: Mesmo tendo conseguido lidar com o ataque de pânico, achei que seria melhor procurar ajuda de alguém em quem confio. 
+          - asta says: Pois minha irmã sempre consegue me ajudar a encontrar calma e a lidar com a situação. 
+          - asta says: Isso certamente não substitui a ajuda profissional e nem um tratamento, mas faz parte do processo de busca da minha saúde mental e bem-estar.
+          - hide ALL:
+          - var pontuacao_escolha_correta1: 100
+          - wait: 1200
+          - text: Olá, caro jogador(a)! Obrigada por ajudar Asta a lidar com essa situação difícil. 
+          - text: Você optou por aplicar técnicas calmantes e de foco, além de buscar ajuda de alguém em quem confia. 
+          - text: Mesmo lidando bem com a situação, escolheu ter um apoio psicológico naquele momento. Foi uma escolha inteligente.
+          - text: E lembre-se de que você pode ligar para 188 (Centro de Valorização da Vida) e pedir ajuda. 
+          - text: O CVV oferece apoio emocional e prevenção do suicídio, atendendo voluntária e gratuitamente todas as pessoas que querem e precisam conversar, 
+          - text: sob total sigilo por telefone, email e chat 24 horas todos os dias.
+          - text: Você concluiu esta jornada com {pontuacao_escolha_correta1} pontos. Parabéns!
+          - wait: 1200
+          - hide ALL:
+          - scene: showEscolha2
+
+        - "Acho que não vou conseguir…":
+          - show quartoAsta: CENTER WITH FADE CONTINUE
+          - show asta: triste2 AT DEFAULT WITH FADE
+          - asta says: Meus pensamentos estavam me atordoando, e os sintomas físicos cada vez mais fortes. 
+          - asta says triste3: Apenas desabei em lágrimas, foi a única coisa que consegui fazer.
+          - asta says triste4: Estava imóvel pelo medo. Incapaz de sair desse ciclo de pensamentos e sensações naquele momento.
+          - asta says: Ninguém no mundo deveria sentir o que estou sentindo agora…
+          - asta says triste3: É dolorido demais, quase insuportável de sentir…
+          - asta says: Não sei nem dizer o que doí, especificamente, mas sei que machuca muito… 
+          - asta says: Preciso de ajuda para lidar com isso.
+          - asta says triste4: Quero que essa dor e esse medo acabem.
+          - hide ALL: 
+          - show quartoAsta: CENTER WITH FADE CONTINUE
+          - show asta: triste4 AT DEFAULT WITH FADE
+          - show clara: claraBemTriste AT RIGHT WITH FADE 
+          - asta says: Depois de um tempo sofrendo sozinha, minha irmã apareceu e cuidou de mim. 
+          - asta says: Ficou muito preocupada, mas quando expliquei o que estava sentindo, ela apenas me acolheu e disse que tudo iria ficar bem.
+          - show clara: claraPreocupadaMasFeliz AT RIGHT WITH CUT
+          - asta says: Marcamos consulta com um psicólogo e demos início ao meu tratamento, como foi recomendado pelo médico.
+          - hide ALL: 
+          - show telapreta: CENTER WITH FADE CONTINUE
+          - show asta: triste1 AT DEFAULT WITH FADE
+          - asta says: Achei que essa dor, medo e desespero não tinham fim.
+          - asta says tranquila: Mas felizmente, com a devida ajuda profissional e apoio das pessoas que amo, consegui me recuperar e ficar saudável mentalmente.
+          - asta says: Com ajuda, você também consegue. Não precisa passar por isso sozinho. Sei que é terrível. 
+          - asta says: Mas acredite, o medo irracional que acompanha as crises de pânico não dura para sempre (e não é real).
+          - hide ALL:
+          - var pontuacao_escolha: 100
+          - wait: 1200
+          - text: Olá, caro jogador(a)! Essa escolha tem por objetivo mostrar que a dor, medo e sofrimento trazido pelas crises de pânico não duram para sempre. 
+          - text: Você é capaz de sair disso. E tá tudo bem se em alguns dias não conseguir. Um dia ruim não significa uma vida ruim.
+          - text: Mesmo que demore, que persista por um tempo, com o tratamento correto acompanhado de um profissional da saúde mental é possível levar a vida de maneira saudável.  
+          - text: Mas para isso, é fundamental que procure ajuda. Mesmo que busque ajuda profissional sozinho, deve ter um acompanhamento psicológico.
+          - text: Infelizmente, nem todas as famílias são como a de Asta, compreensivas e acolhedoras nessas situações. 
+          - text: Saúde mental ainda é um assunto em pauta onde a sociedade pode ser (e de fato, é) ignorante.
+          - text: Mas que tem ganhado mais espaço e conscientização das pessoas.
+          - text: E lembre-se de que você não precisa passar por isso sozinho. Ligue para 188 (Centro de Valorização da Vida) e peça ajuda. 
+          - text: O CVV oferece apoio emocional e prevenção do suicídio, atendendo voluntária e gratuitamente todas as pessoas que querem e precisam conversar, 
+          - text: sob total sigilo por telefone, email e chat 24 horas todos os dias.
+          - text: Você concluiu esta jornada com {pontuacao_escolha} pontos. Parabéns!
+          - wait: 1200
+          - hide ALL:
+          - scene: showEscolha2
+
+        
+
+    - "Sintomas depressivos":
+      - stop bgm:
+      - play lofi3: LOOPED
+      - show telapreta: CENTER WITH FADE CONTINUE
+      - asta says: Estava preenchida por um sentimento de vazio.  
+      - asta says: Como se estivesse anestesiada e ignorasse parte das coisas que aconteciam ao meu redor.
+      - asta says: Achava que isso era bom. Dessa forma, era indiferente a tudo que pudesse me machucar. 
+      - asta says: Mas o vazio começou a doer em algum momento. 
+      - asta says: Uma espécie de buraco no peito, que doía pra valer. Como uma dor física, de fato. Um aperto.
+      - hide ALL:
+      - show quartoAsta: CENTER WITH FADE CONTINUE
+      - show asta: triste2 AT DEFAULT WITH FADE
+      - asta says: Essa sensação começou a ser constante, me acompanhar mais do que gostaria. Tentei me acostumar, mas era incômodo, doloroso demais.
+      - asta says: Procurei maneiras de fugir disso, algum escape que pudesse tirar esse pequeno inferno de dentro do peito... mas nada funcionou. 
+      - asta says triste4: Até chegar o dia que ficou insuportável.
+      - hide ALL:
+      - show quartoAsta: CENTER WITH FADE CONTINUE
+      - show asta: triste1 AT DEFAULT WITH FADE
+      - asta says: Não conseguia levantar da cama. Simplesmente não tinha vontade de sair dali.
+      - asta says triste2: Sentia uma tristeza profunda, vontade de chorar.
+      - asta says: 'Minha família perguntava o porquê disso'
+      - asta says triste3: E eu não sabia o que responder.
+      - asta says: Apenas me sentia triste e deprimida.
+      - asta says: Sem forças para fazer nada.
+      - asta says triste4: Me sentia apática, anestesiada. Como se não sentisse nada, de fato.
+      - asta says: E de repente, em algum momento da minha vida, comecei a sentir pontadas de tristeza no peito. Uma dor emocional que foi se agravando, parecendo até mesmo física.
+      - asta says triste2: Um grande vazio e aperto no peito. E aos poucos, isso foi me consumindo.
+      - asta says triste4: Hoje estou repleta de tristeza dentro do meu peito, tanta tristeza que chega a doer. E me tira a vontade de fazer qualquer coisa.
+      - asta says: Incluindo comer e tomar banho. 
+      - asta says: Como se a vida fosse perdendo a cor pouco a pouco. E você perde a vontade de viver, gradativamente…
+      - asta says: Até chegar aqui, ocorreu um processo. Sempre dei sinais de que precisava de ajuda, minha ansiedade e depressão se manifestaram de diversas formas.
+      - asta says: Mas não liguei, apenas ignorei e segui adiante. Levando a vida do jeito que dava.
+      - asta says: Agora sei que só há uma escolha a se fazer.
+      - hide ALL:
+      - show telapreta: CENTER WITH FADE CONTINUE
+      - choice:
+        - "Reconhecer que preciso de ajuda":
+          - hide ALL:
+          - show telapreta: CENTER WITH FADE CONTINUE
+          - show asta: feliz AT DEFAULT WITH FADE
+          - asta says: Hoje estou saudável (fisicamente e mentalmente) e continuo com o tratamento. O prognóstico de cura é bastante variável. 
+          - asta says: Há pacientes que fazem tratamento por um tempo e não voltam a ter o quadro novamente, 
+          - asta says: há pacientes que têm vários episódios no decorrer da vida e há pessoas que precisam fazer uso regular de medicamentos.
+          - asta says: O meu tratamento exige um longo acompanhamento psicológico.
+          - asta says: Cada caso é um caso.
+          - hide ALL:
+          - show telapreta: CENTER WITH FADE CONTINUE
+          - text: E lembre-se de que você não precisa passar por isso sozinho. Ligue para 188 (Centro de Valorização da Vida) e peça ajuda. 
+          - text: O CVV oferece apoio emocional e prevenção do suicídio, atendendo voluntária e gratuitamente todas as pessoas que querem e precisam conversar, 
+          - text: sob total sigilo por telefone, email e chat 24 horas todos os dias.
+          - hide ALL:
+          - scene: showEscolha3
+
+  - scene: endGame
+
+showEscolha1:
+  - show escolha1: CENTER WITH FADE CONTINUE
+  - wait: click
+  - scene: endGame
+
+showEscolha2:
+  - show escolha2: CENTER WITH FADE CONTINUE
+  - wait: click
+  - scene: endGame
+
+showEscolha3:
+  - show escolha3: CENTER WITH FADE CONTINUE
+  - wait: click
+  - scene: endGame
+
+endGame:
+  - effect ROLLINGCREDITS:
+    endGame: true
+    text:
+      - RenJs is Inspired by Ren'Py
+      - Powered by PhaserJS
+      - null
+      - null
+      - Obrigada por jogar
+      - "Asta vs The Demons"
+      - null
+      - Background art by
+      - surafin (in Deviantart)
+      - arsenixc (in Deviantart)
+      - ChristianMS (in ArtStation)
+      - Syvira Yunita (in ArtStation)
+      - Marco Fusar0 (in ArtStation)
+      - Mindaugas Buivydas (Behance)
+      - null
+      - Characters, story and game by
+      - Maria Eduarda Pinheiro Bastos
+      - null
+      -  my twitter
+      - "@aloneinthecityy"
+      - null
+      - music by
+      - OMORI - OST --> Joguem Omori! 
+      - null
+      - <3 <3 <3 <3

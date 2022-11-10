@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap');
+
+html,
+body {
+    min-height: 100%;
+}
+
+.bg-me-ajude {
+    background-image: url('../images/cadastro.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* .bg-mente-cruel {
+    background-image: url('../images/login.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+} */
+
+.font-amatic {
+    font-size: 1.5em;
+    font-family: 'Amatic SC', cursive;
+}
+
+.custom-img {
+    background-image: url('../images/parallax1.png');
+}
+
+.custom-img2 {
+    background-image: url('../images/logo.png');
+}
+
+.bg-mente-cruel2 {
+    background-image: url('../images/login.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.font-amatic {
+    font-size: 1.5em;
+    font-family: 'Amatic SC', cursive;
+}

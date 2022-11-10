@@ -1,0 +1,387 @@
+name: Quickstart
+resolution:
+  - 2560
+  - 1440
+assetCounter: 44
+config:
+  hud:
+    - id: default
+      type: choices
+      asset: asset31
+      x: 900  #POSIÇÃO DO FUNDO DE ESCOLHAS AQUI!!!!!!!!!!!!!
+      'y': 700
+      alignment: centered
+      separation: 10
+      sfx: none
+      chosenColor: '#535050'
+      text:
+        x: 0
+        'y': 0
+        style:
+          font: fontsaudimat-mono
+          fontSize: 32px
+          fill: '#000000'
+          align: left
+          boundsAlignH: center
+          boundsAlignV: middle
+    - id: default
+      type: messageBox
+      asset: asset19
+      x: 180
+      'y': 1160
+      sfx: none
+      text:
+        x: 60
+        'y': 60  #POSIÇÃO DO TEXTO DO SCRIPT AQUIIIIII!!!!!!!!!!!!!!!!
+        style:
+          font: fontsaudimat-mono
+          fontSize: 48px  #TAMANHO DA FONTE DO SCRIPT
+          fill: '#030303' #COR DA FONTE AQUIIIIIII PORRAAAA!!!!!
+          align: left
+          wordWrap: true
+          wordWrapWidth: '2000'
+      ctc:
+        x: 270
+        'y': 1100
+        asset: asset21
+    - id: default
+      type: nameBox
+      asset: asset20  #caixa com o nome do personagem
+      x: 180
+      'y': 1123
+      text:
+        x: 0
+        'y': 0
+        style:
+          font: fontsaudimat-mono
+          fontSize: 34px
+          fill: '#FFFFFF'
+          align: left
+          boundsAlignH: center
+          boundsAlignV: middle
+    # - type: image
+    #   x: 2000
+    #   'y': 1280
+    #   asset: asset22 #IMAGEM ATRAS DAS IMAGENZINHAS!
+    - type: button
+      x: 2220
+      'y': 1280
+      asset: asset24
+      binding: openMenu
+      menu: settings
+    - type: button
+      x: 2260
+      'y': 1280
+      asset: asset23
+      binding: openMenu
+      menu: saveload
+    - type: button
+      x: 2220
+      'y': 1320
+      asset: asset26
+      binding: auto
+    - type: button
+      x: 2260
+      'y': 1320
+      asset: asset25
+      binding: skip
+      # fim das imagenzinhas no canto da caixa de texto
+  menus:
+    main:
+      - type: image  #background da tela inicial do jogo
+        x: 400
+        'y': 100
+        asset: loaderbackground
+      - type: button
+        x: 350
+        'y': 1240
+        asset: asset3   #continue
+        binding: openMenu
+        menu: saveload
+      - type: button
+        x: 820
+        'y': 1240
+        asset: asset4  #start
+        binding: start
+      - type: button
+        x: 1200
+        'y': 1240
+        asset: asset5
+        binding: openMenu
+        menu: settings
+    settings:
+      - type: image #background do settings
+        x: 0
+        'y': 30
+        asset: asset16
+      - type: label
+        x: 1060
+        'y': 440
+        #text: S.E.T.T.I.N.G.S
+        style:
+          font: fontsaudimat-mono
+          fontSize: 47px
+          fill: '#B0B0B0'
+          boundsAlignH: left
+          boundsAlignV: top
+      - type: label
+        x: 900
+        'y': 590
+        text: music volume
+        style:
+          font: fontsaudimat-mono
+          fontSize: 33px
+          fill: '#6D6C6C'
+          boundsAlignH: left
+          boundsAlignV: top
+      - type: label
+        x: 900
+        'y': 740
+        text: sfx volume
+        style:
+          font: fontsaudimat-mono
+          fontSize: 33px
+          fill: '#6D6C6C'
+          boundsAlignH: left
+          boundsAlignV: top
+      - type: label
+        x: 1390
+        'y': 590
+        text: auto speed
+        style:
+          font: fontsaudimat-mono
+          fontSize: 33px
+          fill: '#6D6C6C'
+          boundsAlignH: left
+          boundsAlignV: top
+      - type: label
+        x: 1390
+        'y': 740
+        text: text speed
+        style:
+          font: fontsaudimat-mono
+          fontSize: 33px
+          fill: '#6D6C6C'
+          boundsAlignH: left
+          boundsAlignV: top
+      - type: slider
+        x: 870
+        'y': 650
+        asset: asset12
+        binding: changeUserPreference
+        userPreference: bgmv
+        mask: horizontal
+      - type: slider
+        x: 870
+        'y': 800
+        asset: asset12
+        binding: changeUserPreference
+        userPreference: sfxv
+        mask: horizontal
+      - type: slider
+        x: 1350
+        'y': 650
+        asset: asset12
+        binding: changeUserPreference
+        userPreference: textSpeed
+        mask: horizontal
+      - type: slider
+        x: 1350
+        'y': 800
+        asset: asset12
+        binding: changeUserPreference
+        userPreference: autoSpeed
+        mask: horizontal
+      - type: button
+        x: 1400
+        'y': 906
+        asset: asset17
+        binding: return #FIM DO SETTINGS!!!
+    saveload:
+      - type: image
+        x: 0
+        'y': 30
+        asset: asset161
+      - type: saveSlot
+        x: 950
+        'y': 560
+        asset: asset18
+        slot: '0'
+        thumbnail:
+          x: 24
+          'y': 22
+          width: 154
+          height: 110
+      - type: saveSlot
+        x: 1155
+        'y': 560
+        asset: asset18
+        slot: '1'
+        thumbnail:
+          x: 24
+          'y': 22
+          width: 154
+          height: 110
+      - type: saveSlot
+        x: 1360
+        'y': 560
+        asset: asset18
+        slot: '2'
+        thumbnail:
+          x: 24
+          'y': 22
+          width: 154
+          height: 110
+      # - type: label
+      #   x: 1060
+      #   'y': 440
+      #   text: S.A.V.E.L.O.A.D
+      #   style:
+      #     font: fontsaudimat-mono
+      #     fontSize: 47px
+      #     fill: '#B0B0B0'
+      #     boundsAlignH: left
+      #     boundsAlignV: top
+      - type: button
+        x: 1000
+        'y': 750
+        asset: asset39
+        binding: save
+        slot: '0'
+      - type: button
+        x: 1000
+        'y': 815
+        asset: asset40
+        binding: load
+        slot: '0'
+      - type: button
+        x: 1208
+        'y': 750
+        asset: asset39
+        binding: save
+        slot: '1'
+      - type: button
+        x: 1208
+        'y': 815
+        asset: asset40
+        binding: load
+        slot: '1'
+      - type: button
+        x: 1410
+        'y': 750
+        asset: asset39
+        binding: save
+        slot: '2'
+      - type: button
+        x: 1410
+        'y': 815
+        asset: asset40
+        binding: load
+        slot: '2'
+      - type: button
+        x: 1400
+        'y': 906
+        asset: asset17
+        binding: return
+assets:
+  images:
+    loaderbackground:
+      name: loaderbackground
+      fileName: loaderloaderbackground.png
+    asset16:
+      name: asset16
+      fileName: saveloadasset16.png
+    asset161:
+      name: asset161
+      fileName: saveloadasset161.png
+    asset18:
+      name: asset18
+      fileName: saveloadasset18.png
+    asset19:
+      name: asset19
+      fileName: hudasset19.png
+    asset20:
+      name: asset20
+      fileName: hudasset20.png
+  spritesheets:
+    loading-bar:
+      name: loading-bar
+      fileName: loaderloading-bar.png
+      w: 578
+      h: 164
+    asset3:
+      name: asset3
+      fileName: mainasset3.png
+      w: 199
+      h: 82
+    asset4:
+      name: asset4
+      fileName: mainasset4.png
+      w: 143
+      h: 82
+    asset5:
+      name: asset5
+      fileName: mainasset5.png
+      w: 199
+      h: 82
+    asset12:
+      name: asset12
+      fileName: settingsasset12.png
+      w: 256
+      h: 53
+    asset17:
+      name: asset17
+      fileName: saveloadasset17.png
+      w: 163
+      h: 82
+    asset21:
+      name: asset21
+      fileName: hudasset21.png
+      w: 19
+      h: 20
+    asset23:
+      name: asset23
+      fileName: hudasset23.png
+      w: 41
+      h: 39
+    asset24:
+      name: asset24
+      fileName: hudasset24.png
+      w: 41
+      h: 39
+    asset25:
+      name: asset25
+      fileName: hudasset25.png
+      w: 41
+      h: 39
+    asset26:
+      name: asset26
+      fileName: hudasset26.png
+      w: 41
+      h: 39
+    asset31:
+      name: asset31
+      fileName: hudasset31.png
+      w: 716
+      h: 65
+    asset39:
+      name: asset39
+      fileName: saveloadasset39.png
+      w: 103
+      h: 53
+    asset40:
+      name: asset40
+      fileName: saveloadasset40.png
+      w: 103
+      h: 53
+  fonts:
+    fontsaudimat-mono:
+      fileName: fontsfontsaudimat-mono.ttf
+      name: fontsaudimat-mono
+  audio:
+    colorMeBlue:
+      fileName: lofi1.mp3
+      name: lofi1
+      type: music
+madeWithRenJSBuilder: "2.0"
+assetsPath: assets/gui/

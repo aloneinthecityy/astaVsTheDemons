@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+  <head>
+    <%- include('head'); %>
+      <title>Faça seu login :)</title>
+  </head>
+
+  <body class="bg-mente-cruel2">
+      
+    <div class="flex h-screen">
+      <div class="flex w-[60vw] justify-center items-center px-6">
+        <div class="bg-white py-10 px-6 rounded-xl bg-opacity-60">
+          <form action="\login" method="POST">
+            <div class="text-3xl mb-6 text-center">
+              <h2 class="font-amatic text-6xl font-bold text-red-900 text-center">
+                LOGIN:
+              </h2>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 max-w-xl m-auto">
+              <div class="col-span-2 lg:col-span-2">
+                <label for="email">Informe seu e-mail</label>
+                <input for="email" type="text" name="email"
+                  class="border-solid border-gray-400 border-2 rounded-lg p-3 md:text-xl w-full"
+                  placeholder="Informe seu e-mail aqui" />
+              </div>
+
+              <div class="col-span-2 lg:col-span-2">
+                <label for="password">Senha</label>
+                <input for="password" type="password" name="password"
+                  class="border-solid border-gray-400 border-2 rounded-lg p-3 md:text-xl w-full"
+                  placeholder="********" />
+              </div>
+
+              <div class="col-span-2 text-center">
+                <button class="py-3 px-6 bg-red-800 text-white rounded-lg font-amatic font-bold w-full sm:w-32
+                   hover:from-red-800 shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-800 focus:shadow-lg 
+                   focus:outline-none focus:ring-0 active:bg-red-900 active:shadow-lg 
+                   transition duration-150 ease-in-out">
+                  ENTRAR
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Container filho 2 com tamanho de 40% da tela -->
+      <div class="flex w-[40vw]"></div>
+    </div>
+  </body>
+
+</html>
