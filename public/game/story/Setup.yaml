@@ -1,0 +1,70 @@
+backgrounds:
+  atencao: game/assets/backgrounds/atencao.png
+  telapreta: game/assets/backgrounds/telapreta.png
+  helpme: game/assets/backgrounds/helpme.jpg
+  escolhas: game/assets/backgrounds/escolhas.png
+  escolha1: game/assets/backgrounds/escolha1.png
+  escolha2: game/assets/backgrounds/escolha2.png
+  escolha3: game/assets/backgrounds/escolha3.png
+  quartoAsta: game/assets/backgrounds/quartoAsta.png
+  quartoClara: game/assets/backgrounds/quartoClara.png
+  patio: game/assets/backgrounds/patioAtual.png
+  patio2: game/assets/backgrounds/patio2.png
+  banheiroEscola: game/assets/backgrounds/banheiroEscola.jpg
+  banheiroCasa: game/assets/backgrounds/banheiroCasa.png
+  salaDeAula: game/assets/backgrounds/salaDeAula.png
+
+
+characters:
+    asta:
+      displayName: Asta
+      speechColour: "#030166"
+      looks:
+        confusa: game/assets/characters/confusa.png
+        feliz: game/assets/characters/feliz.png
+        preocupada1: game/assets/characters/preocupada1.png
+        preocupada2: game/assets/characters/preocupada2.png
+        preocupada3: game/assets/characters/preocupada3.png
+        tranquila: game/assets/characters/tranquila.png
+        triste1: game/assets/characters/triste1.png
+        triste2: game/assets/characters/triste2.png
+        triste3: game/assets/characters/triste3.png
+        triste4: game/assets/characters/triste4.png
+        seria: game/assets/characters/normal.png
+
+    clara:
+      displayName: Clara
+      speechColour: "#a30000"
+      looks:
+        claraNormal: game/assets/characters/clara.png
+        claraBemTriste: game/assets/characters/claraBemTriste.png
+        claraMaisPreocupada: game/assets/characters/claraMaisPreocupada.png
+        claraPreocupada: game/assets/characters/claraPreocupada.png
+        claraPreocupadaMasFeliz: game/assets/characters/claraPreocupadaMasFeliz.png
+    hilda:
+      displayName: Hilda
+      speechColour: "#0091ff"
+      looks:
+          hilda: game/assets/characters/hildaFeliz.png
+          hildaPreocupada: game/assets/characters/hildaPreocupada.png
+          hildaPreocupada2: game/assets/characters/hildaPreocupada2.png
+    demonios:
+      displayName: Demônios
+      speechColour: "#990D00"
+      looks:
+        confusa: game/assets/characters/confusa.png
+        feliz: game/assets/characters/feliz.png
+        normal: game/assets/characters/normal.png
+        preocupada1: game/assets/characters/preocupada1.png
+        preocupada2: game/assets/characters/preocupada2.png
+        preocupada3: game/assets/characters/preocupada3.png
+        tranquila: game/assets/characters/tranquila.png
+        triste1: game/assets/characters/triste1.png
+        triste2: game/assets/characters/triste2.png
+        triste3: game/assets/characters/triste3.png
+        triste4: game/assets/characters/triste4.png
+
+music:
+  lofi1: game/assets/audio/lofi1.mp3
+  lofi2: game/assets/audio/lofi2.mp3
+  lofi3: game/assets/audio/lofi3.mp3

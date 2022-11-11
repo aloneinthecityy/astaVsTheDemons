@@ -5,9 +5,9 @@ const RenJSConfig =  {
   'renderer': Phaser.AUTO, // become renderer
   'scaleMode': Phaser.ScaleManager.SHOW_ALL,
   'loadingScreen': {
-    'background': 'assets/gui/loaderloaderbackground.png',
+    'background': 'game/assets/gui/loaderloaderbackground.png',
     'loadingBar': {
-      'asset': 'assets/gui/loaderloading-bar.png',
+      'asset': 'game/assets/gui/loaderloading-bar.png',
       'position': {
         'x': 980,
         'y': 875
@@ -18,12 +18,12 @@ const RenJSConfig =  {
       }
     }
   },
-  'fonts': 'assets/gui/fonts.css',
-  'guiConfig': 'story/GUI.yaml',
-  storyConfig: 'story/Config.yaml',
-  storySetup: 'story/Setup.yaml',
+  'fonts': 'game/assets/gui/fonts.css',
+  'guiConfig': 'game/story/GUI.yaml',
+  storyConfig: 'game/story/Config.yaml',
+  storySetup: 'game/story/Setup.yaml',
   'storyText': [
-    'story/Story.yaml'
+    'game/story/Story.yaml'
   ],
   'logChoices': true,
 }

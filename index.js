@@ -48,11 +48,7 @@ app.post('/login', usuarioController.verificaLogin);
 
 app.get('/logout', usuarioController.logout);
 
-// app.get('/jogar', usuarioController.jogar);
-
-app.get('/jogar', (req, res) => {
-  res.render('game.ejs');
-});
+app.get('/jogar', usuarioController.jogar);
 
 app.get('/teste', usuarioController.teste);
 

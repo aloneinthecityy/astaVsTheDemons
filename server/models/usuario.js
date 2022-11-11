@@ -8,7 +8,7 @@ const Usuario = database.define('usuarios', {
     allowNull: false,
     primaryKey: true,
   },
-  email: { type: Sequelize.INTEGER, allowNull: false },
-  senha: { type: Sequelize.INTEGER, allowNull: false },
+  email: { type: Sequelize.STRING, allowNull: false },
+  senha: { type: Sequelize.STRING, allowNull: false },
 });
 module.exports = Usuario;

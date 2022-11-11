@@ -5,14 +5,20 @@ const saltRounds = 8;
 
 module.exports ={
     jogar: (req,res)=>{
-        if (req.session.loggedin) {
-            res.render("../views/game.ejs");
+        var mensagem;
+        if (req.session.erro){
+            mensagem = req.session.mensagem;
+            req.session.erro=false;
         }
-        else {
-            req.session.erro=true;
-            console.log("faça login antes de acessar esta página!");
-            res.redirect("/login");
-        } 
+        if(req.session.loggedin){
+            res.render('../views/game.ejs', {mensagem: mensagem});
+
+        }
+        else{
+            mensagem = "Realizar Login";
+            res.render('../views/login.ejs', {mensagem: mensagem});
+
+        }
     },
     teste: (req,res)=>{
         if (req.session.loggedin) {
@@ -46,14 +52,12 @@ module.exports ={
             mensagem = req.session.mensagem;
             req.session.erro=false;
         }
-        else{
-            mensagem = "Realizar Login";
-        }
         if(req.session.loggedin){
             res.render('../views/teste.ejs', {mensagem: mensagem});
 
         }
         else{
+            mensagem = "Realizar Login";
             res.render('../views/login.ejs', {mensagem: mensagem});
 
         }

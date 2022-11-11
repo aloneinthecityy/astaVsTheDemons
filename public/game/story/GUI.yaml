@@ -384,4 +384,4 @@ assets:
       name: lofi1
       type: music
 madeWithRenJSBuilder: "2.0"
-assetsPath: assets/gui/
+assetsPath: game/assets/gui/
