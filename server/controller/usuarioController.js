@@ -6,7 +6,7 @@ const saltRounds = 8;
 module.exports ={
     jogar: (req,res)=>{
         if (req.session.loggedin) {
-            res.render("../game/Asta-vs-The-Demons/index.html");
+            res.render("../views/game.ejs");
         }
         else {
             req.session.erro=true;

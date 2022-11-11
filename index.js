@@ -10,9 +10,15 @@ app.use(session({
   saveUninitialized: true,
 }));
 
-  app.set('game', __dirname + './game');
-  app.engine('html', engines.mustache);
-  app.set('view engine', 'html');
+  // app.set('game', __dirname + './game');
+  // app.engine('html', engines.mustache);
+  // app.set('view engine', 'html');
+  // app.set('game', './game');
+
+  // app.use(express.static('./game'));
+  // app.engine('html', engines.mustache);
+  // app.set('view engine', 'html');
+  // app.set('game', './game');
 
   app.use(express.urlencoded({ extended: true }));
   app.use(express.static('./public'));
@@ -42,7 +48,11 @@ app.post('/login', usuarioController.verificaLogin);
 
 app.get('/logout', usuarioController.logout);
 
-app.get('/jogar', usuarioController.jogar);
+// app.get('/jogar', usuarioController.jogar);
+
+app.get('/jogar', (req, res) => {
+  res.render('game.ejs');
+});
 
 app.get('/teste', usuarioController.teste);
 
