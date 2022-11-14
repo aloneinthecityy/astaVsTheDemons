@@ -1,7 +1,18 @@
 const Usuario = require('../models/usuario');
 const bcrypt = require("bcrypt");
-var alert = require('alert');
 const saltRounds = 8;
+const postgree = require('pg');
+const { Pool } = postgree;
+
+
+const pool = new Pool({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'astavsthedemons',
+    password: 'admin',
+    port: 5432,
+  });
+  
 
 module.exports ={
     jogar: (req,res)=>{
@@ -54,7 +65,6 @@ module.exports ={
         }
         if(req.session.loggedin){
             res.render('../views/teste.ejs', {mensagem: mensagem});
-
         }
         else{
             mensagem = "Realizar Login";
@@ -78,6 +88,7 @@ module.exports ={
                 req.session.loggedin = true;
                 req.session.username = dadosBanco[0]['email'];
                 res.redirect('/teste');
+                
             }
             else { 
                 res.redirect('/login', {mensagem: "Erro ao realizar o login"});

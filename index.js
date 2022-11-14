@@ -1,7 +1,6 @@
 const express = require('express');
 const session = require('express-session');
-var engines = require('consolidate');
-
+const postgree = require('pg');
 
 const app = express();
 app.use(session({
@@ -9,16 +8,6 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 }));
-
-  // app.set('game', __dirname + './game');
-  // app.engine('html', engines.mustache);
-  // app.set('view engine', 'html');
-  // app.set('game', './game');
-
-  // app.use(express.static('./game'));
-  // app.engine('html', engines.mustache);
-  // app.set('view engine', 'html');
-  // app.set('game', './game');
 
   app.use(express.urlencoded({ extended: true }));
   app.use(express.static('./public'));
@@ -34,6 +23,7 @@ app.use(session({
       console.log(error);
     }
   })();
+
 
 const usuarioController = require("./server/controller/usuarioController");
 
@@ -57,31 +47,6 @@ app.listen(80, () => {
   console.log("servidor ouvindo : 'http://127.0.0.1:80'");
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-// app.post('/cadastro', UrlendcodedParser, async (req, res) => {
-//   const user = req.body.user;
-//   const passwordCadastro = bcrypt.hashSync(req.body.password, saltRounds);
-//   const email = req.body.email;
-//   console.log(req.body);
-//   await pool
-//     .query(
-//       'INSERT INTO usuario (email, nomeUsuario, senha) VALUES ($1, $2, $3) RETURNING *',
-//       [email, user, passwordCadastro]
-//     )
-//     .catch((err) => console.log(err));
-//   res.render('login.ejs');
-// });
 
 // app.post('/login', UrlendcodedParser, (req, res) => {
 //   const { email, password } = req.body;
