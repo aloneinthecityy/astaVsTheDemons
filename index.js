@@ -1,32 +1,33 @@
 const express = require('express');
 const session = require('express-session');
 const postgree = require('pg');
+const port = 81;
 
 const app = express();
-app.use(session({
-  secret: 'piuitictacabacaxichocolate',
-  resave: false,
-  saveUninitialized: true,
-}));
+app.use(
+  session({
+    secret: 'piuitictacabacaxichocolate',
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
-  app.use(express.urlencoded({ extended: true }));
-  app.use(express.static('./public'));
-  app.set('view engine', 'ejs');
-  app.set('views', './views');
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('./public'));
+app.set('view engine', 'ejs');
+app.set('views', './views');
 
-  (async () =>{
-    const database = require('./server/config/db');
-    try{
-      const resultado = await database.sync();
-      // console.log(resultado);
-    } catch (error) {
-      console.log(error);
-    }
-  })();
+// (async () => {
+//   const database = require('./backend/config/db');
+//   try {
+//     const resultado = await database.sync();
+//     // console.log(resultado);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// })();
 
-
-const usuarioController = require("./server/controller/usuarioController");
-
+const usuarioController = require('./backend/controller/usuarioController');
 
 app.get('/', usuarioController.home);
 
@@ -42,11 +43,11 @@ app.get('/jogar', usuarioController.jogar);
 
 app.get('/teste', usuarioController.teste);
 
+app.get('/user/:id', usuarioController.pegarUsuarioId);
 
-app.listen(80, () => {
-  console.log("servidor ouvindo : 'http://127.0.0.1:80'");
+app.listen(port, () => {
+  console.log(`servidor ouvindo : http://127.0.0.1:${port}`);
 });
-
 
 // app.post('/login', UrlendcodedParser, (req, res) => {
 //   const { email, password } = req.body;
@@ -82,4 +83,3 @@ app.listen(80, () => {
 //     });
 //   }
 // });
-

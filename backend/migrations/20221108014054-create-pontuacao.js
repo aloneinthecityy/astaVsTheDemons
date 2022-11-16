@@ -7,35 +7,37 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       id_enredo: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       id_usuario: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       final_enredo: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       pontuacao: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
-      fk_idUsuario: { // name of foreign key using naming convention
+      fk_idUsuario: {
+        // name of foreign key using naming convention
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: { tableName: 'usuarios' }, // provide table name
-          key: 'id_usuario' // PK of the User Model
+          key: 'id_usuario', // PK of the User Model
         },
         allowNull: false,
         onUpdate: 'cascade',
         onDelete: 'cascade',
       },
-      fk_idEnredo: { // name of foreign key using naming convention
+      fk_idEnredo: {
+        // name of foreign key using naming convention
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: { tableName: 'enredos' }, // provide table name
-          key: 'id_enredo' // PK of the User Model
+          key: 'id_enredo', // PK of the User Model
         },
         allowNull: false,
         onUpdate: 'cascade',
@@ -43,15 +45,15 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('pontuacao');
-  }
+  },
 };
