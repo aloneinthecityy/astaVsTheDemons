@@ -1,17 +1,29 @@
 const Usuario = require('../models/usuario');
 const bcrypt = require('bcrypt');
 const saltRounds = 8;
-const postgree = require('pg');
+const { Client } = require('pg');
 const { Sequelize } = require('sequelize');
-const { Pool } = postgree;
+const express = require('express');
+const app = express();
 
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'astavsthedemons',
-  password: 'admin',
-  port: 5432,
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
+
+// const client = new Client({
+//   user: 'postgres',
+//   host: 'localhost',
+//   database: 'astavsthedemons',
+//   password: 'admin',
+//   port: 5432,
+// });
+
+
+// client.connect((err, res) => {
+//   if (err) throw err;
+//   console.log('Conectado');
+// });
 
 module.exports = {
   jogar: (req, res) => {
@@ -71,6 +83,7 @@ module.exports = {
   },
 
   verificaLogin: async (req, res) => {
+    const { email } = req.body;
     let dadosBanco = await Usuario.findAll({
       raw: true,
       where: {
@@ -99,16 +112,29 @@ module.exports = {
     res.redirect('/');
   },
 
-  pegarUsuarioId: async (req, res) => {
-    const { id } = req.params;
-
-    const usuario = await Usuario.findByPk(id);
-
-    console.log(usuario);
-
-    if (!usuario)
-      return res.status(400).json({ error: 'Usuário não encontrado' });
-
-    return res.json(usuario);
+ 
+  getUser: async (req, res, userId) => {
+      const usuario = await Usuario.findAll({
+        attributes: ['id_usuario'],
+      });
+      return res.json(usuario);
   },
+
+  //     // const email = req.body.email;
+  //     // client.connect()
+  //     // // const teste = client.query('SELECT email FROM usuarios where email = $1', [email]).then(result => console.log(result)).catch(e => console.error(e.stack)).then(() => client.end())
+  //     // var data = req.body;
+  //     // console.log("email:" + data.email);
+  //     // res.send();
+  //     // const query = {
+  //     //   name: 'fetch-user',
+  //     //   text: 'SELECT id_usuario FROM usuarios WHERE email = $1',
+  //     //   values: [email]
+  //     // }
+
+  //     // client.connect()
+  //     // const teste = client.query('SELECT $1::text as email',[email]).then(result => console.log(result)).catch(e => console.error(e.stack)).then(() => client.end())
+  //     // return res.json(amor);
+  //   }
+  // },
 };
