@@ -1,17 +1,19 @@
 const express = require('express');
 const session = require('express-session');
-const postgree = require('pg');
+const cookieParser = require("cookie-parser");
 const port = 81;
 
 const app = express();
+const oneDay = 1000 * 60 * 60 * 24;
 app.use(
   session({
-    secret: 'piuitictacabacaxichocolate',
-    resave: false,
+    secret: 'piuitictac33bac2343547t23903832jkkk11832pouir',
     saveUninitialized: true,
+    cookie: { maxAge: oneDay },
+    resave: false,
   })
 );
-
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('./public'));
 app.set('view engine', 'ejs');
@@ -25,13 +27,11 @@ app.get('/cadastro', usuarioController.cadastro);
 app.post('/cadastro', usuarioController.insereCadastro);
 
 app.get('/login', usuarioController.login);
-app.get('/login/users', usuarioController.getUser)
 app.post('/login', usuarioController.verificaLogin);
 
 app.get('/logout', usuarioController.logout);
 
 app.get('/jogar', usuarioController.jogar);
-// app.get('/jogar/users', usuarioController.getUserId)
 
 app.get('/teste', usuarioController.teste);
 

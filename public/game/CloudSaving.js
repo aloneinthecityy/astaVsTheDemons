@@ -1,5 +1,8 @@
 class CloudSaving extends RenJS.Plugin {
   onInit() {
+    const userId = document.getElementById('userId')
+
+    console.log('id: ', userId)
     // chamado depois que tudo é carregado (a menos que seja carregado com preguiça), antes de mostrar qualquer menu
     // plugin básico não faz nada
   }
