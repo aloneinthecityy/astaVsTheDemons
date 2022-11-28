@@ -2,13 +2,16 @@
   <head>
     <%- include('headHome'); %>
       <title>Teste</title>
-    <script>
-        // const id = document.getElementById('userId')
-        console.log("oi");
-    </script>
   </head>
 
   <body>
+    <!-- <script type="module" src="../backend/controller/usuarioController.js">
+      import { usuarioController } from "../backend/controller/usuarioController.js";
+      onload = function (){
+      const session = usuarioController.verificaLogin(req.session.user);
+      console.log(session);
+      }
+    </script> -->
     <header>
       <nav class="nav-container">
          <div class="w-36 absolute top-0 left-0 right-0 bg-red-600 rounded-b-lg break-words text-white text-center">
@@ -16,7 +19,6 @@
         <ul>
           <li><a class="font-amatic text-4xl hover:text-red-700" href="/jogar">Jogar!</a></li>
           <li><a class="font-amatic text-4xl hover:text-red-700" href="/logout">logout</a></li>
-          <input type="text" value="<%=idUser%>" style="display: none;" id="userId">
         </ul>
       </nav>
     </header>
@@ -24,5 +26,5 @@
       <img src="./images/logo.png" class="-mt-48" id="logo">
     </div>
   </body>
-  <!-- <script type="text/javascript" src="teste.js" charset="utf-8"></script> -->
+  <!-- <script type="text/javascript" src=".././game/CloudSaving.js" charset="utf-8"></script> -->
   </html>

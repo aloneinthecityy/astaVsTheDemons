@@ -1,8 +1,7 @@
 class CloudSaving extends RenJS.Plugin {
   onInit() {
-    const userId = document.getElementById('userId')
-
-    console.log('id: ', userId)
+      const userId = document.getElementById('userId').value;
+      console.log(userId);
     // chamado depois que tudo é carregado (a menos que seja carregado com preguiça), antes de mostrar qualquer menu
     // plugin básico não faz nada
   }
@@ -13,8 +12,14 @@ class CloudSaving extends RenJS.Plugin {
     // fizer no parâmetro de dados também será salva.
 
     // salva na nuvem como uma string com o slot fornecido
+
+    const userId = document.getElementById('userId').value
     let serializedData = JSON.stringify(data);
-    cloudAPI.set(`MyRenJSGame_slot_${slot}`, serializedData);
+    console.log(serializedData);
+
+    const loadedData = serializedData;
+    console.log(loadedData);
+    cloudAPI.set(`MyRenJSGame_slot_${slot}`, serializedData, userId);
   }
 
   onLoad(slot, data) {
@@ -27,14 +32,17 @@ class CloudSaving extends RenJS.Plugin {
     // você pode adicionar/substituir qualquer propriedade que desejar no parâmetro de dados
 
     // carrega dados da nuvem com o slot fornecido
-    let serializedData = cloudAPI.get(`MyRenJSGame_slot_${slot}`);
+    const userId = document.getElementById('userId').value
+    let serializedData = JSON.stringify(data)
+    console.log(serializedData);
+    cloudLoad(`MyRenJSGame_slot_${slot}`, userId);
 
-    if (serializedData) {
-      // analisar como JSON
-      let loadedData = JSON.parse(serializedData);
-      // adiciona dados carregados ao parâmetro de dados enviado
-      Object.assign(data, loadedData);
-    }
+    const dataString = loadSave();
+
+			const loadedData = dataString;
+			const dataJSON = JSON.parse(loadedData);
+			console.log(dataJSON);
+            Object.assign(data, dataJSON);
   }
 }
 

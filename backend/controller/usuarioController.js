@@ -1,6 +1,7 @@
 const Usuario = require('../models/usuario');
 const express = require('express');
 const bcrypt = require('bcrypt');
+const { LocalStorage } = require("node-localstorage");
 const app = express();
 const saltRounds = 8;
 
@@ -15,7 +16,8 @@ module.exports = {
       req.session.erro = false;
     }
     if (req.session.loggedin) {
-      res.render('../views/game.ejs', { mensagem });
+        const idUser = req.session.user;
+       res.render('../views/game.ejs', {'idUser': idUser});
     } else {
       mensagem = 'Realizar Login';
       res.render('../views/login.ejs', { mensagem });
@@ -24,12 +26,7 @@ module.exports = {
 
   teste: (req, res,err) => {
     if (req.session.loggedin) {
-       const idUser = req.session.user;
-       console.log(idUser);
-       res.render('../views/teste.ejs', { 'idUser': idUser });
-
-        // console.log('Cookies: ', req.cookies)
-
+       res.render('../views/teste.ejs');
     } else {
       req.session.erro = true;
       console.log('faça login antes de acessar esta página!');
@@ -63,20 +60,6 @@ module.exports = {
       req.session.erro = false;
     }
     if (req.session.loggedin) {
-      // let dadosBanco = await Usuario.findAll({
-      //   raw: true,
-      //   where: {
-      //     email: req.body['email'],
-      //   },
-      // });
-      
-      // let users = {
-      //   id_usuario :dadosBanco['id_usuario'],
-      //   email : req.body['email'] == ['email'],
-      //   password : req.body['password'] == ['senha']
-      //   }
-      //   res.cookie("Dados do usuário:", users);
-      //   res.send('user data added to cookie');
       res.render('../views/teste.ejs', { mensagem });
     } else {
       mensagem = 'Realizar Login';
@@ -104,7 +87,18 @@ module.exports = {
       if (login) {
         req.session.loggedin = true;
         req.session.user = dadosBanco[0]['id_usuario']; //criando session com o id_usuario
-        
+        //  let users = {
+        //     userSession: req.session.user,
+        //   }
+        //    res.cookie("CookieUser", users);
+        //   console.log('sessão do usuário salva no cookie', req.cookies);
+        var localStorage = new LocalStorage('./scratch'); 
+
+        //Setting localStorage Item
+        localStorage.setItem('userId', req.session.user);
+        console.log("id do usuário armazenado no localstorage: ");
+        console.log(localStorage.getItem('userId'));
+
         res.redirect('/teste');
       } else {
         res.redirect('/login', { mensagem: 'Erro ao realizar o login' });

@@ -27,6 +27,5 @@ const RenJSConfig =  {
   ],
   'logChoices': true,
 }
-//const Hello = new HelloWorld()
 const RenJSGame = new RenJS.game(RenJSConfig)
 RenJSGame.launch()
