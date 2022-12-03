@@ -6,15 +6,12 @@
 		<script src=".././game/renjs.js"></script>
 		<script src=".././game/boot.js"></script>
 		<script src=".././game/CloudSaving.js"></script>
-		<script src=".././functions.js"></script>
-		<script>
-			save();
-			userId();
-		</script>
 	</head>
-	<header>
-		<!-- <input type="text" value="<%=idUser%>" style="display: none;" id="userId"> -->
-	</header>
 	<body style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px;margin-right: 0px;">
+			<% if (isAuth && userId) { %>
+				<input type="text" id="isAuth" value="<%= isAuth %>" style="display: none;">
+				<input type="text" id="userId" value="<%= userId %>" style="display: none;" >
+			<% } %>
 	</body>
+	<script src=".././game/functions.js"></script>
 </html>

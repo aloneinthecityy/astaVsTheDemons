@@ -1,6 +1,6 @@
 const express = require('express');
 const session = require('express-session');
-const cookieParser = require("cookie-parser");
+const cookieParser = require('cookie-parser');
 const port = 81;
 
 const app = express();
@@ -19,7 +19,6 @@ app.use(express.static('./public'));
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-
 const usuarioController = require('./backend/controller/usuarioController');
 
 app.get('/', usuarioController.home);
@@ -36,7 +35,12 @@ app.get('/jogar', usuarioController.jogar);
 
 app.get('/teste', usuarioController.teste);
 
+app.get('/blog', usuarioController.blog);
+
+app.get('/*', (req, res) => {
+  res.status(404).render('404.ejs');
+});
+
 app.listen(port, () => {
   console.log(`servidor ouvindo : http://127.0.0.1:${port}`);
 });
-

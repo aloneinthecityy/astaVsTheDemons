@@ -1,12 +1,7 @@
 class CloudSaving extends RenJS.Plugin {
-  onInit() {
-      userId();
-
-      // const userId = document.getElementById('userId').value;
-      // console.log(userId);
-
-    // chamado depois que tudo é carregado (a menos que seja carregado com preguiça), antes de mostrar qualquer menu
-    // plugin básico não faz nada
+  async onInit() {
+    const userId = localStorage.getItem('userId');
+    console.log(userId);
   }
 
   onSave(slot, data) {
@@ -32,17 +27,17 @@ class CloudSaving extends RenJS.Plugin {
     // você pode adicionar/substituir qualquer propriedade que desejar no parâmetro de dados
 
     // carrega dados da nuvem com o slot fornecido
-    const userId = document.getElementById('userId').value
-    let serializedData = JSON.stringify(data)
+    const userId = document.getElementById('userId').value;
+    let serializedData = JSON.stringify(data);
     console.log(serializedData);
     cloudLoad(`MyRenJSGame_slot_${slot}`, userId);
 
     const dataString = loadSave();
 
-			const loadedData = dataString;
-			const dataJSON = JSON.parse(loadedData);
-			console.log(dataJSON);
-            Object.assign(data, dataJSON);
+    const loadedData = dataString;
+    const dataJSON = JSON.parse(loadedData);
+    console.log(dataJSON);
+    Object.assign(data, dataJSON);
   }
 }
 

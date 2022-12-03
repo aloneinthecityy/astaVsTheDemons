@@ -7,7 +7,6 @@
   </head>
 
   <body class="bg-mente-cruel2">
-      
     <div class="flex h-screen">
       <div class="flex w-[60vw] justify-center items-center px-6">
         <div class="bg-white py-10 px-6 rounded-xl bg-opacity-60">
@@ -23,14 +22,14 @@
                 <label for="email">Informe seu e-mail</label>
                 <input for="email" type="text" name="email"
                   class="border-solid border-gray-400 border-2 rounded-lg p-3 md:text-xl w-full"
-                  placeholder="Informe seu e-mail aqui" />
+                  placeholder="Informe seu e-mail aqui" required/>
               </div>
 
               <div class="col-span-2 lg:col-span-2">
                 <label for="password">Senha</label>
                 <input for="password" type="password" name="password"
                   class="border-solid border-gray-400 border-2 rounded-lg p-3 md:text-xl w-full"
-                  placeholder="********" />
+                  placeholder="********" required/>
               </div>
 
               <div class="col-span-2 text-center">
@@ -41,6 +40,16 @@
                   ENTRAR
                 </button>
               </div>
+
+              <!-- Mensagem de erro -->
+              <% if(mensagem) { %>
+              <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Erro</strong><br/>
+                <span class="block sm:inline">                
+                  <p><%= mensagem %></p>
+                </span>
+              </div>
+              <% } %>
             </div>
           </form>
         </div>
