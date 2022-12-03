@@ -1,7 +1,6 @@
 const Usuario = require('../models/usuario');
 const express = require('express');
 const bcrypt = require('bcrypt');
-const { LocalStorage } = require("node-localstorage");
 const app = express();
 const saltRounds = 8;
 
@@ -87,17 +86,12 @@ module.exports = {
       if (login) {
         req.session.loggedin = true;
         req.session.user = dadosBanco[0]['id_usuario']; //criando session com o id_usuario
-        //  let users = {
-        //     userSession: req.session.user,
-        //   }
-        //    res.cookie("CookieUser", users);
-        //   console.log('sessão do usuário salva no cookie', req.cookies);
-        var localStorage = new LocalStorage('./scratch'); 
+        // var localStorage = new LocalStorage('./scratch'); 
 
-        //Setting localStorage Item
-        localStorage.setItem('userId', req.session.user);
-        console.log("id do usuário armazenado no localstorage: ");
-        console.log(localStorage.getItem('userId'));
+        // //Setting localStorage Item
+        // localStorage.setItem('userId', req.session.user);
+        // console.log("id do usuário armazenado no localstorage: ");
+        // console.log(localStorage.getItem('userId'));
 
         res.redirect('/teste');
       } else {

@@ -1,7 +1,6 @@
 const express = require('express');
 const session = require('express-session');
 const cookieParser = require("cookie-parser");
-const { LocalStorage } = require("node-localstorage");
 const port = 81;
 
 const app = express();
@@ -19,10 +18,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('./public'));
 app.set('view engine', 'ejs');
 app.set('views', './views');
-
-
-var localStorage = new LocalStorage('./scratch'); 
-// console.log(localStorage.getItem('userId'))
 
 
 const usuarioController = require('./backend/controller/usuarioController');
