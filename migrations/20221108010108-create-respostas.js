@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       comentario: {
-        type: Sequelize.BIGINT,
+        type: Sequelize.STRING,
       },
       fk_idComentario: {
         // name of foreign key using naming convention

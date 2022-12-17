@@ -4,7 +4,8 @@ class CloudSaving extends RenJS.Plugin {
     console.log(userId);
   }
 
-  onSave(slot, data) {
+  onSave(slot, data) { //  --> vai receber o slot e os dados a serem salvos
+
     // O handle onSave é chamado logo antes do jogo ser salvo localmente,
     // recebendo o slot e os dados para salvar. Qualquer modificação que você
     // fizer no parâmetro de dados também será salva.
@@ -13,7 +14,6 @@ class CloudSaving extends RenJS.Plugin {
 
     let serializedData = JSON.stringify(data);
     console.log(serializedData);
-    save();
     // save(`MyRenJSGame_slot_${slot}`,serializedData, userId);
   }
 

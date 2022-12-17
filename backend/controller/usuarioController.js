@@ -1,26 +1,50 @@
-const Usuario = require('../models/usuario');
+const Usuario = require('../../models/usuario');
+const Salvar_estado = require('../../models/salvar_estado');
 const express = require('express');
 const bcrypt = require('bcrypt');
 const app = express();
 const saltRounds = 8;
 
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-module.exports = {
-  jogar: (req, res) => {
-    let isAuth = req.session.loggedin;
 
+module.exports = {
+  jogar: async(req, res) => {
+    let isAuth = req.session.loggedin;
     if (isAuth) {
-      const username = req.session.username;
-      const userId = req.session.userId;
-      res.render('../views/game.ejs', { userId, isAuth, username });
+      const username = req.session.username[0];
+      const userId = req.session.userId;   
+     res.render('../views/game.ejs', { userId, isAuth, username });
+
     } else {
       const mensagem = 'Você precisa estar logado para jogar!';
       req.session.mensagem = mensagem;
 
       res.render('../views/login.ejs', { mensagem });
     }
+  },
+
+  RecebeDadosJogo: async (req, res) => {
+    const itemDeserializado = req.body;
+
+    Salvar_estado.create({
+      where: {
+        id_usuario: req.session.userId
+      },
+      id_usuario: req.session.userId,
+      slot_1: itemDeserializado,
+    }).then(() => {
+      console.log('Registro adicionado com sucesso.');
+    }).catch(err => {
+      console.error('Falha ao adicionar registro:', err);
+    });
+  
+    res.send('Dados recebidos com sucesso');
   },
 
   teste: (req, res, err) => {
@@ -49,17 +73,26 @@ module.exports = {
   },
 
   insereCadastro: async (req, res) => {
-    const hash = bcrypt.hashSync(req.body['password'], saltRounds);
-    const resultadoCadastro = await Usuario.create({
-      email: req.body['email'],
-      senha: hash,
-    });
+    const { email, password } = req.body;
+    let user = await Usuario.findOne({ where: { email } });
 
-    if (!resultadoCadastro) {
-      req.session.mensagem = 'Erro ao cadastrar usuário';
+    const hash = bcrypt.hashSync(password, saltRounds);
+
+    if (password.length < 8) {
+      req.session.mensagem = 'Digite uma senha com no mínimo 8 caracteres.';
       res.redirect('/cadastro');
     } else {
-      res.redirect('/');
+      if (user) {
+        req.session.mensagem = 'Conta já cadastrada!';
+        res.redirect('/cadastro');
+      } else {
+        await Usuario.create({
+          email,
+          senha: hash,
+        });
+        console.log('Usuário cadastrado com sucesso!');
+        res.redirect('/teste');
+      }
     }
   },
 
@@ -91,8 +124,12 @@ module.exports = {
       if (login) {
         req.session.loggedin = true;
         req.session.userId = dadosBanco[0]['id_usuario']; //criando session com o id_usuario
-        // req.session.username = dadosBanco[0]['email']; //criando session com o email
-        // ! OBSERVAÇÃO: dá pra criar um username ficticio com o inicio do email
+        
+        const { email } = req.body;
+        const username = email.split('@');
+        req.session.username = username; // username ficticio com o inicio do email
+
+        console.log("Seja bem vindo",username[0], "!"); //aqui printa o nome ficticio do usuario no console!
 
         res.redirect('/teste');
       } else {
@@ -134,6 +171,6 @@ module.exports = {
     req.session.destroy((err) => {
       return err;
     });
-    res.redirect('/');
+    res.redirect('/login');
   },
 };

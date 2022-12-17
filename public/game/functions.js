@@ -1,11 +1,14 @@
 function save() {
-  console.log('Function save() chamada');
+  console.log("Olá, a function 'save()' foi chamada com sucesso!");
 }
 
 function getUserId() {
   const userId = document.getElementById('userId').value;
+  const username = document.getElementById('username').value;
   const isAuth = document.getElementById('isAuth').value;
+
   console.log('userId: ', userId);
+  console.log('username: ', username);
   console.log('isAuth: ', isAuth);
 
   /* 
@@ -23,5 +26,19 @@ function getUserId() {
   return userId;
 }
 
+const item = localStorage.getItem("RenJSDATAQuickstart0"); //ATÉ O MOMENTO SÓ PEGUEI UM SLOT, JÁ ESTOU TRABALHANDO PARA INSERIR OS OUTROS. Estava testando se ia dar certo.
+const itemDeserializado = JSON.parse(item);
+
+
+const xhr = new XMLHttpRequest();
+xhr.open('POST', '/recebedados');
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.send(JSON.stringify(itemDeserializado));
+
+
+
 save();
 getUserId();
+
+
+

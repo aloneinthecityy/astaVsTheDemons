@@ -13,13 +13,13 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       slot_1: {
-        type: Sequelize.BIGINT,
+        type: Sequelize.JSON,
       },
       slot_2: {
-        type: Sequelize.BIGINT,
+        type: Sequelize.JSON,
       },
       slot_3: {
-        type: Sequelize.BIGINT,
+        type: Sequelize.JSON,
       },
       fk_idUsuario: {
         // name of foreign key using naming convention

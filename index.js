@@ -3,7 +3,13 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const port = 81;
 
+const bodyParser = require('body-parser');
+
+
+
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(
   session({
@@ -32,6 +38,8 @@ app.post('/login', usuarioController.verificaLogin);
 app.get('/logout', usuarioController.logout);
 
 app.get('/jogar', usuarioController.jogar);
+app.post('/recebedados', usuarioController.RecebeDadosJogo);
+
 
 app.get('/teste', usuarioController.teste);
 
