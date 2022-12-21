@@ -1,3 +1,4 @@
+
 class CloudSaving extends RenJS.Plugin {
   async onInit() {
     const userId = localStorage.getItem('userId');
@@ -11,10 +12,12 @@ class CloudSaving extends RenJS.Plugin {
     // fizer no parâmetro de dados também será salva.
 
     // salva na nuvem como uma string com o slot fornecido
+    const userId = localStorage.getItem('userId');
+
 
     let serializedData = JSON.stringify(data);
     console.log(serializedData);
-    // save(`MyRenJSGame_slot_${slot}`,serializedData, userId);
+    cloudSave(`MyRenJSGame_slot_${slot}`,serializedData, userId);
   }
 
   onLoad(slot, data) {
@@ -30,14 +33,13 @@ class CloudSaving extends RenJS.Plugin {
     const userId = document.getElementById('userId').value;
     let serializedData = JSON.stringify(data);
     console.log(serializedData);
+
     cloudLoad(`MyRenJSGame_slot_${slot}`, userId);
 
     const dataString = loadSave();
+    console.log(dataString);
 
-    const loadedData = dataString;
-    const dataJSON = JSON.parse(loadedData);
-    console.log(dataJSON);
-    Object.assign(data, dataJSON);
+    Object.assign(data, dataString);
   }
 }
 

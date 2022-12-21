@@ -8,6 +8,51 @@
 		<script src=".././game/CloudSaving.js"></script>
 	</head>
 	<body style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px;margin-right: 0px;">
+		<script>
+
+			function loadSave(slot,data){
+			 
+			const payload = {
+			data: data,
+			slot: slot
+			};
+
+			const xhr = new XMLHttpRequest();
+			xhr.open('POST', '/carregaDados');
+			xhr.setRequestHeader('Content-Type', 'application/json');
+			xhr.send(JSON.stringify(payload));
+			}
+
+			function cloudSave(slot, data){
+			// const item = localStorage.getItem("data"); 
+			const itemDeserializado = JSON.parse(data); 
+
+			const payload = {
+			itemDeserializado: itemDeserializado,
+			slot: slot
+			};
+
+			const xhr = new XMLHttpRequest();
+			xhr.open('POST', '/recebedados');
+			xhr.setRequestHeader('Content-Type', 'application/json');
+			xhr.send(JSON.stringify(payload));
+		}
+
+		function cloudLoad(slot, data){
+			// const item = localStorage.getItem("data"); 
+			const itemDeserializado = JSON.parse(data); 
+
+			const payload = {
+			itemDeserializado: itemDeserializado,
+			slot: slot
+			};
+
+			const xhr = new XMLHttpRequest();
+			xhr.open('POST', '/retornaDados');
+			xhr.setRequestHeader('Content-Type', 'application/json');
+			xhr.send(JSON.stringify(payload));
+		}
+		</script>
 			<% if (isAuth && userId) { %>
 				<input type="text" id="isAuth" value="<%= isAuth %>" style="display: none;">
 				<input type="text" id="userId" value="<%= userId %>" style="display: none;" >

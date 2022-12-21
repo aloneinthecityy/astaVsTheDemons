@@ -30,21 +30,68 @@ module.exports = {
   },
 
   RecebeDadosJogo: async (req, res) => {
-    const itemDeserializado = req.body;
+    const itemDeserializado = req.body.itemDeserializado;
+    const slot = req.body.slot;
 
+    if(slot == "MyRenJSGame_slot_0"){
     Salvar_estado.create({
       where: {
-        id_usuario: req.session.userId
+        id_usuario: req.session.userId,
       },
       id_usuario: req.session.userId,
       slot_1: itemDeserializado,
     }).then(() => {
-      console.log('Registro adicionado com sucesso.');
+      console.log('Registro adicionado com sucesso NO SLOT 1.');
     }).catch(err => {
-      console.error('Falha ao adicionar registro:', err);
+      console.error('Falha ao adicionar registro NO SLOT 1:', err);
     });
-  
-    res.send('Dados recebidos com sucesso');
+  }
+  if(slot == "MyRenJSGame_slot_1"){
+    Salvar_estado.create({
+      where: {
+        id_usuario: req.session.userId,
+      },
+      id_usuario: req.session.userId,
+      slot_2: itemDeserializado,
+    }).then(() => {
+      console.log('Registro adicionado com sucesso NO SLOT 2.');
+    }).catch(err => {
+      console.error('Falha ao adicionar registro NO SLOT 2:', err);
+    });
+  }
+  if(slot == "MyRenJSGame_slot_2"){
+    Salvar_estado.create({
+      where: {
+        id_usuario: req.session.userId,
+      },
+      id_usuario: req.session.userId,
+      slot_3: itemDeserializado,
+    }).then(() => {
+      console.log('Registro adicionado com sucesso NO SLOT 3.');
+    }).catch(err => {
+      console.error('Falha ao adicionar registro NO SLOT 3:', err);
+    });
+  }
+    // res.send('Dados recebidos com sucesso');
+  },
+  carregaDadosJogo: async (req, res) => {
+    let dadosBanco = await Salvar_estado.findAll({
+      raw: true,
+      where: {
+        id_usuario: req.session.userId,
+      },
+    });
+    console.log('Carregamento dos dados: ',dadosBanco);
+  },
+  RetornaDadosJogo: async (req, res) => {
+    let dadosBanco = await Salvar_estado.findAll({
+      raw: true,
+      where: {
+        id_usuario: req.session.userId,
+      },
+    });
+
+    console.log('Retorno dos dados:',dadosBanco);
   },
 
   teste: (req, res, err) => {

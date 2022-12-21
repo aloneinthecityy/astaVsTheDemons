@@ -26,14 +26,14 @@ function getUserId() {
   return userId;
 }
 
-const item = localStorage.getItem("RenJSDATAQuickstart0"); //ATÉ O MOMENTO SÓ PEGUEI UM SLOT, JÁ ESTOU TRABALHANDO PARA INSERIR OS OUTROS. Estava testando se ia dar certo.
-const itemDeserializado = JSON.parse(item);
+// const item = localStorage.getItem("data"); 
+// const itemDeserializado = JSON.parse(item);
 
 
-const xhr = new XMLHttpRequest();
-xhr.open('POST', '/recebedados');
-xhr.setRequestHeader('Content-Type', 'application/json');
-xhr.send(JSON.stringify(itemDeserializado));
+// const xhr = new XMLHttpRequest();
+// xhr.open('POST', '/recebedados');
+// xhr.setRequestHeader('Content-Type', 'application/json');
+// xhr.send(JSON.stringify(itemDeserializado));
 
 
 
