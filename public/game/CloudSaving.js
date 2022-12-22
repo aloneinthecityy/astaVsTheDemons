@@ -1,9 +1,18 @@
 
 class CloudSaving extends RenJS.Plugin {
-  async onInit() {
-    const userId = localStorage.getItem('userId');
-    console.log(userId);
-  }
+    onInit(data,slot){
+      console.log("CloudSaving plugin initialized");
+      //const dataString = loadSave();
+      getJSON((err, data) => {
+
+          if (err != null) {
+              console.error(err);
+          } else {
+              console.log(data);
+        }
+      });
+
+    }
 
   onSave(slot, data) { //  --> vai receber o slot e os dados a serem salvos
 
@@ -18,9 +27,15 @@ class CloudSaving extends RenJS.Plugin {
     let serializedData = JSON.stringify(data);
     console.log(serializedData);
     cloudSave(`MyRenJSGame_slot_${slot}`,serializedData, userId);
+    
+
+    // if(serializedData != null){
+    //   storage.removeItem(slot);
+    //   storage.setItem()
+    // }
   }
 
-  onLoad(slot, data) {
+  onLoad(slot, data, userId) {
     // O identificador onLoad é chamado quando os dados são recuperados, pouco antes de configurar o jogo.
     // Assim como o onSave, ele receberá o slot e os dados para carregar. Ao modificar o parâmetro de dados,
     // você pode alterar também o que acabará sendo carregado.
@@ -30,16 +45,20 @@ class CloudSaving extends RenJS.Plugin {
     // você pode adicionar/substituir qualquer propriedade que desejar no parâmetro de dados
 
     // carrega dados da nuvem com o slot fornecido
-    const userId = document.getElementById('userId').value;
-    let serializedData = JSON.stringify(data);
-    console.log(serializedData);
 
-    cloudLoad(`MyRenJSGame_slot_${slot}`, userId);
+    // let serializedData = JSON.stringify(data);
+    // console.log(serializedData);
 
-    const dataString = loadSave();
-    console.log(dataString);
+  
+    // cloudLoad(`MyRenJSGame_slot_${slot}`, userId);
 
-    Object.assign(data, dataString);
+    
+    let serializedData = cloudLoad(`MyRenJSGame_slot_${slot}`, userId)
+
+    if (serializedData) {
+      let loadedData = JSON.parse(serializedData)
+      Object.assign(data, loadedData)
+    }
   }
 }
 

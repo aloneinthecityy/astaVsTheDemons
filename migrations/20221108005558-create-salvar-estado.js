@@ -21,17 +21,17 @@ module.exports = {
       slot_3: {
         type: Sequelize.JSON,
       },
-      fk_idUsuario: {
-        // name of foreign key using naming convention
-        type: Sequelize.DataTypes.INTEGER,
-        references: {
-          model: { tableName: 'usuarios' }, // provide table name
-          key: 'id_usuario', // PK of the User Model
-        },
-        allowNull: false,
-        onUpdate: 'cascade',
-        onDelete: 'cascade',
-      },
+      // fk_idUsuario: {
+      //   // name of foreign key using naming convention
+      //   type: Sequelize.DataTypes.INTEGER,
+      //   references: {
+      //     model: { tableName: 'usuarios' }, // provide table name
+      //     key: 'id_usuario', // PK of the User Model
+      //   },
+      //   allowNull: true,
+      //   onUpdate: 'cascade',
+      //   onDelete: 'cascade',
+      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

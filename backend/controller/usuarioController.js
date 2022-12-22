@@ -1,17 +1,31 @@
 const Usuario = require('../../models/usuario');
-const Salvar_estado = require('../../models/salvar_estado');
 const express = require('express');
 const bcrypt = require('bcrypt');
 const app = express();
 const saltRounds = 8;
 
 const bodyParser = require('body-parser');
+// const sequelize = require('../../config/db');
+const Sequelize = require('sequelize');
+
+const sequelize = new Sequelize('astavsthedemons', 'postgres', 'admin', {
+  host: 'localhost',
+  dialect: 'postgres',
+});
+
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const Salvar_estado = sequelize.define('salvar_estado', {
+  id_usuario: { type: Sequelize.INTEGER },
+  slot_1: { type: Sequelize.JSON },
+  slot_2: { type: Sequelize.JSON },
+  slot_3: { type: Sequelize.JSON },
+});
 
 module.exports = {
   jogar: async(req, res) => {
@@ -33,47 +47,78 @@ module.exports = {
     const itemDeserializado = req.body.itemDeserializado;
     const slot = req.body.slot;
 
-    if(slot == "MyRenJSGame_slot_0"){
-    Salvar_estado.create({
+    const estado = await Salvar_estado.findOne({
+      where: { id_usuario: req.session.userId }
+    });
+
+    if (estado == null && slot == "MyRenJSGame_slot_0") {
+
+      await Salvar_estado.create({
       where: {
         id_usuario: req.session.userId,
       },
       id_usuario: req.session.userId,
       slot_1: itemDeserializado,
     }).then(() => {
-      console.log('Registro adicionado com sucesso NO SLOT 1.');
+      console.log('Registro adicionado com sucesso NO SLOT 1.');      
     }).catch(err => {
       console.error('Falha ao adicionar registro NO SLOT 1:', err);
     });
-  }
-  if(slot == "MyRenJSGame_slot_1"){
-    Salvar_estado.create({
-      where: {
-        id_usuario: req.session.userId,
-      },
-      id_usuario: req.session.userId,
-      slot_2: itemDeserializado,
-    }).then(() => {
-      console.log('Registro adicionado com sucesso NO SLOT 2.');
-    }).catch(err => {
-      console.error('Falha ao adicionar registro NO SLOT 2:', err);
-    });
-  }
-  if(slot == "MyRenJSGame_slot_2"){
-    Salvar_estado.create({
+
+  } else if (slot == "MyRenJSGame_slot_0") {
+    await Salvar_estado.update(
+    { slot_1: itemDeserializado },
+    { where: { id_usuario: req.session.userId } }
+    );
+    }
+  
+
+      if (estado == null && slot == "MyRenJSGame_slot_1") {
+
+          await Salvar_estado.create({
+          where: {
+            id_usuario: req.session.userId,
+          },
+          id_usuario: req.session.userId,
+          slot_2: itemDeserializado,
+        }).then(() => {
+          console.log('Registro adicionado com sucesso NO SLOT 2.');      
+        }).catch(err => {
+          console.error('Falha ao adicionar registro NO SLOT 2:', err);
+        });
+      
+      }
+      else if (slot == "MyRenJSGame_slot_1") {
+        await Salvar_estado.update(
+        { slot_2: itemDeserializado },
+        { where: { id_usuario: req.session.userId } }
+        );
+        }
+   
+
+   if (estado == null && slot == "MyRenJSGame_slot_2") {
+
+      await Salvar_estado.create({
       where: {
         id_usuario: req.session.userId,
       },
       id_usuario: req.session.userId,
       slot_3: itemDeserializado,
     }).then(() => {
-      console.log('Registro adicionado com sucesso NO SLOT 3.');
+      console.log('Registro adicionado com sucesso NO SLOT 3.');      
     }).catch(err => {
       console.error('Falha ao adicionar registro NO SLOT 3:', err);
     });
+  
   }
-    // res.send('Dados recebidos com sucesso');
+    else if (slot == "MyRenJSGame_slot_2") {
+      await Salvar_estado.update(
+      { slot_3: itemDeserializado },
+      { where: { id_usuario: req.session.userId } }
+      );
+      }
   },
+
   carregaDadosJogo: async (req, res) => {
     let dadosBanco = await Salvar_estado.findAll({
       raw: true,
@@ -82,16 +127,19 @@ module.exports = {
       },
     });
     console.log('Carregamento dos dados: ',dadosBanco);
+    res.send(dadosBanco);
   },
+
   RetornaDadosJogo: async (req, res) => {
+    
     let dadosBanco = await Salvar_estado.findAll({
       raw: true,
       where: {
         id_usuario: req.session.userId,
       },
     });
-
     console.log('Retorno dos dados:',dadosBanco);
+    res.send(dadosBanco);
   },
 
   teste: (req, res, err) => {

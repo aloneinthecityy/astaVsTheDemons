@@ -10,21 +10,28 @@
 	<body style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px;margin-right: 0px;">
 		<script>
 
-			function loadSave(slot,data){
-			 
-			const payload = {
-			data: data,
-			slot: slot
+			let getJSON = (callback) => {
+			let xhr = new XMLHttpRequest();
+			xhr.open('POST', '/carregaDados');
+				xhr.setRequestHeader('Content-Type', 'application/json');
+				//xhr.send();
+				xhr.onload = () => {
+
+					let status = xhr.status;
+
+					if (status == 200) {
+						callback(null, xhr.response);
+					} else {
+						callback(status);
+					}
+				};
+
+			xhr.send();
 			};
 
-			const xhr = new XMLHttpRequest();
-			xhr.open('POST', '/carregaDados');
-			xhr.setRequestHeader('Content-Type', 'application/json');
-			xhr.send(JSON.stringify(payload));
-			}
 
 			function cloudSave(slot, data){
-			// const item = localStorage.getItem("data"); 
+			const item = localStorage.getItem("data"); 
 			const itemDeserializado = JSON.parse(data); 
 
 			const payload = {
@@ -38,9 +45,30 @@
 			xhr.send(JSON.stringify(payload));
 		}
 
+		// function loadSave(data,slot){
+			 
+		// 	 const payload = {
+		// 	 data: data,
+		// 	 slot: slot
+		// 	 };
+ 
+		// 	 const xhr = new XMLHttpRequest();
+		// 	 xhr.open('POST', '/carregaDados');
+		// 	 xhr.setRequestHeader('Content-Type', 'application/json');
+		// 	 xhr.send(JSON.stringify(payload));
+
+		// 	 if(xhr.status == 200){
+		// 		 console.log("Dados carregados com sucesso");
+		// 	 }
+		// 	 else{
+		// 		 console.log("Erro ao carregar dados");
+		// 	 }
+		// }
+
+
 		function cloudLoad(slot, data){
-			// const item = localStorage.getItem("data"); 
-			const itemDeserializado = JSON.parse(data); 
+			const itemDeserializado = localStorage.getItem("data"); 
+			// const itemDeserializado = JSON.parse(data); 
 
 			const payload = {
 			itemDeserializado: itemDeserializado,

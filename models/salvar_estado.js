@@ -9,3 +9,4 @@ const Salvar_estado = database.define('salvar_estado', {
 });
 
 module.exports = Salvar_estado;
+
