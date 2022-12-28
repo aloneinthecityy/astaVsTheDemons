@@ -117,6 +117,7 @@ module.exports = {
       { where: { id_usuario: req.session.userId } }
       );
       }
+      res.send(estado);
   },
 
   carregaDadosJogo: async (req, res) => {
@@ -131,6 +132,7 @@ module.exports = {
   },
 
   RetornaDadosJogo: async (req, res) => {
+    const slot = req.body.slot;
     
     let dadosBanco = await Salvar_estado.findAll({
       raw: true,
@@ -138,8 +140,21 @@ module.exports = {
         id_usuario: req.session.userId,
       },
     });
+
     console.log('Retorno dos dados:',dadosBanco);
     res.send(dadosBanco);
+  },
+
+  verificaSlotDaSessao: async (req, res) => {
+    
+    if(req.session.userId != null){
+    const estado = await Salvar_estado.findAll({
+      where: { id_usuario: req.session.userId }
+    });
+  
+    console.log('Retorno do estado: ',estado);
+    res.send(estado);
+    }
   },
 
   teste: (req, res, err) => {

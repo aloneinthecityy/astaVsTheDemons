@@ -29,6 +29,20 @@
 			xhr.send();
 			};
 
+			function renderizaSlot(slot,data){
+				const payload = {
+				data: data,
+				slot: slot
+				};
+				
+				const xhr = new XMLHttpRequest();
+				xhr.open('POST', '/verificaSlotDaSessao');
+				xhr.setRequestHeader('Content-Type', 'application/json');
+				xhr.send(JSON.stringify(payload));
+			};
+
+	
+
 
 			function cloudSave(slot, data){
 			const item = localStorage.getItem("data"); 
@@ -45,29 +59,8 @@
 			xhr.send(JSON.stringify(payload));
 		}
 
-		// function loadSave(data,slot){
-			 
-		// 	 const payload = {
-		// 	 data: data,
-		// 	 slot: slot
-		// 	 };
- 
-		// 	 const xhr = new XMLHttpRequest();
-		// 	 xhr.open('POST', '/carregaDados');
-		// 	 xhr.setRequestHeader('Content-Type', 'application/json');
-		// 	 xhr.send(JSON.stringify(payload));
-
-		// 	 if(xhr.status == 200){
-		// 		 console.log("Dados carregados com sucesso");
-		// 	 }
-		// 	 else{
-		// 		 console.log("Erro ao carregar dados");
-		// 	 }
-		// }
-
-
 		function cloudLoad(slot, data){
-			const itemDeserializado = localStorage.getItem("data"); 
+			const itemDeserializado = localStorage.getItem("data");
 			// const itemDeserializado = JSON.parse(data); 
 
 			const payload = {
