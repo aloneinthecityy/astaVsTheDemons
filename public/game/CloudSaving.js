@@ -1,34 +1,41 @@
 
 class CloudSaving extends RenJS.Plugin {
-  onInit(){
-    getJSON((err, dados) => {
-        if (err != null) {
-            console.error(err);
-        } else {
-          var dado = JSON.parse(dados)
-          var slot
-          var thumb
-            if(dado[0]['slot_1']){
-              slot = JSON.parse(dado[0]['slot_1'])
-              thumb = "/game/assets/backgrounds/" +slot['background'] + ".png"
-              localStorage.setItem('RenJSDATAQuickstart0', dado[0]['slot_1']);
-              localStorage.setItem('RenJSThumbnailQuickstart0', thumb);
-            }
-            if(dado[0]['slot_2']){
-              slot = JSON.parse(dado[0]['slot_2'])
-              thumb = "/game/assets/backgrounds/" +slot['background'] + ".png"
-              localStorage.setItem('RenJSDATAQuickstart1', dado[0]['slot_2']);
-              localStorage.setItem('RenJSThumbnailQuickstart1', thumb);
-            }
+  onInit(){  
+    // localStorage.removeItem('RenJSDATAQuickstart0');
+    // localStorage.removeItem('RenJSThumbnailQuickstart0');
+    // localStorage.removeItem('RenJSDATAQuickstart1');
+    // localStorage.removeItem('RenJSThumbnailQuickstart1');
+    // localStorage.removeItem('RenJSDATAQuickstart2');
+    // localStorage.removeItem('RenJSThumbnailQuickstart2');
+    // localStorage.removeItem('RenJSChoiceLogQuickstart');
+    // getJSON((err, dados) => {
+    //     if (err != null) {
+    //         console.error(err);
+    //     } else {
+    //       var dado = JSON.parse(dados)
+    //       var slot
+    //       var thumb
+    //         if(dado[0]['slot_1']){
+    //           slot = JSON.parse(dado[0]['slot_1'])
+    //           thumb = "/game/assets/backgrounds/" +slot['background'] + ".png"
+    //           localStorage.setItem('RenJSDATAQuickstart0', dado[0]['slot_1']);
+    //           localStorage.setItem('RenJSThumbnailQuickstart0', thumb);
+    //         }
+    //         if(dado[0]['slot_2']){
+    //           slot = JSON.parse(dado[0]['slot_2'])
+    //           thumb = "/game/assets/backgrounds/" +slot['background'] + ".png"
+    //           localStorage.setItem('RenJSDATAQuickstart1', dado[0]['slot_2']);
+    //           localStorage.setItem('RenJSThumbnailQuickstart1', thumb);
+    //         }
               
-            if(dado[0]['slot_3']){
-              slot = JSON.parse(dado[0]['slot_3'])
-              thumb = "/game/assets/backgrounds/" +slot['background'] + ".png"
-              localStorage.setItem('RenJSDATAQuickstart2', dado[0]['slot_3']);
-              localStorage.setItem('RenJSThumbnailQuickstart2', thumb);
-            }
-      }
-      });
+    //         if(dado[0]['slot_3']){
+    //           slot = JSON.parse(dado[0]['slot_3'])
+    //           thumb = "/game/assets/backgrounds/" +slot['background'] + ".png"
+    //           localStorage.setItem('RenJSDATAQuickstart2', dado[0]['slot_3']);
+    //           localStorage.setItem('RenJSThumbnailQuickstart2', thumb);
+    //         }
+    //   }
+    //   });
     }
 
   onSave(slot, data) { //  --> vai receber o slot e os dados a serem salvos
