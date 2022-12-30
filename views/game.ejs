@@ -14,7 +14,6 @@
 			let xhr = new XMLHttpRequest();
 			xhr.open('POST', '/carregaDados');
 				xhr.setRequestHeader('Content-Type', 'application/json');
-				//xhr.send();
 				xhr.onload = () => {
 
 					let status = xhr.status;
@@ -40,9 +39,6 @@
 				xhr.setRequestHeader('Content-Type', 'application/json');
 				xhr.send(JSON.stringify(payload));
 			};
-
-	
-
 
 			function cloudSave(slot, data){
 			const item = localStorage.getItem("data"); 

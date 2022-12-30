@@ -1,7 +1,7 @@
 backgrounds:
   atencao: game/assets/backgrounds/atencao.png
   telapreta: game/assets/backgrounds/telapreta.png
-  helpme: game/assets/backgrounds/helpme.jpg
+  helpme: game/assets/backgrounds/helpme.png
   escolhas: game/assets/backgrounds/escolhas.png
   escolha1: game/assets/backgrounds/escolha1.png
   escolha2: game/assets/backgrounds/escolha2.png
@@ -10,7 +10,7 @@ backgrounds:
   quartoClara: game/assets/backgrounds/quartoClara.png
   patio: game/assets/backgrounds/patioAtual.png
   patio2: game/assets/backgrounds/patio2.png
-  banheiroEscola: game/assets/backgrounds/banheiroEscola.jpg
+  banheiroEscola: game/assets/backgrounds/banheiroEscola.png
   banheiroCasa: game/assets/backgrounds/banheiroCasa.png
   salaDeAula: game/assets/backgrounds/salaDeAula.png
 

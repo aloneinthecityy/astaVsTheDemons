@@ -1,47 +1,33 @@
 
 class CloudSaving extends RenJS.Plugin {
-    onInit(data,slot){
-
-      // let serializedData = JSON.stringify(data);
-
-
-      renderizaSlot();
-
-      if(renderizaSlot() == null ){
-        localStorage.removeItem('RenJSDATAQuickstart0');
-        localStorage.removeItem('RenJSThumbnailQuickstart0');
-        localStorage.removeItem('RenJSDATAQuickstart1');
-        localStorage.removeItem('RenJSThumbnailQuickstart1');
-        localStorage.removeItem('RenJSDATAQuickstart2');
-        localStorage.removeItem('RenJSThumbnailQuickstart2');
-        localStorage.removeItem('RenJSChoiceLogQuickstart');
+  onInit(){
+    getJSON((err, dados) => {
+        if (err != null) {
+            console.error(err);
+        } else {
+          var dado = JSON.parse(dados)
+          var slot
+          var thumb
+            if(dado[0]['slot_1']){
+              slot = JSON.parse(dado[0]['slot_1'])
+              thumb = "/game/assets/backgrounds/" +slot['background'] + ".png"
+              localStorage.setItem('RenJSDATAQuickstart0', dado[0]['slot_1']);
+              localStorage.setItem('RenJSThumbnailQuickstart0', thumb);
+            }
+            if(dado[0]['slot_2']){
+              slot = JSON.parse(dado[0]['slot_2'])
+              thumb = "/game/assets/backgrounds/" +slot['background'] + ".png"
+              localStorage.setItem('RenJSDATAQuickstart1', dado[0]['slot_2']);
+              localStorage.setItem('RenJSThumbnailQuickstart1', thumb);
+            }
+              
+            if(dado[0]['slot_3']){
+              slot = JSON.parse(dado[0]['slot_3'])
+              thumb = "/game/assets/backgrounds/" +slot['background'] + ".png"
+              localStorage.setItem('RenJSDATAQuickstart2', dado[0]['slot_3']);
+              localStorage.setItem('RenJSThumbnailQuickstart2', thumb);
+            }
       }
-      if(renderizaSlot() != []){
-        if(slot == "MyRenJSGame_slot_0"){
-          localStorage.setItem('RenJSDATAQuickstart0', data);
-          console.log("Slot 0 preenchido");
-
-        }
-        if(slot == "MyRenJSGame_slot_1"){
-          localStorage.setItem('RenJSDATAQuickstart1', data);
-          console.log("Slot 1 preenchido");
-
-        }
-        if(slot == "MyRenJSGame_slot_2"){
-          localStorage.setItem('RenJSDATAQuickstart2', data);
-          console.log("Slot 2 preenchido");
-        }        
-      }
-
-      console.log("CloudSaving plugin initialized");
-      //const dataString = loadSave();
-      getJSON((err, data) => {
-
-          if (err != null) {
-              console.error(err);
-          } else {
-              console.log(data);
-        }
       });
     }
 
@@ -52,6 +38,7 @@ class CloudSaving extends RenJS.Plugin {
     // fizer no parâmetro de dados também será salva.
 
     // salva na nuvem como uma string com o slot fornecido
+
     const userId = localStorage.getItem('userId');
 
 
@@ -79,14 +66,15 @@ class CloudSaving extends RenJS.Plugin {
 
     // let serializedData = JSON.stringify(data);
     // console.log(serializedData);
-
     
-    let serializedData = cloudLoad(`MyRenJSGame_slot_${slot}`, userId)
 
-    if (serializedData) {
-      let loadedData = JSON.parse(serializedData)
-      Object.assign(data, loadedData)
-    }
+    // let serializedData = cloudLoad(`MyRenJSGame_slot_${slot}`, userId)
+
+    // if (serializedData) {
+    //   let loadedData = JSON.parse(serializedData)
+    //   Object.assign(data, loadedData)
+    // }
+
   }
 }
 
