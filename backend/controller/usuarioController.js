@@ -128,7 +128,7 @@ module.exports = {
       },
     });
     console.log('Carregamento dos dados: ',dadosBanco);
-    res.send(dadosBanco);
+    res.send(JSON.stringify(dadosBanco));
   },
 
   RetornaDadosJogo: async (req, res) => {
@@ -145,17 +145,7 @@ module.exports = {
     res.send(dadosBanco);
   },
 
-  verificaSlotDaSessao: async (req, res) => {
-    
-    if(req.session.userId != null){
-    const estado = await Salvar_estado.findAll({
-      where: { id_usuario: req.session.userId }
-    });
-  
-    console.log('Retorno do estado: ',estado);
-    res.send(estado);
-    }
-  },
+
 
   teste: (req, res, err) => {
     if (req.session.loggedin) {

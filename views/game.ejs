@@ -6,6 +6,8 @@
 		<script src=".././game/renjs.js"></script>
 		<script src=".././game/boot.js"></script>
 		<script src=".././game/CloudSaving.js"></script>
+
+
 	</head>
 	<body style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px;margin-right: 0px;">
 		<script>
@@ -28,54 +30,43 @@
 
 			xhr.send();
 			};
+
 			localStorage.clear();
+
     getJSON((err, dados) => {
       if (err != null) {
         console.error(err);
+		
       } else {
-        var dado = JSON.parse(dados)
-        console.log(dado)
+		let dado = JSON.parse(dados);
+		console.log(dado)
         if (dado.length != 0) {
           var slot
           var thumb
           if (dado[0]['slot_1']) {
-            slot = JSON.parse(dado[0]['slot_1'])
-            thumb = "/game/assets/backgrounds/" + slot['background'] + ".png"
-            localStorage.setItem('RenJSDATAQuickstart0', dado[0]['slot_1']);
-            localStorage.setItem('RenJSThumbnailQuickstart0', thumb);
+			slot = JSON.parse(JSON.stringify(dado[0]['slot_1']))            
+			thumb = "/game/assets/backgrounds/" + slot['background'] + ".png"
+			localStorage.setItem('RenJSDATAQuickstart0', JSON.stringify(dado[0]['slot_1']));            localStorage.setItem('RenJSThumbnailQuickstart0', thumb);
+			console.log("ESPAÇO DO SLOT 1 CONTÉM DADOS! ");
           }
           if (dado[0]['slot_2']) {
-            slot = JSON.parse(dado[0]['slot_2'])
+			slot = JSON.parse(JSON.stringify(dado[0]['slot_2']))            
             thumb = "/game/assets/backgrounds/" + slot['background'] + ".png"
-            localStorage.setItem('RenJSDATAQuickstart1', dado[0]['slot_2']);
-            localStorage.setItem('RenJSThumbnailQuickstart1', thumb);
+			localStorage.setItem('RenJSDATAQuickstart1', JSON.stringify(dado[0]['slot_2']));            localStorage.setItem('RenJSThumbnailQuickstart1', thumb);
+			console.log("ESPAÇO DO SLOT 2 CONTÉM DADOS!");
+
           }
 
           if (dado[0]['slot_3']) {
-            slot = JSON.parse(dado[0]['slot_3'])
+			slot = JSON.parse(JSON.stringify(dado[0]['slot_3']))            
             thumb = "/game/assets/backgrounds/" + slot['background'] + ".png"
-            localStorage.setItem('RenJSDATAQuickstart2', dado[0]['slot_3']);
-            localStorage.setItem('RenJSThumbnailQuickstart2', thumb);
+			localStorage.setItem('RenJSDATAQuickstart2', JSON.stringify(dado[0]['slot_3']));            localStorage.setItem('RenJSThumbnailQuickstart2', thumb);
+			console.log("ESPAÇO DO SLOT 3 CONTÉM DADOS!");
+
           }
         }
       }
     });
-
-			function renderizaSlot(slot,data){
-				const payload = {
-				data: data,
-				slot: slot
-				};
-				
-				const xhr = new XMLHttpRequest();
-				xhr.open('POST', '/verificaSlotDaSessao');
-				xhr.setRequestHeader('Content-Type', 'application/json');
-				xhr.send(JSON.stringify(payload));
-			};
-
-	
-
-
 			function cloudSave(slot, data){
 				console.log("CLOUDSAVE: " + data)
 			const item = localStorage.getItem("data"); 

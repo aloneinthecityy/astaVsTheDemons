@@ -41,7 +41,7 @@ app.get('/jogar', usuarioController.jogar);
 app.post('/recebedados', usuarioController.RecebeDadosJogo);
 app.post('/carregaDados', usuarioController.carregaDadosJogo);
 app.post('/retornaDados', usuarioController.RetornaDadosJogo);
-app.post('/verificaSlotDaSessao', usuarioController.verificaSlotDaSessao);
+
 
 
 app.get('/teste', usuarioController.teste);
