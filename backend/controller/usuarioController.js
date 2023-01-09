@@ -181,6 +181,7 @@ module.exports = {
     if (password.length < 8) {
       req.session.mensagem = 'Digite uma senha com no mínimo 8 caracteres.';
       res.redirect('/cadastro');
+      
     } else {
       if (user) {
         req.session.mensagem = 'Conta já cadastrada!';
