@@ -161,6 +161,38 @@ module.exports = {
     res.render('../views/home.ejs');
   },
 
+  forum: (req, res) => {
+    let isAuth = req.session.loggedin;
+
+    try {
+      if (isAuth) {
+        const username = req.session.username[0];
+
+        res.render('../views/forum.ejs', { user: username });
+      } else {
+        const mensagem = 'Você precisa estar logado para acessar essa página!';
+        req.session.mensagem = mensagem;
+        res.render('../views/login.ejs', { mensagem });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  // enviaApelidoForum: (req, res) => {
+  //   let isAuth = req.session.loggedin;
+  //   if (isAuth) {
+  //     const username = req.session.username[0];
+  //    res.render('../views/forum.ejs', { username });
+
+  //   } else {
+  //     const mensagem = 'Você precisa estar logado para acessar essa página!';
+  //     req.session.mensagem = mensagem;
+
+  //     res.render('../views/login.ejs', { mensagem });
+  //   }
+  // },
+
   blog: (req, res) => {
     res.render('../views/blog.ejs');
   },

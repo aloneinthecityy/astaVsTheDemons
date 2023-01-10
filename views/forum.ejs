@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <%- include('head'); %>
+  </head>
+
+  <body class="bg-[#1B1A1A]">
+    <!-- Div pai que define as margens laterais -->
+    <div class="flex flex-col h-screen mx-24 border-4 border-red-700">
+      <!-- Exibe o nome do usuário  -->
+      <div class="my-8 text-2xl w-full h-8 border-2">
+        <% if (user) { %>
+        <h1 class="text-white">Olá, @<%= user %>!</h1>
+        <% } %>
+      </div>
+
+      <!-- Seção de enviar comentário -->
+      <div
+        class="flex flex-col w-full h-40 rounded-xl bg-[#D9D9D9] text-white px-[5vw]"
+      >
+        <form
+          action="/forum"
+          method="POST"
+          class="flex flex-col text-left justify-start items-start"
+        >
+
+          <!-- Campo para digitar os comentários -->
+          <textarea
+    type="text"
+    name="comentario"
+    placeholder="Desabafe, comente, relate suas impressões do jogo. Aqui é um espaço aberto e seguro. Seu post pode ser anônimo, caso preferir."
+    class="w-full h-14 my-5 outline-none resize-none text-red-900 bg-transparent rounded-lg"
+>
+</textarea>
+
+          
+          <div class="flex flex-row w-full h-15 justify-between border-2 border-red-600">
+            <!-- Checkbox para comentário anônimo -->
+            
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" value="" class="sr-only peer" checked>
+          <div class="w-11 h-6 bg-gray-400 rounded-full peer peer-focus:ring-4 peer-checked:after:translate-x-full after:absolute after:top-2.5 after:left-[4px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-800"></div>
+          <span class="ml-3 text-sm font-medium text-gray-900">Checked toggle</span>
+        </label>
+
+  
+            <button type="submit" class="bg-red-800 rounded-lg py-2 px-5 hover:bg-red-900">Enviar</button>
+          </div>
+        </form>
+      </div>
+
+
+
+
+
+
+
+
+
+      <!-- Seção de comentários realizados por outros usuários -->
+
+      <div class="flex flex-col w-full h-3 border-2"></div>
+      <br>
+
+      <!-- Linha fina de divisão -->
+      <div class="border-t border-white opacity-20"></div>
+      <br>
+
+      <!-- Exibe os comentários -->
+      <divs
+      class="flex flex-col w-full h-36 rounded-xl bg-[#696969] text-white px-[5vw]"
+    >
+    
+        <!-- Campo para digitar os comentários -->
+        <textarea
+  type="text"
+  name="comentario"
+  placeholder="Desabafe, comente, relate suas impressões do jogo. Aqui é um espaço aberto e seguro. Seu post pode ser anônimo, caso preferir."
+  class="w-full h-14 my-5 outline-none resize-none text-red-900 bg-transparent rounded-lg"
+>
+</textarea>
+        </div>
+    </div>
+
+    </div>
+  </body>
+</html>
