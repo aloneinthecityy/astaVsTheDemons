@@ -9,25 +9,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      id_usuario: {
-        type: Sequelize.INTEGER,
+      user: {
+        type: Sequelize.STRING, allowNull: true
       },
       comentario: {
-        type: Sequelize.BIGINT,
+        type: Sequelize.STRING, allowNull: false
       },
       curtidas: {
         type: Sequelize.INTEGER,
-      },
-      fk_idUsuario: {
-        // name of foreign key using naming convention
-        type: Sequelize.DataTypes.INTEGER,
-        references: {
-          model: { tableName: 'usuarios' }, // provide table name
-          key: 'id_usuario', // PK of the User Model
-        },
-        allowNull: false,
-        onUpdate: 'cascade',
-        onDelete: 'cascade',
       },
       createdAt: {
         allowNull: false,

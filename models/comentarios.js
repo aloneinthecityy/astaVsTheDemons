@@ -8,12 +8,12 @@ const Comentarios = database.define('comentarios', {
     allowNull: false,
     primaryKey: true,
   },
-  id_usuario: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
+  user: {
+    type: Sequelize.STRING, 
+    allowNull: true
   },
   comentario: {
-    type: Sequelize.BIGINT,
+    type: Sequelize.STRING, allowNull: false
   },
   curtidas: {
     type: Sequelize.INTEGER,

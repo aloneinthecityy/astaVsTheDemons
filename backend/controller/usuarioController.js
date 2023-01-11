@@ -1,4 +1,6 @@
 const Usuario = require('../../models/usuario');
+const Comentarios = require('../../models/comentarios');
+const Respostas = require('../../models/respostas');
 const express = require('express');
 const bcrypt = require('bcrypt');
 const app = express();
@@ -7,6 +9,7 @@ const saltRounds = 8;
 const bodyParser = require('body-parser');
 // const sequelize = require('../../config/db');
 const Sequelize = require('sequelize');
+const cons = require('consolidate');
 
 const sequelize = new Sequelize('astavsthedemons', 'postgres', 'admin', {
   host: 'localhost',
@@ -161,14 +164,19 @@ module.exports = {
     res.render('../views/home.ejs');
   },
 
-  forum: (req, res) => {
+  forum: async(req, res) => {
+    
     let isAuth = req.session.loggedin;
 
     try {
       if (isAuth) {
         const username = req.session.username[0];
 
-        res.render('../views/forum.ejs', { user: username });
+        let comentarios = await Comentarios.findAll({
+          raw: true,
+        });
+        
+        res.render('../views/forum.ejs', { user: username, comentarios: comentarios});
       } else {
         const mensagem = 'Você precisa estar logado para acessar essa página!';
         req.session.mensagem = mensagem;
@@ -179,19 +187,6 @@ module.exports = {
     }
   },
 
-  // enviaApelidoForum: (req, res) => {
-  //   let isAuth = req.session.loggedin;
-  //   if (isAuth) {
-  //     const username = req.session.username[0];
-  //    res.render('../views/forum.ejs', { username });
-
-  //   } else {
-  //     const mensagem = 'Você precisa estar logado para acessar essa página!';
-  //     req.session.mensagem = mensagem;
-
-  //     res.render('../views/login.ejs', { mensagem });
-  //   }
-  // },
 
   blog: (req, res) => {
     res.render('../views/blog.ejs');
@@ -271,6 +266,33 @@ module.exports = {
       }
     }
   },
+
+  insereComentario: (req, res) => {
+    const comentario = req.body.comentario;
+    const checkbox =  req.body.checkbox;
+
+    if(checkbox == 'on'){
+
+      console.log('o toggle está selecionado');
+        Comentarios.create({
+          user: 'Anônimo',
+          comentario,
+        }).then(() => {
+            res.status(201).redirect('/forum');
+        });
+    }
+    else{
+      const username = req.session.username[0];
+      Comentarios.create({
+            user: username,
+            comentario
+        }).then(() => {
+            res.status(201).redirect('/forum');
+        });
+    }
+},
+
+
 
   /* Dica de simplificação do verificaLogin */
   login_post: async (req, res) => {

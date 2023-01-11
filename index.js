@@ -38,7 +38,10 @@ app.post('/login', usuarioController.verificaLogin);
 app.get('/logout', usuarioController.logout);
 
 app.get('/jogar', usuarioController.jogar);
+
 app.get('/forum', usuarioController.forum);
+app.post('/insereComentario', usuarioController.insereComentario);
+
 
 app.post('/recebedados', usuarioController.RecebeDadosJogo);
 app.post('/carregaDados', usuarioController.carregaDadosJogo);

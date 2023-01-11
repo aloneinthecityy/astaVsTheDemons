@@ -9,6 +9,7 @@ const Respostas = database.define('respostas', {
     primaryKey: true,
   },
   id_comentario: { type: Sequelize.INTEGER },
+  user: {type: Sequelize.STRING, allowNull: true},
   comentario: { type: Sequelize.BIGINT },
 });
 
