@@ -8,7 +8,9 @@ const Enredo = database.define('enredo', {
     allowNull: false,
     primaryKey: true,
   },
-  nome_enredo: DataTypes.STRING,
+  nome_enredo: {
+    type: DataTypes.STRING,
+  },
 });
 
 module.exports = Enredo;

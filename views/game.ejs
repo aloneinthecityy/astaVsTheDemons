@@ -1,82 +1,84 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title>Asta vs The Demons</title>
-		<script src=".././game/renjs.js"></script>
-		<script src=".././game/boot.js"></script>
-		<script src=".././game/CloudSaving.js"></script>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Asta vs The Demons</title>
+	<script src=".././game/renjs.js"></script>
+	<script src=".././game/boot.js"></script>
+	<script src=".././game/CloudSaving.js"></script>
 
 
 
-	</head>
-	<body style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px;margin-right: 0px;">
-		<script>
-			let getJSON =  (callback) => {
+</head>
+
+<body style="margin-top: 0px; margin-bottom: 0px; margin-left: 0px;margin-right: 0px;">
+	<script>
+		let getJSON = (callback) => {
 			let xhr = new XMLHttpRequest();
 			xhr.open('POST', '/carregaDados');
-				xhr.setRequestHeader('Content-Type', 'application/json');
-				//xhr.send();
-				xhr.onload = () => {
+			xhr.setRequestHeader('Content-Type', 'application/json');
+			//xhr.send();
+			xhr.onload = () => {
 
-					let status = xhr.status;
+				let status = xhr.status;
 
-					if (status == 200) {
-						callback(null, xhr.response);
-					} else {
-						callback(status);
-					}
-				};
-
-			xhr.send();
+				if (status == 200) {
+					callback(null, xhr.response);
+				} else {
+					callback(status);
+				}
 			};
 
-			localStorage.clear();
+			xhr.send();
+		};
 
-    getJSON((err, dados) => {
-      if (err != null) {
-        console.error(err);
-		
-      } else {
-		let dado = JSON.parse(dados);
-		console.log(dado)
-        if (dado.length != 0) {
-          var slot
-          var thumb
-          if (dado[0]['slot_1']) {
-			slot = JSON.parse(JSON.stringify(dado[0]['slot_1']))            
-			thumb = "/game/assets/backgrounds/" + slot['background'] + ".png"
-			localStorage.setItem('RenJSDATAQuickstart0', JSON.stringify(dado[0]['slot_1']));            localStorage.setItem('RenJSThumbnailQuickstart0', thumb);
-			console.log("ESPAÇO DO SLOT 1 CONTÉM DADOS! ");
-          }
-          if (dado[0]['slot_2']) {
-			slot = JSON.parse(JSON.stringify(dado[0]['slot_2']))            
-            thumb = "/game/assets/backgrounds/" + slot['background'] + ".png"
-			localStorage.setItem('RenJSDATAQuickstart1', JSON.stringify(dado[0]['slot_2']));            localStorage.setItem('RenJSThumbnailQuickstart1', thumb);
-			console.log("ESPAÇO DO SLOT 2 CONTÉM DADOS!");
+		localStorage.clear();
 
-          }
+		getJSON((err, dados) => {
+			if (err != null) {
+				console.error(err);
 
-          if (dado[0]['slot_3']) {
-			slot = JSON.parse(JSON.stringify(dado[0]['slot_3']))            
-            thumb = "/game/assets/backgrounds/" + slot['background'] + ".png"
-			localStorage.setItem('RenJSDATAQuickstart2', JSON.stringify(dado[0]['slot_3']));            localStorage.setItem('RenJSThumbnailQuickstart2', thumb);
-			console.log("ESPAÇO DO SLOT 3 CONTÉM DADOS!");
+			} else {
+				let dado = JSON.parse(dados);
+				console.log(dado)
+				if (dado.length != 0) {
+					var slot
+					var thumb
+					if (dado[0]['slot_1']) {
+						slot = JSON.parse(JSON.stringify(dado[0]['slot_1']))
+						thumb = "/game/assets/backgrounds/" + slot['background'] + ".png"
+						localStorage.setItem('RenJSDATAQuickstart0', JSON.stringify(dado[0]['slot_1'])); localStorage.setItem('RenJSThumbnailQuickstart0', thumb);
+						console.log("ESPAÇO DO SLOT 1 CONTÉM DADOS! ");
+					}
+					if (dado[0]['slot_2']) {
+						slot = JSON.parse(JSON.stringify(dado[0]['slot_2']))
+						thumb = "/game/assets/backgrounds/" + slot['background'] + ".png"
+						localStorage.setItem('RenJSDATAQuickstart1', JSON.stringify(dado[0]['slot_2'])); localStorage.setItem('RenJSThumbnailQuickstart1', thumb);
+						console.log("ESPAÇO DO SLOT 2 CONTÉM DADOS!");
 
-          }
-        }
-      }
-    });
+					}
+
+					if (dado[0]['slot_3']) {
+						slot = JSON.parse(JSON.stringify(dado[0]['slot_3']))
+						thumb = "/game/assets/backgrounds/" + slot['background'] + ".png"
+						localStorage.setItem('RenJSDATAQuickstart2', JSON.stringify(dado[0]['slot_3'])); localStorage.setItem('RenJSThumbnailQuickstart2', thumb);
+						console.log("ESPAÇO DO SLOT 3 CONTÉM DADOS!");
+
+					}
+				}
+			}
+		});
 
 
-			function cloudSave(slot, data){
-				console.log("CLOUDSAVE: " + data)
-			const item = localStorage.getItem("data"); 
-			const itemDeserializado = JSON.parse(data); 
+		function cloudSave(slot, data) {
+			console.log("CLOUDSAVE: " + data)
+			const item = localStorage.getItem("data");
+			const itemDeserializado = JSON.parse(data);
 
 			const payload = {
-			itemDeserializado: itemDeserializado,
-			slot: slot
+				itemDeserializado: itemDeserializado,
+				slot: slot
 			};
 
 			const xhr = new XMLHttpRequest();
@@ -85,13 +87,13 @@
 			xhr.send(JSON.stringify(payload));
 		}
 
-		function cloudLoad(slot, data){
+		function cloudLoad(slot, data) {
 			const itemDeserializado = localStorage.getItem("data");
 			// const itemDeserializado = JSON.parse(data); 
 
 			const payload = {
-			itemDeserializado: itemDeserializado,
-			slot: slot
+				itemDeserializado: itemDeserializado,
+				slot: slot
 			};
 
 			const xhr = new XMLHttpRequest();
@@ -99,12 +101,13 @@
 			xhr.setRequestHeader('Content-Type', 'application/json');
 			xhr.send(JSON.stringify(payload));
 		}
-		</script>
-			<% if (isAuth && userId) { %>
-				<input type="text" id="isAuth" value="<%= isAuth %>" style="display: none;">
-				<input type="text" id="userId" value="<%= userId %>" style="display: none;" >
-				<input type="text" id="username" value="<%= username %>" style="display: none;" >
-			<% } %>
-	</body>
-	<script src=".././game/functions.js"></script>
+	</script>
+	<% if (isAuth && userId) { %>
+		<input type="text" id="isAuth" value="<%= isAuth %>" style="display: none;">
+		<input type="text" id="userId" value="<%= userId %>" style="display: none;">
+		<input type="text" id="username" value="<%= username %>" style="display: none;">
+		<% } %>
+</body>
+<script src=".././game/functions.js"></script>
+
 </html>

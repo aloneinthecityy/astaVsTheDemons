@@ -8,9 +8,16 @@ const Respostas = database.define('respostas', {
     allowNull: false,
     primaryKey: true,
   },
-  id_comentario: { type: Sequelize.INTEGER },
-  user: {type: Sequelize.STRING, allowNull: true},
-  comentario: { type: Sequelize.BIGINT },
+  id_comentario: {
+    type: Sequelize.INTEGER,
+  },
+  user: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  comentario: {
+    type: Sequelize.BIGINT,
+  },
 });
 
 module.exports = Respostas;

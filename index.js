@@ -5,8 +5,6 @@ const port = 81;
 
 const bodyParser = require('body-parser');
 
-
-
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -42,12 +40,9 @@ app.get('/jogar', usuarioController.jogar);
 app.get('/forum', usuarioController.forum);
 app.post('/insereComentario', usuarioController.insereComentario);
 
-
 app.post('/recebedados', usuarioController.RecebeDadosJogo);
 app.post('/carregaDados', usuarioController.carregaDadosJogo);
 app.post('/retornaDados', usuarioController.RetornaDadosJogo);
-
-
 
 app.get('/teste', usuarioController.teste);
 

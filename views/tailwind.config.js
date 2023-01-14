@@ -1,8 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './src/**/*.{html,css}',
-  ],
+  content: ['./src/**/*.{html,css}'],
   theme: {
     extend: {
       fontFamily: {
@@ -11,15 +9,13 @@ module.exports = {
       screens: {
         '2xl': '606.4px',
         '1xl': '500px',
-        'maxWidth': '100%',
-        'maxHeight': '100%',
+        maxWidth: '100%',
+        maxHeight: '100%',
       },
       backgroundImage: {
-        'mente': "url('./image.png)"
-      }
+        mente: "url('./image.png)",
+      },
     },
   },
-  plugins: [
-      require('@tailwindcss/forms'),
-  ]
-}
+  plugins: [require('@tailwindcss/forms')],
+};

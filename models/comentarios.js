@@ -4,19 +4,32 @@ const database = require('../config/db');
 const Comentarios = database.define('comentarios', {
   id_comentario: {
     type: Sequelize.INTEGER,
+    primaryKey: true,
     autoIncrement: true,
     allowNull: false,
-    primaryKey: true,
   },
-  user: {
-    type: Sequelize.STRING, 
-    allowNull: true
+  id_user: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: 'usuarios',
+      key: 'id_usuario',
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+    allowNull: false,
+  },
+  nm_user: {
+    type: Sequelize.STRING,
+    allowNull: true,
   },
   comentario: {
-    type: Sequelize.STRING, allowNull: false
+    type: Sequelize.TEXT,
+    allowNull: false,
   },
   curtidas: {
     type: Sequelize.INTEGER,
+    allowNull: true,
+    defaultValue: 0,
   },
 });
 

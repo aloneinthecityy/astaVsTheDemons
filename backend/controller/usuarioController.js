@@ -16,8 +16,6 @@ const sequelize = new Sequelize('astavsthedemons', 'postgres', 'admin', {
   dialect: 'postgres',
 });
 
-
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
@@ -31,13 +29,12 @@ const Salvar_estado = sequelize.define('salvar_estado', {
 });
 
 module.exports = {
-  jogar: async(req, res) => {
+  jogar: async (req, res) => {
     let isAuth = req.session.loggedin;
     if (isAuth) {
       const username = req.session.username[0];
-      const userId = req.session.userId;   
-     res.render('../views/game.ejs', { userId, isAuth, username });
-
+      const userId = req.session.userId;
+      res.render('../views/game.ejs', { userId, isAuth, username });
     } else {
       const mensagem = 'Você precisa estar logado para jogar!';
       req.session.mensagem = mensagem;
@@ -51,76 +48,72 @@ module.exports = {
     const slot = req.body.slot;
 
     const estado = await Salvar_estado.findOne({
-      where: { id_usuario: req.session.userId }
+      where: { id_usuario: req.session.userId },
     });
 
-    if (estado == null && slot == "MyRenJSGame_slot_0") {
-
+    if (estado == null && slot == 'MyRenJSGame_slot_0') {
       await Salvar_estado.create({
-      where: {
-        id_usuario: req.session.userId,
-      },
-      id_usuario: req.session.userId,
-      slot_1: itemDeserializado,
-    }).then(() => {
-      console.log('Registro adicionado com sucesso NO SLOT 1.');      
-    }).catch(err => {
-      console.error('Falha ao adicionar registro NO SLOT 1:', err);
-    });
-
-  } else if (slot == "MyRenJSGame_slot_0") {
-    await Salvar_estado.update(
-    { slot_1: itemDeserializado },
-    { where: { id_usuario: req.session.userId } }
-    );
-    }
-  
-
-      if (estado == null && slot == "MyRenJSGame_slot_1") {
-
-          await Salvar_estado.create({
-          where: {
-            id_usuario: req.session.userId,
-          },
+        where: {
           id_usuario: req.session.userId,
-          slot_2: itemDeserializado,
-        }).then(() => {
-          console.log('Registro adicionado com sucesso NO SLOT 2.');      
-        }).catch(err => {
+        },
+        id_usuario: req.session.userId,
+        slot_1: itemDeserializado,
+      })
+        .then(() => {
+          console.log('Registro adicionado com sucesso NO SLOT 1.');
+        })
+        .catch((err) => {
+          console.error('Falha ao adicionar registro NO SLOT 1:', err);
+        });
+    } else if (slot == 'MyRenJSGame_slot_0') {
+      await Salvar_estado.update(
+        { slot_1: itemDeserializado },
+        { where: { id_usuario: req.session.userId } }
+      );
+    }
+
+    if (estado == null && slot == 'MyRenJSGame_slot_1') {
+      await Salvar_estado.create({
+        where: {
+          id_usuario: req.session.userId,
+        },
+        id_usuario: req.session.userId,
+        slot_2: itemDeserializado,
+      })
+        .then(() => {
+          console.log('Registro adicionado com sucesso NO SLOT 2.');
+        })
+        .catch((err) => {
           console.error('Falha ao adicionar registro NO SLOT 2:', err);
         });
-      
-      }
-      else if (slot == "MyRenJSGame_slot_1") {
-        await Salvar_estado.update(
+    } else if (slot == 'MyRenJSGame_slot_1') {
+      await Salvar_estado.update(
         { slot_2: itemDeserializado },
         { where: { id_usuario: req.session.userId } }
-        );
-        }
-   
-
-   if (estado == null && slot == "MyRenJSGame_slot_2") {
-
-      await Salvar_estado.create({
-      where: {
-        id_usuario: req.session.userId,
-      },
-      id_usuario: req.session.userId,
-      slot_3: itemDeserializado,
-    }).then(() => {
-      console.log('Registro adicionado com sucesso NO SLOT 3.');      
-    }).catch(err => {
-      console.error('Falha ao adicionar registro NO SLOT 3:', err);
-    });
-  
-  }
-    else if (slot == "MyRenJSGame_slot_2") {
-      await Salvar_estado.update(
-      { slot_3: itemDeserializado },
-      { where: { id_usuario: req.session.userId } }
       );
-      }
-      res.send(estado);
+    }
+
+    if (estado == null && slot == 'MyRenJSGame_slot_2') {
+      await Salvar_estado.create({
+        where: {
+          id_usuario: req.session.userId,
+        },
+        id_usuario: req.session.userId,
+        slot_3: itemDeserializado,
+      })
+        .then(() => {
+          console.log('Registro adicionado com sucesso NO SLOT 3.');
+        })
+        .catch((err) => {
+          console.error('Falha ao adicionar registro NO SLOT 3:', err);
+        });
+    } else if (slot == 'MyRenJSGame_slot_2') {
+      await Salvar_estado.update(
+        { slot_3: itemDeserializado },
+        { where: { id_usuario: req.session.userId } }
+      );
+    }
+    res.send(estado);
   },
 
   carregaDadosJogo: async (req, res) => {
@@ -130,13 +123,13 @@ module.exports = {
         id_usuario: req.session.userId,
       },
     });
-    console.log('Carregamento dos dados: ',dadosBanco);
+    console.log('Carregamento dos dados: ', dadosBanco);
     res.send(JSON.stringify(dadosBanco));
   },
 
   RetornaDadosJogo: async (req, res) => {
     const slot = req.body.slot;
-    
+
     let dadosBanco = await Salvar_estado.findAll({
       raw: true,
       where: {
@@ -144,11 +137,9 @@ module.exports = {
       },
     });
 
-    console.log('Retorno dos dados:',dadosBanco);
+    console.log('Retorno dos dados:', dadosBanco);
     res.send(dadosBanco);
   },
-
-
 
   teste: (req, res, err) => {
     if (req.session.loggedin) {
@@ -164,8 +155,7 @@ module.exports = {
     res.render('../views/home.ejs');
   },
 
-  forum: async(req, res) => {
-    
+  forum: async (req, res) => {
     let isAuth = req.session.loggedin;
 
     try {
@@ -174,9 +164,13 @@ module.exports = {
 
         let comentarios = await Comentarios.findAll({
           raw: true,
+          order: [['updatedAt', 'DESC']],
         });
-        
-        res.render('../views/forum.ejs', { user: username, comentarios: comentarios});
+
+        res.render('../views/forum.ejs', {
+          user: username,
+          comentarios: comentarios,
+        });
       } else {
         const mensagem = 'Você precisa estar logado para acessar essa página!';
         req.session.mensagem = mensagem;
@@ -186,7 +180,6 @@ module.exports = {
       console.log(err);
     }
   },
-
 
   blog: (req, res) => {
     res.render('../views/blog.ejs');
@@ -208,7 +201,6 @@ module.exports = {
     if (password.length < 8) {
       req.session.mensagem = 'Digite uma senha com no mínimo 8 caracteres.';
       res.redirect('/cadastro');
-      
     } else {
       if (user) {
         req.session.mensagem = 'Conta já cadastrada!';
@@ -252,12 +244,12 @@ module.exports = {
       if (login) {
         req.session.loggedin = true;
         req.session.userId = dadosBanco[0]['id_usuario']; //criando session com o id_usuario
-        
+
         const { email } = req.body;
         const username = email.split('@');
         req.session.username = username; // username ficticio com o inicio do email
 
-        console.log("Seja bem vindo",username[0], "!"); //aqui printa o nome ficticio do usuario no console!
+        console.log('Seja bem vindo', username[0], '!'); //aqui printa o nome ficticio do usuario no console!
 
         res.redirect('/teste');
       } else {
@@ -268,31 +260,19 @@ module.exports = {
   },
 
   insereComentario: (req, res) => {
+    const userId = req.session.userId;
     const comentario = req.body.comentario;
-    const checkbox =  req.body.checkbox;
+    const checkbox = req.body.checkbox;
+    const username = checkbox === 'on' ? 'Anônimo' : req.session.username[0];
 
-    if(checkbox == 'on'){
-
-      console.log('o toggle está selecionado');
-        Comentarios.create({
-          user: 'Anônimo',
-          comentario,
-        }).then(() => {
-            res.status(201).redirect('/forum');
-        });
-    }
-    else{
-      const username = req.session.username[0];
-      Comentarios.create({
-            user: username,
-            comentario
-        }).then(() => {
-            res.status(201).redirect('/forum');
-        });
-    }
-},
-
-
+    Comentarios.create({
+      user: username,
+      id_user: userId,
+      comentario,
+    }).then(() => {
+      res.status(201).redirect('/forum');
+    });
+  },
 
   /* Dica de simplificação do verificaLogin */
   login_post: async (req, res) => {
