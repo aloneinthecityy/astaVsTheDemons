@@ -2,11 +2,9 @@ const express = require('express');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const port = 81;
-
 const bodyParser = require('body-parser');
 
-
-
+/* Configurações do express */
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -25,8 +23,11 @@ app.use(express.static('./public'));
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+
+/* Controller */
 const usuarioController = require('./backend/controller/usuarioController');
 
+/* Rotas */
 app.get('/', usuarioController.home);
 
 app.get('/cadastro', usuarioController.cadastro);
@@ -47,12 +48,9 @@ app.get('/jogar', usuarioController.jogar);
 app.get('/forum', usuarioController.forum);
 app.post('/insereComentario', usuarioController.insereComentario);
 
-
 app.post('/recebedados', usuarioController.RecebeDadosJogo);
 app.post('/carregaDados', usuarioController.carregaDadosJogo);
 app.post('/retornaDados', usuarioController.RetornaDadosJogo);
-
-
 
 app.get('/teste', usuarioController.teste);
 
@@ -62,6 +60,7 @@ app.get('/*', (req, res) => {
   res.status(404).render('404.ejs');
 });
 
+// Inicia o servidor
 app.listen(port, () => {
   console.log(`servidor ouvindo : http://127.0.0.1:${port}`);
 });

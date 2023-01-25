@@ -2,7 +2,7 @@ const database = require('../database');
 const Sequelize = require('sequelize');
 
 const SalvarEstado = database.define(
-  'salvar_estados',
+  'salvar_estado',
   {
     id_estado: {
       type: Sequelize.INTEGER,
@@ -34,8 +34,8 @@ const SalvarEstado = database.define(
     },
   },
   {
-    tableName: 'salvar_estados',
+    tableName: 'salvar_estado',
   }
 );
 
-module.exports = salvar_Estados;
+module.exports = SalvarEstado;

@@ -16,9 +16,9 @@ ul {
 }
 
 li {
-  display: inline;
-  float: right;
-  margin-top: 10px;
+    display: inline;
+    float: right;
+    margin-top: 10px;
 }
 
 li a {

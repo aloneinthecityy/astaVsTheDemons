@@ -4,9 +4,9 @@ const Sequelize = require('sequelize');
 const Comentarios = database.define('comentarios', {
   id_comentario: {
     type: Sequelize.INTEGER,
+    primaryKey: true,
     autoIncrement: true,
     allowNull: false,
-    primaryKey: true,
   },
   id_usuario: {
     type: Sequelize.INTEGER,
@@ -28,6 +28,8 @@ const Comentarios = database.define('comentarios', {
   },
   curtidas: {
     type: Sequelize.INTEGER,
+    allowNull: true,
+    defaultValue: 0,
   },
 });
 

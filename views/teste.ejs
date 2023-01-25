@@ -1,32 +1,33 @@
 <html>
-  <head>
-    <%- include('headHome'); %>
-      <title>Teste</title>
-  </head>
 
-  <body>
-    <!-- <script type="module" src="../backend/controller/usuarioController.js">
+<head>
+  <%- include('headHome'); %>
+    <title>Teste</title>
+</head>
+
+<body>
+  <!-- <script type="module" src="../backend/controller/usuarioController.js">
       import { usuarioController } from "../backend/controller/usuarioController.js";
       onload = function (){
       const session = usuarioController.verificaLogin(req.session.user);
       console.log(session);
       }
     </script> -->
-    <header>
-      <nav class="nav-container">
-         <div class="w-36 absolute top-0 left-0 right-0 bg-red-600 rounded-b-lg break-words text-white text-center">
+  <header>
+    <nav class="nav-container">
+      <div class="w-36 absolute top-0 left-0 right-0 bg-red-600 rounded-b-lg break-words text-white text-center">
       </div>
         <ul>
           <li><a class="font-amatic text-4xl hover:text-red-700" href="/jogar">Jogar!</a></li>
           <li><a class="font-amatic text-4xl hover:text-red-700" href="/logout">logout</a></li>
           <li><a class="font-amatic text-4xl hover:text-red-700" href="/forum">Fórum</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="flex w-screen h-full justify-center items-center overflow-hidden" id="container">
+    <img src="./images/logo.png" class="-mt-48" id="logo">
+  </div>
+</body>
+<!-- <script type="text/javascript" src=".././game/CloudSaving.js" charset="utf-8"></script> -->
 
-        </ul>
-      </nav>
-    </header>
-    <div class="flex w-screen h-full justify-center items-center overflow-hidden" id="container">
-      <img src="./images/logo.png" class="-mt-48" id="logo">
-    </div>
-  </body>
-  <!-- <script type="text/javascript" src=".././game/CloudSaving.js" charset="utf-8"></script> -->
-  </html>
+</html>
