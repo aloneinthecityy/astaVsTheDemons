@@ -1,5 +1,5 @@
+const database = require('../database');
 const Sequelize = require('sequelize');
-const database = require('../config/db');
 
 const Respostas = database.define('respostas', {
   id_respostas: {
@@ -8,9 +8,24 @@ const Respostas = database.define('respostas', {
     allowNull: false,
     primaryKey: true,
   },
-  id_comentario: { type: Sequelize.INTEGER },
-  user: {type: Sequelize.STRING, allowNull: true},
-  comentario: { type: Sequelize.BIGINT },
+  // TODO: REVISAR com o ROGER se é melhor usar o id_comentario ou o id_usuario como chave estrangeira !!!
+  id_usuario: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'usuarios',
+      key: 'id_usuario',
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  },
+  usuario: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  comentario: {
+    type: Sequelize.TEXT,
+  },
 });
 
 module.exports = Respostas;

@@ -1,6 +1,7 @@
 const Usuario = require('../../models/usuario');
 const Comentarios = require('../../models/comentarios');
 const Respostas = require('../../models/respostas');
+const nodemailer = require('nodemailer');
 const express = require('express');
 const bcrypt = require('bcrypt');
 const app = express();
@@ -16,6 +17,11 @@ const sequelize = new Sequelize('astavsthedemons', 'postgres', 'admin', {
   dialect: 'postgres',
 });
 
+const jwt = require('jsonwebtoken');
+// const secret = 'mysecret';
+// const expiresIn = '1h';
+// const pageAccess = '/home';
+// const token = jwt.sign({ pageAccess }, secret, { expiresIn });
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,7 +29,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const Salvar_estado = sequelize.define('salvar_estado', {
+const Salvar_estados = sequelize.define('salvar_estados', {
   id_usuario: { type: Sequelize.INTEGER },
   slot_1: { type: Sequelize.JSON },
   slot_2: { type: Sequelize.JSON },
@@ -50,13 +56,13 @@ module.exports = {
     const itemDeserializado = req.body.itemDeserializado;
     const slot = req.body.slot;
 
-    const estado = await Salvar_estado.findOne({
+    const estado = await Salvar_estados.findOne({
       where: { id_usuario: req.session.userId }
     });
 
     if (estado == null && slot == "MyRenJSGame_slot_0") {
 
-      await Salvar_estado.create({
+      await Salvar_estados.create({
       where: {
         id_usuario: req.session.userId,
       },
@@ -69,7 +75,7 @@ module.exports = {
     });
 
   } else if (slot == "MyRenJSGame_slot_0") {
-    await Salvar_estado.update(
+    await Salvar_estados.update(
     { slot_1: itemDeserializado },
     { where: { id_usuario: req.session.userId } }
     );
@@ -78,7 +84,7 @@ module.exports = {
 
       if (estado == null && slot == "MyRenJSGame_slot_1") {
 
-          await Salvar_estado.create({
+          await Salvar_estados.create({
           where: {
             id_usuario: req.session.userId,
           },
@@ -92,7 +98,7 @@ module.exports = {
       
       }
       else if (slot == "MyRenJSGame_slot_1") {
-        await Salvar_estado.update(
+        await Salvar_estados.update(
         { slot_2: itemDeserializado },
         { where: { id_usuario: req.session.userId } }
         );
@@ -101,7 +107,7 @@ module.exports = {
 
    if (estado == null && slot == "MyRenJSGame_slot_2") {
 
-      await Salvar_estado.create({
+      await Salvar_estados.create({
       where: {
         id_usuario: req.session.userId,
       },
@@ -115,7 +121,7 @@ module.exports = {
   
   }
     else if (slot == "MyRenJSGame_slot_2") {
-      await Salvar_estado.update(
+      await Salvar_estados.update(
       { slot_3: itemDeserializado },
       { where: { id_usuario: req.session.userId } }
       );
@@ -124,7 +130,7 @@ module.exports = {
   },
 
   carregaDadosJogo: async (req, res) => {
-    let dadosBanco = await Salvar_estado.findAll({
+    let dadosBanco = await Salvar_estados.findAll({
       raw: true,
       where: {
         id_usuario: req.session.userId,
@@ -135,9 +141,7 @@ module.exports = {
   },
 
   RetornaDadosJogo: async (req, res) => {
-    const slot = req.body.slot;
-    
-    let dadosBanco = await Salvar_estado.findAll({
+    let dadosBanco = await Salvar_estados.findAll({
       raw: true,
       where: {
         id_usuario: req.session.userId,
@@ -267,15 +271,96 @@ module.exports = {
     }
   },
 
+  recuperarSenhaGet: (req, res) => {
+    res.render('../views/recuperarSenha.ejs');
+  },
+
+  recuperarSenhaPost: (req, res) => {
+    const email = req.body.email;
+
+    let usuario = Usuario.findOne({ where: { 
+      email : email, 
+    } })
+
+    if (usuario != 0) {
+
+      const secret = 'mysecret'
+
+      const resetToken = jwt.sign({ id: usuario.id_usuario, email: usuario.email }, secret, {
+        expiresIn: '15m',
+      })
+
+      let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                accessToken: 'aedplsduoldgqwpq',
+                user: 'astavsthedemons@gmail.com',
+                pass: 'aedplsduoldgqwpq'
+            }
+        });
+
+        const encodedToken = Buffer.from(resetToken).toString('base64')
+        const encodedUrl = encodeURIComponent(encodedToken)
+        const resetUrl = `http://localhost:81/resetPassword/${usuario.id_usuario}/${encodedUrl}`
+    
+          const ejs = require('ejs');
+          const accessLink = `http://localhost:3000/verify?token=${resetUrl}`
+          const html = ejs.render(`<a href="<%= accessLink %>"> Altere sua senha aqui :) </a>`, { accessLink });
+    
+          let mailOptions = {
+            from: 'astavsthedemons@gmail.com',
+            to: email,
+            subject: 'Recuperação de senha - AstavsTheDemons',
+            html
+        };
+    
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+    
+          const mensagemEnvio = 'Email enviado! Verifique sua caixa de entrada ;)';
+          res.render('../views/recuperarSenha.ejs', { mensagem: mensagemEnvio });
+      
+        }
+        else{
+          const mensagemErro = 'Email incorreto ou não cadastrado!';
+          res.render('../views/recuperarSenha.ejs', { mensagem: mensagemErro });
+        }
+    },
+
+
+
+  verify: (req, res) => {
+    
+    const secret = 'mysecret';
+    const token = req.query.token;
+    try {
+        const decoded = jwt.verify(token, secret);
+        if (decoded.pageAccess) {
+            res.render(decoded.pageAccess);
+        }
+    } catch(err) {
+        res.status(401).send('Token inválido ou expirado');
+    }  
+  },
+
   insereComentario: (req, res) => {
     const comentario = req.body.comentario;
     const checkbox =  req.body.checkbox;
 
     if(checkbox == 'on'){
 
+      const id_usuario = req.session.userId;
+      const usuario = "Anônimo";
+
       console.log('o toggle está selecionado');
         Comentarios.create({
-          user: 'Anônimo',
+          id_usuario,
+          usuario,
           comentario,
         }).then(() => {
             res.status(201).redirect('/forum');
@@ -283,8 +368,11 @@ module.exports = {
     }
     else{
       const username = req.session.username[0];
+      const id_usuario = req.session.userId;
+
       Comentarios.create({
-            user: username,
+            id_usuario,
+            usuario: username,
             comentario
         }).then(() => {
             res.status(201).redirect('/forum');

@@ -1,5 +1,5 @@
+const database = require('../database')
 const Sequelize = require('sequelize');
-const database = require('../config/db');
 
 const Comentarios = database.define('comentarios', {
   id_comentario: {
@@ -8,12 +8,23 @@ const Comentarios = database.define('comentarios', {
     allowNull: false,
     primaryKey: true,
   },
-  user: {
+  id_usuario: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'usuarios',
+      key: 'id_usuario',
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  },
+  usuario: {
     type: Sequelize.STRING, 
     allowNull: true
   },
   comentario: {
-    type: Sequelize.STRING, allowNull: false
+    type: Sequelize.TEXT,
+    allowNull: false
   },
   curtidas: {
     type: Sequelize.INTEGER,

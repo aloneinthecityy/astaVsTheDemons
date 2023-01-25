@@ -35,6 +35,11 @@ app.post('/cadastro', usuarioController.insereCadastro);
 app.get('/login', usuarioController.login);
 app.post('/login', usuarioController.verificaLogin);
 
+app.get('/recuperarSenha', usuarioController.recuperarSenhaGet);
+app.post('/recuperarSenha', usuarioController.recuperarSenhaPost);
+
+app.get('/verify', usuarioController.verify);
+
 app.get('/logout', usuarioController.logout);
 
 app.get('/jogar', usuarioController.jogar);

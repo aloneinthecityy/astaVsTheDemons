@@ -1,8 +1,7 @@
-const Sequelize = require('sequelize');
-
-const sequelize = new Sequelize('astavsthedemons', 'postgres', 'admin', {
+module.exports = {
+  username: 'postgres',
+  password: 'admin',
+  database: 'astavsthedemons',
   host: 'localhost',
   dialect: 'postgres',
-});
-
-module.exports = sequelize;
+}
