@@ -4,11 +4,39 @@
     <%- include('head'); %>
   </head>
 
-  <body class="bg-[#1B1A1A]">
+  <body class="bg-[#1B1A1A] overflow-hidden">
 
-    <div class="flex h-screen justify-center items-center">
+    <header>
+      <nav class="nav-container">
+        <img src="./images/estrelinha.png" class="logo-img flex" alt="Logo" href="/">
+        <ul>
+          <li id="elemento"><a class="font-amatic text-4xl hover:text-red-700" href="/">Home</a></li>
+      </ul>
+    </nav>
+  
+    <style>
+      .nav-container {
+      position: relative;
+      }
+      .logo-img {
+      position: absolute;
+      margin-top: 0.7%;
+      margin-left: 0.8%;
+      width: 3.3%;
+      }
+  
+      #elemento {
+    margin-right: 0.8%;
+    margin-top: 0.3%;
+    }
+    </style>
+  
+    </header>
+
+    <div class="flex h-screen justify-center items-center ">
 
 
+    <div class="mb-20">
     <div class="flex flex-col justify-center items-center w-96 h-96 rounded-xl bg-[#D9D9D9] text-white px-[5vw]">
 
     <div class=" w-80">
@@ -54,9 +82,9 @@
     </div>
 
 </div>
-        
-
       </div>
+
+    </div>
     </div>
     </form>
   </div>

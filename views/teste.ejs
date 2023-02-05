@@ -15,17 +15,29 @@
     </script> -->
   <header>
     <nav class="nav-container">
-      <div class="w-36 absolute top-0 left-0 right-0 bg-red-600 rounded-b-lg break-words text-white text-center">
-      </div>
-        <ul>
-          <li><a class="font-amatic text-4xl hover:text-red-700" href="/jogar">Jogar!</a></li>
-          <li><a class="font-amatic text-4xl hover:text-red-700" href="/logout">logout</a></li>
-          <li><a class="font-amatic text-4xl hover:text-red-700" href="/forum">Fórum</a></li>
-      </ul>
-    </nav>
+      <img src="./images/estrelinha.png" class="logo-img" alt="Logo">
+      <ul>
+        <li><a class="font-amatic text-4xl hover:text-red-700" href="/logout">logout</a></li>
+        <li><a class="font-amatic text-4xl hover:text-red-700" href="/blog">Blog</a></li>
+        <li><a class="font-amatic text-4xl hover:text-red-700" href="/jogar">Jogar!</a></li>
+        <li><a class="font-amatic text-4xl hover:text-red-700" href="/forum">Fórum</a></li>
+    </ul>
+  </nav>
+
+  <style>
+    .nav-container {
+    position: relative;
+    }
+    .logo-img {
+    position: absolute;
+    left: 15;
+    top: 12;
+    width: 3.3%;
+    }
+  </style>
+
   </header>
-  <div class="flex w-screen h-full justify-center items-center overflow-hidden" id="container">
-    <img src="./images/logo.png" class="-mt-48" id="logo">
+  <div class="bg-center bg-cover bg-fixed custom-img h-screen polaroid5 overflow-hidden">
   </div>
 </body>
 <!-- <script type="text/javascript" src=".././game/CloudSaving.js" charset="utf-8"></script> -->

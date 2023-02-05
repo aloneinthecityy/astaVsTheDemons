@@ -2,11 +2,12 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('salvar_estados', {
+    await queryInterface.createTable('salvar_estado', {
       id_estado: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
         allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
       },
       // todo estado deve pertencer a um usuário
       id_usuario: {
@@ -31,10 +32,20 @@ module.exports = {
         type: Sequelize.JSON,
         allowNull: true,
       },
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.NOW,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.NOW,
+      },
     });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('salvar_estados');
+    await queryInterface.dropTable('salvar_estado');
   },
 };

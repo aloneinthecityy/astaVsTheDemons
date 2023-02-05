@@ -6,7 +6,7 @@ const conexao = new Sequelize(database, username, password, {
   dialect,
   host,
   define: {
-    timestamps: false,
+    timestamps: true,
   },
   query: {
     raw: true,

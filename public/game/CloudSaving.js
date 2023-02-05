@@ -39,6 +39,8 @@ class CloudSaving extends RenJS.Plugin {
     // você pode adicionar/substituir qualquer propriedade que desejar no parâmetro de dados
 
     // carrega dados da nuvem com o slot fornecido
+
+    
   }
 }
 

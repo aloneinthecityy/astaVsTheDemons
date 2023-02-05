@@ -3,6 +3,8 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const saltRounds = 8;
 const jwt = require('jsonwebtoken');
+const Sequelize = require('sequelize');
+
 
 /* 
   Isso aqui é um controller, e este código abaixo é pra configurar o express que fica no index.js
@@ -25,7 +27,9 @@ const jwt = require('jsonwebtoken');
 /* Models */
 const Usuario = require('../../models/usuario');
 const Comentarios = require('../../models/comentarios');
+const Respostas = require('../../models/respostas');
 const SalvarEstado = require('../../models/salvar_estado');
+const cons = require('consolidate');
 
 /* Funções do controller */
 module.exports = {
@@ -65,7 +69,7 @@ module.exports = {
         .catch((err) => {
           console.error('Falha ao adicionar registro NO SLOT 1:', err);
         });
-    } else if (slot == 'MyRenJSGame_slot_0') {
+    } else if (estado != null && slot == 'MyRenJSGame_slot_0') {
       await SalvarEstado.update(
         { slot_1: itemDeserializado },
         { where: { id_usuario: req.session.userId } }
@@ -78,27 +82,6 @@ module.exports = {
           id_usuario: req.session.userId,
         },
         id_usuario: req.session.userId,
-        slot_1: itemDeserializado,
-      })
-        .then(() => {
-          console.log('Registro adicionado com sucesso NO SLOT 1.');
-        })
-        .catch((err) => {
-          console.error('Falha ao adicionar registro NO SLOT 1:', err);
-        });
-    } else if (slot == 'MyRenJSGame_slot_0') {
-      await Salvar_estado.update(
-        { slot_1: itemDeserializado },
-        { where: { id_usuario: req.session.userId } }
-      );
-    }
-
-    if (estado == null && slot == 'MyRenJSGame_slot_1') {
-      await Salvar_estado.create({
-        where: {
-          id_usuario: req.session.userId,
-        },
-        id_usuario: req.session.userId,
         slot_2: itemDeserializado,
       })
         .then(() => {
@@ -107,7 +90,7 @@ module.exports = {
         .catch((err) => {
           console.error('Falha ao adicionar registro NO SLOT 2:', err);
         });
-    } else if (slot == 'MyRenJSGame_slot_1') {
+    } else if (estado != null && slot == 'MyRenJSGame_slot_1') {
       await SalvarEstado.update(
         { slot_2: itemDeserializado },
         { where: { id_usuario: req.session.userId } }
@@ -128,45 +111,31 @@ module.exports = {
         .catch((err) => {
           console.error('Falha ao adicionar registro NO SLOT 3:', err);
         });
-    } else if (slot == 'MyRenJSGame_slot_2') {
+    } else if (estado != null && slot == 'MyRenJSGame_slot_2') {
       await SalvarEstado.update(
-        { slot_3: itemDeserializado },
-        { where: { id_usuario: req.session.userId } }
-      );
-    }
+{ slot_3: itemDeserializado },
+{ where: { id_usuario: req.session.userId } }
+);
+}
+    res.send(estado);
+},
 
-    if (estado == null && slot == 'MyRenJSGame_slot_2') {
-      await Salvar_estado.create({
+
+
+  carregaDadosJogo: async (req, res) => {
+    try {
+      console.log('userID: ', req.session.userId)
+      let dadosBanco = await SalvarEstado.findAll({
+        raw: true,
         where: {
           id_usuario: req.session.userId,
         },
-        id_usuario: req.session.userId,
-        slot_3: itemDeserializado,
-      })
-        .then(() => {
-          console.log('Registro adicionado com sucesso NO SLOT 3.');
-        })
-        .catch((err) => {
-          console.error('Falha ao adicionar registro NO SLOT 3:', err);
-        });
-    } else if (slot == 'MyRenJSGame_slot_2') {
-      await Salvar_estado.update(
-        { slot_3: itemDeserializado },
-        { where: { id_usuario: req.session.userId } }
-      );
+      });
+      console.log('Carregamento dos dados: ', dadosBanco);
+      res.send(JSON.stringify(dadosBanco));
+    } catch (err) {
+      console.log(err);
     }
-    res.send(estado);
-  },
-
-  carregaDadosJogo: async (req, res) => {
-    let dadosBanco = await SalvarEstado.findAll({
-      raw: true,
-      where: {
-        id_usuario: req.session.userId,
-      },
-    });
-    console.log('Carregamento dos dados: ', dadosBanco);
-    res.send(JSON.stringify(dadosBanco));
   },
 
   RetornaDadosJogo: async (req, res) => {
@@ -221,6 +190,54 @@ module.exports = {
     }
   },
 
+  respostas: async (req, res) => {
+    let isAuth = req.session.loggedin;
+
+    try {
+      if (isAuth) {
+        const username = req.session.username[0];
+
+        let id_comentario = await Respostas.findOne({
+          raw: true,
+          attributes: ['id_comentario'],
+         
+          });
+
+        
+        let comentarios = await Comentarios.findOne({
+          raw: true,
+          where: {
+          id_comentario:id_comentario.id_comentario,
+          }
+          });
+
+        let respostas = await Respostas.findAll({
+          raw: true,
+          order: [['updatedAt', 'DESC']],
+        });
+
+        let comentario = await Comentarios.findOne({
+          raw: true,
+          attributes: ['id_comentario'],
+        });
+
+        res.render('../views/respostas.ejs', {
+           user: username,
+           respostas: respostas,
+           comentario: comentario,
+           comentarios: comentarios,
+
+          })
+      } else {
+        const mensagem = 'Você precisa estar logado para acessar essa página!';
+        req.session.mensagem = mensagem;
+        res.render('../views/login.ejs', { mensagem });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
   blog: (req, res) => {
     res.render('../views/blog.ejs');
   },
@@ -255,6 +272,8 @@ module.exports = {
       }
     }
   },
+
+  
 
   login: async (req, res) => {
     const mensagem = req.session.mensagem;
@@ -405,6 +424,46 @@ module.exports = {
         comentario,
       }).then(() => {
         res.status(201).redirect('/forum');
+      });
+    }
+  },
+
+  insereRespostas: async (req, res) => {
+    const comentario = req.body.comentario;
+    const checkbox = req.body.checkbox;
+    const id_comentario = req.body.id;
+    const id_respostas = req.body.id_resposta;
+
+
+    console.log("id_respostas CARALHOOOO: ", id_respostas);
+    console.log("id_comentario CARALHOOOO: ", id_comentario);
+
+    if (checkbox == 'on') {
+      const id_usuario = req.session.userId;
+      const usuario = 'Anônimo';
+
+      console.log('o toggle está selecionado');
+      Respostas.create({
+        id_respostas,
+        id_usuario,
+        id_comentario,
+        usuario,
+        comentario,
+      }).then(() => {
+        res.status(201).redirect('/respostas');
+      });
+    } else {
+      const usuario = req.session.username[0];
+      const id_usuario = req.session.userId;
+
+      Respostas.create({
+        id_respostas,
+        id_usuario,
+        id_comentario,
+        usuario,
+        comentario,
+      }).then(() => {
+        res.status(201).redirect('/respostas');
       });
     }
   },

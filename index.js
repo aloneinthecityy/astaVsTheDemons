@@ -48,6 +48,11 @@ app.get('/jogar', usuarioController.jogar);
 app.get('/forum', usuarioController.forum);
 app.post('/insereComentario', usuarioController.insereComentario);
 
+app.get('/respostas', usuarioController.respostas);
+app.post('/insereRespostas', usuarioController.insereRespostas);
+
+
+
 app.post('/recebedados', usuarioController.RecebeDadosJogo);
 app.post('/carregaDados', usuarioController.carregaDadosJogo);
 app.post('/retornaDados', usuarioController.RetornaDadosJogo);

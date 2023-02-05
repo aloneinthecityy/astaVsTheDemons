@@ -44,3 +44,9 @@ li a {
   align-items: center;
 
 }
+
+.polaroid5{
+  background-image: url('../images/polaroid5.png');
+  background-size: 31% !important;
+  background-repeat: no-repeat;
+}

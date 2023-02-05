@@ -6,8 +6,9 @@ const SalvarEstado = database.define(
   {
     id_estado: {
       type: Sequelize.INTEGER,
-      primaryKey: true,
       allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
     },
     // todo estado deve pertencer a um usuário
     id_usuario: {
