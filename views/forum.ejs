@@ -1,30 +1,75 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+  <head>
+    <%- include('head'); %>
+    <style>
+      /* ===== Scrollbar CSS ===== */
 
-<head>
-  <%- include('head'); %>
-</head>
+      /* Chrome, Edge, and Safari */
+      *::-webkit-scrollbar {
+        width: 12px;
+      }
 
-<body class="bg-[#1B1A1A] overflow-x-hidden">
-  <!-- Div pai que define as margens laterais -->
-  <div class="flex flex-col h-full sm:mx-24 mx-4">
-    <!-- Exibe o nome do usuário  -->
-    <div class="my-8 text-2xl w-full h-8">
-      <% if (user) { %>
+      /* *::-webkit-scrollbar-track {
+        background: #ffffff;
+      } */
+
+      *::-webkit-scrollbar-thumb {
+        background-color: #991b1b;
+        border-radius: 10px;
+        border: 3px solid #ffffff;
+      }
+    </style>
+    <script>
+      // Função para exibir/esconder o formulário de resposta
+      function toggleAnswerForm(e) {
+        e.preventDefault();
+
+        const respostas = document.getElementById('comentariosResposta');
+        const botaoResponder = document.getElementById('botaoResponder');
+
+        if(respostas.style.display === 'block') {
+          respostas.style.display = 'none';
+          botaoResponder.style.display = 'block';
+          return;
+        } else {
+          respostas.style.display = 'block';
+          botaoResponder.style.display = 'none';
+        }
+      }
+    </script>
+  </head>
+
+  <body class="bg-[#1B1A1A] overflow-x-hidden">
+    <!-- Div pai que define as margens laterais -->
+    <div class="flex flex-col h-full sm:mx-24 mx-4">
+      <!-- Exibe o nome do usuário  -->
+      <div class="my-8 text-2xl w-full h-8">
+        <% if (user) { %>
         <h1 class="text-white">Olá, @<%= user %>!</h1>
         <% } %>
-    </div>
+      </div>
 
-    <!-- Seção de enviar comentário -->
-    <div class="flex flex-col w-full h-40 rounded-xl bg-[#D9D9D9] text-white px-[5vw]">
-      <form action="/insereComentario" method="POST" class="flex flex-col py-3 text-left justify-start items-start">
-        <!-- Campo para digitar os comentários -->
-        <textarea type="text" name="comentario" id="comentario"
-          placeholder="Desabafe, comente, relate suas impressões do jogo. Aqui é um espaço aberto e seguro. Seu post pode ser anônimo, caso preferir."
-          class="h-full w-full my-5 outline-none resize-none text-red-900 bg-transparent rounded-lg"></textarea>
+      <!-- Seção de enviar comentário -->
+      <div
+        class="flex flex-col w-full h-40 rounded-xl bg-[#D9D9D9] text-white px-[5vw]"
+      >
+        <form
+          action="/insereComentario"
+          method="POST"
+          class="flex flex-col py-3 text-left justify-start items-start"
+        >
+          <!-- Campo para digitar os comentários -->
+          <textarea
+            type="text"
+            name="comentario"
+            id="comentario"
+            placeholder="Desabafe, comente, relate suas impressões do jogo. Aqui é um espaço aberto e seguro. Seu post pode ser anônimo, caso preferir."
+            class="h-full w-full my-5 outline-none resize-none text-red-900 bg-transparent rounded-lg"
+          ></textarea>
 
-        <div class="flex flex-row w-full h-15 justify-between">
-          <!-- Checkbox para comentário anônimo -->
+          <div class="flex flex-row w-full h-15 justify-between">
+            <!-- Checkbox para comentário anônimo -->
 
             <label class="relative inline-flex items-center cursor-pointer">
               <input
@@ -57,12 +102,14 @@
                 />
               </svg>
             </button>
-            <input type="hidden" name="id" value="<%= comentarios.id_comentario %>">
+            <input
+              type="hidden"
+              name="id"
+              value="<%= comentarios.id_comentario %>"
+            />
           </div>
         </form>
       </div>
-
-      <!-- Seção de comentários realizados por outros usuários -->
       <br />
 
       <!-- Linha fina de divisão -->
@@ -71,62 +118,76 @@
 
       <!-- Exibe os comentários -->
       <% comentarios.forEach(function(comentario) { %>
-
       <div
         class="flex flex-col w-full h-44 rounded-xl my-3 bg-[#696969] text-white px-[5vw]"
       >
-        <div class="my-9">
-          <div class="h-16 w-auto overflow-auto overflow-x-hidden p-4 text-lg">
-              <style>
-                /* ===== Scrollbar CSS ===== */
+        <!-- Comentário -->
+        <form
+          class="my-9 overflow-auto"
+        >
+          <div
+            class="h-16 w-auto overflow-auto overflow-x-hidden p-4 text-lg mb-4"
+          >
+            <h2 class="text-white">@<%= comentario.usuario%></h2>
+            <p class="text-white"><%= comentario.comentario%></p>
+          </div>
+          <button
+            class="bg-[#8d1414] text-white rounded-lg py-2 flex flex-row justify-between items-center px-8"
+            type="submit"
+            onclick={toggleAnswerForm()}
+            id="botaoResponder"
+          >
+            Responder
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 39 39"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="ml-2"
+            >
+              <path
+                d="M19.4999 21.125C20.3974 21.125 21.1249 20.3975 21.1249 19.5C21.1249 18.6025 20.3974 17.875 19.4999 17.875C18.6025 17.875 17.8749 18.6025 17.8749 19.5C17.8749 20.3975 18.6025 21.125 19.4999 21.125Z"
+                fill="#FFFFFF"
+              />
+              <path
+                d="M25.9999 21.125C26.8973 21.125 27.6249 20.3975 27.6249 19.5C27.6249 18.6025 26.8973 17.875 25.9999 17.875C25.1024 17.875 24.3749 18.6025 24.3749 19.5C24.3749 20.3975 25.1024 21.125 25.9999 21.125Z"
+                fill="#FFFFFF"
+              />
+              <path
+                d="M12.9999 21.125C13.8974 21.125 14.6249 20.3975 14.6249 19.5C14.6249 18.6025 13.8974 17.875 12.9999 17.875C12.1025 17.875 11.3749 18.6025 11.3749 19.5C11.3749 20.3975 12.1025 21.125 12.9999 21.125Z"
+                fill="#FFFFFF"
+              />
+              <path
+                d="M30.9887 8.01135C28.3224 5.32766 24.8034 3.65832 21.0382 3.29112C17.2731 2.92391 13.4978 3.88186 10.3632 5.99981C7.22863 8.11776 4.93123 11.263 3.86706 14.8932C2.8029 18.5235 3.03866 22.4113 4.5337 25.8863C4.68952 26.2093 4.74065 26.5729 4.67995 26.9263L3.24995 33.8001C3.19485 34.0636 3.2061 34.3367 3.28269 34.5948C3.35927 34.853 3.49879 35.088 3.6887 35.2788C3.84438 35.4334 4.02974 35.5548 4.23362 35.6358C4.43749 35.7168 4.65565 35.7557 4.87495 35.7501H5.19995L12.1549 34.3526C12.5084 34.3101 12.8669 34.3605 13.1949 34.4988C16.67 35.9939 20.5578 36.2296 24.1881 35.1655C27.8183 34.1013 30.9635 31.8039 33.0815 28.6693C35.1994 25.5348 36.1574 21.7595 35.7902 17.9943C35.423 14.2292 33.7536 10.7101 31.07 8.04385L30.9887 8.01135ZM32.3374 21.5963C32.0197 23.5366 31.2661 25.3795 30.1332 26.9863C29.0004 28.5932 27.5178 29.9222 25.7971 30.8732C24.0764 31.8243 22.1623 32.3727 20.1991 32.4772C18.2358 32.5817 16.2744 32.2395 14.4624 31.4763C13.8198 31.203 13.1295 31.0594 12.4312 31.0538C12.1262 31.056 11.8218 31.0832 11.5212 31.1351L6.9387 32.0613L7.86495 27.4788C8.04943 26.4864 7.9305 25.4614 7.5237 24.5376C6.76058 22.7257 6.41838 20.7643 6.52285 18.801C6.62731 16.8377 7.17572 14.9237 8.12681 13.203C9.07789 11.4823 10.4069 9.9997 12.0137 8.86683C13.6206 7.73396 15.4635 6.98031 17.4037 6.6626C19.4403 6.32836 21.5271 6.4838 23.4917 7.11607C25.4563 7.74834 27.2421 8.83926 28.7015 10.2986C30.1608 11.7579 31.2517 13.5437 31.884 15.5083C32.5162 17.4729 32.6717 19.5598 32.3374 21.5963Z"
+                fill="#FFFFFF"
+              />
+            </svg>
+          </button>
 
-                /* Chrome, Edge, and Safari */
-                *::-webkit-scrollbar {
-                  width: 12px;
-                }
-
-                /* *::-webkit-scrollbar-track {
-                  background: #ffffff;
-                } */
-
-                *::-webkit-scrollbar-thumb {
-                  background-color: #991b1b;
-                  border-radius: 10px;
-                  border: 3px solid #ffffff;
-                }
-              </style>
-              <h2 class="text-white">@<%= comentario.usuario%></h2>
-              <p class="text-white"><%= comentario.comentario%></p>          
-        </div>
-      </form>
+          <!-- Respostas + textarea para responder mais -->
+          <!-- TODO: exibir corretamente  -->
+          <div class="flex flex-col w-full">
+            <!-- Respostas do comentário -->
+            <div class="flex flex-col w-full" id="comentariosResposta">
+              <textarea name="" id="" cols="30" rows="1" placeholder="Escreva sua resposta aqui" class="w-full"/>
+              <% respostas.forEach((resposta) => { %> 
+                  <form class="flex flex-row w-full justify-end" action="">
+                    <h2 class="text-white">@<%= resposta.usuario%></h2>
+                    <p class="text-white"><%= resposta.comentario%></p>
+                    <button class="bg-[#1B1A1A] text-white rounded-lg px-4 py-2">
+                      Responder
+                    </button>
+                  </form>
+              <% }) %>
+            </div>
+          </div>
+          
+        </form>
+      </div>
+      <% }) %>
     </div>
 
-    <div class="flex flex-row w-full justify-end">
-      <a href="/respostas/<%= respostas.id %>">
-    <button type="submit">
-      <svg width="28" height="28" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M19.4999 21.125C20.3974 21.125 21.1249 20.3975 21.1249 19.5C21.1249 18.6025 20.3974 17.875 19.4999 17.875C18.6025 17.875 17.8749 18.6025 17.8749 19.5C17.8749 20.3975 18.6025 21.125 19.4999 21.125Z"
-          fill="#231F20" />
-        <path
-          d="M25.9999 21.125C26.8973 21.125 27.6249 20.3975 27.6249 19.5C27.6249 18.6025 26.8973 17.875 25.9999 17.875C25.1024 17.875 24.3749 18.6025 24.3749 19.5C24.3749 20.3975 25.1024 21.125 25.9999 21.125Z"
-          fill="#231F20" />
-        <path
-          d="M12.9999 21.125C13.8974 21.125 14.6249 20.3975 14.6249 19.5C14.6249 18.6025 13.8974 17.875 12.9999 17.875C12.1025 17.875 11.3749 18.6025 11.3749 19.5C11.3749 20.3975 12.1025 21.125 12.9999 21.125Z"
-          fill="#231F20" />
-        <path
-          d="M30.9887 8.01135C28.3224 5.32766 24.8034 3.65832 21.0382 3.29112C17.2731 2.92391 13.4978 3.88186 10.3632 5.99981C7.22863 8.11776 4.93123 11.263 3.86706 14.8932C2.8029 18.5235 3.03866 22.4113 4.5337 25.8863C4.68952 26.2093 4.74065 26.5729 4.67995 26.9263L3.24995 33.8001C3.19485 34.0636 3.2061 34.3367 3.28269 34.5948C3.35927 34.853 3.49879 35.088 3.6887 35.2788C3.84438 35.4334 4.02974 35.5548 4.23362 35.6358C4.43749 35.7168 4.65565 35.7557 4.87495 35.7501H5.19995L12.1549 34.3526C12.5084 34.3101 12.8669 34.3605 13.1949 34.4988C16.67 35.9939 20.5578 36.2296 24.1881 35.1655C27.8183 34.1013 30.9635 31.8039 33.0815 28.6693C35.1994 25.5348 36.1574 21.7595 35.7902 17.9943C35.423 14.2292 33.7536 10.7101 31.07 8.04385L30.9887 8.01135ZM32.3374 21.5963C32.0197 23.5366 31.2661 25.3795 30.1332 26.9863C29.0004 28.5932 27.5178 29.9222 25.7971 30.8732C24.0764 31.8243 22.1623 32.3727 20.1991 32.4772C18.2358 32.5817 16.2744 32.2395 14.4624 31.4763C13.8198 31.203 13.1295 31.0594 12.4312 31.0538C12.1262 31.056 11.8218 31.0832 11.5212 31.1351L6.9387 32.0613L7.86495 27.4788C8.04943 26.4864 7.9305 25.4614 7.5237 24.5376C6.76058 22.7257 6.41838 20.7643 6.52285 18.801C6.62731 16.8377 7.17572 14.9237 8.12681 13.203C9.07789 11.4823 10.4069 9.9997 12.0137 8.86683C13.6206 7.73396 15.4635 6.98031 17.4037 6.6626C19.4403 6.32836 21.5271 6.4838 23.4917 7.11607C25.4563 7.74834 27.2421 8.83926 28.7015 10.2986C30.1608 11.7579 31.2517 13.5437 31.884 15.5083C32.5162 17.4729 32.6717 19.5598 32.3374 21.5963Z"
-          fill="#231F20" />
-      </svg>
-    </button>
-
-  </div>
-</div>
-  <% }) %>
-
-
-
-  <script src="../backend/controller/usuarioController.js"></script>
-</body>
-
+    <script src="../backend/controller/usuarioController.js"></script>
+  </body>
 </html>

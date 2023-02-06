@@ -1,37 +1,18 @@
-/* Dependências */
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const saltRounds = 8;
 const jwt = require('jsonwebtoken');
-const Sequelize = require('sequelize');
 
-
-/* 
-  Isso aqui é um controller, e este código abaixo é pra configurar o express que fica no index.js
-  1) Controller = é um arquivo que contém funções que são chamadas pelo index.js
-  2) recomendo apagar o código abaixo
-*/
-
-// const express = require('express');
-// const app = express();
-// const bodyParser = require('body-parser');
-// const secret = 'mysecret';
-// const expiresIn = '1h';
-// const pageAccess = '/home';
-// const token = jwt.sign({ pageAccess }, secret, { expiresIn });
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-
-/* Models */
+/* Tabelas */
 const Usuario = require('../../models/usuario');
 const Comentarios = require('../../models/comentarios');
 const Respostas = require('../../models/respostas');
 const SalvarEstado = require('../../models/salvar_estado');
-const cons = require('consolidate');
 
-/* Funções do controller */
+/* Jwt secret */
+const jwtSecret = 'somesecret'
+
+/* Funções da aplicação */
 module.exports = {
   jogar: async (req, res) => {
     let isAuth = req.session.loggedin;
@@ -113,14 +94,12 @@ module.exports = {
         });
     } else if (estado != null && slot == 'MyRenJSGame_slot_2') {
       await SalvarEstado.update(
-{ slot_3: itemDeserializado },
-{ where: { id_usuario: req.session.userId } }
-);
-}
+        { slot_3: itemDeserializado },
+        { where: { id_usuario: req.session.userId } }
+      );
+    }
     res.send(estado);
-},
-
-
+  },
 
   carregaDadosJogo: async (req, res) => {
     try {
@@ -150,9 +129,9 @@ module.exports = {
     res.send(dadosBanco);
   },
 
-  teste: (req, res, err) => {
+  home: (req, res) => {
     if (req.session.loggedin) {
-      res.render('../views/teste.ejs');
+      res.render('../views/home.ejs');
     } else {
       req.session.erro = true;
       console.log('faça login antes de acessar esta página!');
@@ -160,10 +139,11 @@ module.exports = {
     }
   },
 
-  home: (req, res) => {
-    res.render('../views/home.ejs');
+  index: (req, res) => {
+    res.render('../views/index.ejs');
   },
 
+  // carrega o fórum de comentários e suas respostas
   forum: async (req, res) => {
     let isAuth = req.session.loggedin;
 
@@ -199,24 +179,27 @@ module.exports = {
   respostas: async (req, res) => {
     const id = req.params.id;
 
-    Respostas.findOne({
-        where: { id }
-    }).then(respostas => {
-        if (respostas !== null) {
+    // busca o comentário no banco de dados
+    const comentario = await Comentarios.findOne({ where: { id } });
 
-            Comentarios.findAll({
-                where: {id_comentario: Respostas.id},
-                order: [ ['id', 'DESC'] ]
-            }).then(comentarios => {
-                res.render('../views/respostas.ejs', {
-                    respostas,
-                    comentarios
-                });
-            });
-        } else {
-            res.redirect('../views/forum.ejs');
-        }
-    })
+    console.table(comentario)
+
+    // se o comentário existir no fórum
+    if (comentario) {
+      const respostas = await Respostas.findAll({
+        raw: true,
+        where: { id_comentario: id },
+        order: [['updatedAt', 'DESC']],
+      });
+
+      console.table(respostas)
+
+      // renderiza o fórum com as respostas do comentário selecionado
+      res.render('../views/forum.ejs', { respostas });
+    } else {
+      // se o comentário não existir, redireciona para a página de fórum 
+      res.redirect('/forum')
+    }
   },
 
   blog: (req, res) => {
@@ -244,17 +227,20 @@ module.exports = {
         req.session.mensagem = 'Conta já cadastrada!';
         res.redirect('/cadastro');
       } else {
-        await Usuario.create({
+        const usuarioCriado = await Usuario.create({
           email,
           senha: hash,
         });
-        console.log('Usuário cadastrado com sucesso!');
-        res.redirect('/teste');
+
+        if (!usuarioCriado) {
+          req.session.mensagem = 'Não foi possível criar a conta. Tente novamente.';
+          res.redirect('/cadastro');
+        }
+
+        res.redirect('/login');
       }
     }
   },
-
-  
 
   login: async (req, res) => {
     const mensagem = req.session.mensagem;
@@ -264,10 +250,12 @@ module.exports = {
   },
 
   verificaLogin: async (req, res) => {
+    const { email, password } = req.body;
+
     let dadosBanco = await Usuario.findAll({
       raw: true,
       where: {
-        email: req.body['email'],
+        email
       },
     });
 
@@ -277,24 +265,24 @@ module.exports = {
       req.session.mensagem = 'E-mail incorreto ou não cadastrado';
       res.redirect('/login');
     } else {
-      let login = bcrypt.compareSync(
-        req.body['password'],
-        dadosBanco[0]['senha']
+      const mesmaSenha = bcrypt.compareSync(
+        password,
+        dadosBanco[0].senha
       );
-      if (login) {
-        req.session.loggedin = true;
-        req.session.userId = dadosBanco[0]['id_usuario']; //criando session com o id_usuario
 
-        const { email } = req.body;
+      if (!mesmaSenha) {
+        req.session.mensagem = 'Senha incorreta';
+        res.redirect('/login');
+      } else {
+        req.session.loggedin = true;
+        req.session.userId = dadosBanco[0]['id_usuario']; //criando session com o id_usuario do banco de dados
+
         const username = email.split('@');
         req.session.username = username; // username ficticio com o inicio do email
 
         console.log('Seja bem vindo', username[0], '!'); //aqui printa o nome ficticio do usuario no console!
 
-        res.redirect('/teste');
-      } else {
-        req.session.mensagem = 'Senha incorreta';
-        res.redirect('/login');
+        res.redirect('/home');
       }
     }
   },
@@ -313,11 +301,10 @@ module.exports = {
     });
 
     if (usuario != 0) {
-      const secret = 'mysecret';
 
       const resetToken = jwt.sign(
         { id: usuario.id_usuario, email: usuario.email },
-        secret,
+        jwtSecret,
         {
           expiresIn: '15m',
         }
@@ -367,10 +354,9 @@ module.exports = {
   },
 
   verify: (req, res) => {
-    const secret = 'mysecret';
     const token = req.query.token;
     try {
-      const decoded = jwt.verify(token, secret);
+      const decoded = jwt.verify(token, jwtSecret);
       if (decoded.pageAccess) {
         res.render(decoded.pageAccess);
       }
@@ -380,57 +366,43 @@ module.exports = {
   },
 
   insereComentario: (req, res) => {
+    const userId = req.session.userId;
     const comentario = req.body.comentario;
     const checkbox = req.body.checkbox;
-    const id_comentario = req.body.id;
- 
+    const usuario = checkbox === 'on' ? 'Anônimo' : req.session.username[0];
 
-    if (checkbox == 'on') {
-      const usuario = 'Anônimo';
-
-      Comentarios.create({
-        id_comentario,
-        usuario,
-        comentario
-    }).then(() => {
-        res.redirect(`/respostas/${id_comentario}`);
-    })
-    } else {
-      const usuario = req.session.username[0];
-      Comentarios.create({
-        id_comentario,
-        usuario,
-        comentario
-    }).then(() => {
-        res.redirect(`/respostas/${id_comentario}`);
-    })
-    }
+    Comentarios.create({
+      id_comentario: null,
+      id_usuario: userId,
+      usuario,
+      comentario,
+    }).then((comentarioCriado) => {
+      res.status(201).redirect('/forum');
+      console.log('Comentário criado com sucesso!')
+      console.log(comentarioCriado.dataValues)
+    });
   },
 
   insereResposta: async (req, res) => {
-    const comentario = req.body.comentario;
-    const checkbox = req.body.checkbox;
-
-    if (checkbox == 'on') {
-      const usuario = 'Anônimo';
-      console.log('o toggle está selecionado');
-
-      Respostas.create({
-        usuario,
-        comentario
-    }).then(() => {
-        res.status(201).redirect('/forum');
-    });
-
+    const idComentario = req.params.id;
+    if (idComentario == null) {
+      res.status(400).send('Comentário não encontrado');
     } else {
-      const usuario = req.session.username[0];
+      const userId = req.session.userId;
+      const comentario = req.body.comentario;
+      const checkbox = req.body.checkbox;
+      const usuario = checkbox === 'on' ? 'Anônimo' : req.session.username[0];
 
       Respostas.create({
+        id_comentario: idComentario,
+        id_usuario: userId,
         usuario,
-        comentario
-    }).then(() => {
+        comentario,
+      }).then((respostaCriada) => {
         res.status(201).redirect('/forum');
-    });
+        console.log('Resposta criada com sucesso!')
+        console.log(respostaCriada.dataValues)
+      });
     }
   },
 

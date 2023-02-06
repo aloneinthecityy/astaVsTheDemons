@@ -1,8 +1,8 @@
 const express = require('express');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const port = 81;
 const bodyParser = require('body-parser');
+const port = 81;
 
 /* Configurações do express */
 const app = express();
@@ -28,7 +28,7 @@ app.set('views', './views');
 const usuarioController = require('./backend/controller/usuarioController');
 
 /* Rotas */
-app.get('/', usuarioController.home);
+app.get('/', usuarioController.index);
 
 app.get('/cadastro', usuarioController.cadastro);
 app.post('/cadastro', usuarioController.insereCadastro);
@@ -45,19 +45,23 @@ app.get('/logout', usuarioController.logout);
 
 app.get('/jogar', usuarioController.jogar);
 
+/* Carrega comentários principais do fórum */
 app.get('/forum', usuarioController.forum);
+
+/* Insere novos comentários no fórum */
 app.post('/insereComentario', usuarioController.insereComentario);
 
-app.get('/respostas/:id', usuarioController.respostas);
+/* Carrega respostas do comentário em específico */
+app.get('/pegaRespostas/:id', usuarioController.respostas);
+
+/* Insere novas respostas no comentário em específico */
 app.post('/insereResposta', usuarioController.insereResposta);
-
-
 
 app.post('/recebedados', usuarioController.RecebeDadosJogo);
 app.post('/carregaDados', usuarioController.carregaDadosJogo);
 app.post('/retornaDados', usuarioController.RetornaDadosJogo);
 
-app.get('/teste', usuarioController.teste);
+app.get('/home', usuarioController.home);
 
 app.get('/blog', usuarioController.blog);
 
