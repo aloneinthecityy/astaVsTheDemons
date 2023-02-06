@@ -407,7 +407,7 @@ module.exports = {
     }
   },
 
-  insereRespostas: async (req, res) => {
+  insereResposta: async (req, res) => {
     const comentario = req.body.comentario;
     const checkbox = req.body.checkbox;
 

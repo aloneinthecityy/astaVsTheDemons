@@ -49,7 +49,7 @@ app.get('/forum', usuarioController.forum);
 app.post('/insereComentario', usuarioController.insereComentario);
 
 app.get('/respostas/:id', usuarioController.respostas);
-app.post('/insereResposta', usuarioController.insereRespostas);
+app.post('/insereResposta', usuarioController.insereResposta);
 
 
 
