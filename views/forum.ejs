@@ -57,6 +57,7 @@
                 />
               </svg>
             </button>
+            <input type="hidden" name="id" value="<%= comentarios.id_comentario %>">
           </div>
         </form>
       </div>
@@ -101,7 +102,8 @@
     </div>
 
     <div class="flex flex-row w-full justify-end">
-    <button type="submit" onclick="window.location.href = '/respostas'">
+      <a href="/respostas/<%= respostas.id %>">
+    <button type="submit">
       <svg width="28" height="28" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M19.4999 21.125C20.3974 21.125 21.1249 20.3975 21.1249 19.5C21.1249 18.6025 20.3974 17.875 19.4999 17.875C18.6025 17.875 17.8749 18.6025 17.8749 19.5C17.8749 20.3975 18.6025 21.125 19.4999 21.125Z"
@@ -117,6 +119,7 @@
           fill="#231F20" />
       </svg>
     </button>
+
   </div>
 </div>
   <% }) %>

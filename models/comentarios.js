@@ -8,16 +8,6 @@ const Comentarios = database.define('comentarios', {
     autoIncrement: true,
     allowNull: false,
   },
-  id_usuario: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'usuarios',
-      key: 'id_usuario',
-    },
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  },
   usuario: {
     type: Sequelize.STRING, 
     allowNull: true
@@ -25,11 +15,6 @@ const Comentarios = database.define('comentarios', {
   comentario: {
     type: Sequelize.TEXT,
     allowNull: false
-  },
-  curtidas: {
-    type: Sequelize.INTEGER,
-    allowNull: true,
-    defaultValue: 0,
   },
 });
 

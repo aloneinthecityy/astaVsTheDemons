@@ -176,9 +176,15 @@ module.exports = {
           order: [['updatedAt', 'DESC']],
         });
 
+        let respostas = await Respostas.findAll({
+          raw: true,
+          order: [['updatedAt', 'DESC']],
+        });
+
         res.render('../views/forum.ejs', {
           user: username,
           comentarios: comentarios,
+          respostas: respostas
         });
       } else {
         const mensagem = 'Você precisa estar logado para acessar essa página!';
@@ -191,51 +197,26 @@ module.exports = {
   },
 
   respostas: async (req, res) => {
-    let isAuth = req.session.loggedin;
+    const id = req.params.id;
 
-    try {
-      if (isAuth) {
-        const username = req.session.username[0];
+    Respostas.findOne({
+        where: { id }
+    }).then(respostas => {
+        if (respostas !== null) {
 
-        let id_comentario = await Respostas.findOne({
-          raw: true,
-          attributes: ['id_comentario'],
-         
-          });
-
-        
-        let comentarios = await Comentarios.findOne({
-          raw: true,
-          where: {
-          id_comentario:id_comentario.id_comentario,
-          }
-          });
-
-        let respostas = await Respostas.findAll({
-          raw: true,
-          order: [['updatedAt', 'DESC']],
-        });
-
-        let comentario = await Comentarios.findOne({
-          raw: true,
-          attributes: ['id_comentario'],
-        });
-
-        res.render('../views/respostas.ejs', {
-           user: username,
-           respostas: respostas,
-           comentario: comentario,
-           comentarios: comentarios,
-
-          })
-      } else {
-        const mensagem = 'Você precisa estar logado para acessar essa página!';
-        req.session.mensagem = mensagem;
-        res.render('../views/login.ejs', { mensagem });
-      }
-    } catch (err) {
-      console.log(err);
-    }
+            Comentarios.findAll({
+                where: {id_comentario: Respostas.id},
+                order: [ ['id', 'DESC'] ]
+            }).then(comentarios => {
+                res.render('../views/respostas.ejs', {
+                    respostas,
+                    comentarios
+                });
+            });
+        } else {
+            res.redirect('../views/forum.ejs');
+        }
+    })
   },
 
   blog: (req, res) => {
@@ -401,70 +382,55 @@ module.exports = {
   insereComentario: (req, res) => {
     const comentario = req.body.comentario;
     const checkbox = req.body.checkbox;
+    const id_comentario = req.body.id;
+ 
 
     if (checkbox == 'on') {
-      const id_usuario = req.session.userId;
       const usuario = 'Anônimo';
 
-      console.log('o toggle está selecionado');
       Comentarios.create({
-        id_usuario,
+        id_comentario,
         usuario,
-        comentario,
-      }).then(() => {
-        res.status(201).redirect('/forum');
-      });
+        comentario
+    }).then(() => {
+        res.redirect(`/respostas/${id_comentario}`);
+    })
     } else {
-      const username = req.session.username[0];
-      const id_usuario = req.session.userId;
-
+      const usuario = req.session.username[0];
       Comentarios.create({
-        id_usuario,
-        usuario: username,
-        comentario,
-      }).then(() => {
-        res.status(201).redirect('/forum');
-      });
+        id_comentario,
+        usuario,
+        comentario
+    }).then(() => {
+        res.redirect(`/respostas/${id_comentario}`);
+    })
     }
   },
 
   insereRespostas: async (req, res) => {
     const comentario = req.body.comentario;
     const checkbox = req.body.checkbox;
-    const id_comentario = req.body.id;
-    const id_respostas = req.body.id_resposta;
-
-
-    console.log("id_respostas CARALHOOOO: ", id_respostas);
-    console.log("id_comentario CARALHOOOO: ", id_comentario);
 
     if (checkbox == 'on') {
-      const id_usuario = req.session.userId;
       const usuario = 'Anônimo';
-
       console.log('o toggle está selecionado');
+
       Respostas.create({
-        id_respostas,
-        id_usuario,
-        id_comentario,
         usuario,
-        comentario,
-      }).then(() => {
-        res.status(201).redirect('/respostas');
-      });
+        comentario
+    }).then(() => {
+        res.status(201).redirect('/forum');
+    });
+
     } else {
       const usuario = req.session.username[0];
-      const id_usuario = req.session.userId;
 
       Respostas.create({
-        id_respostas,
-        id_usuario,
-        id_comentario,
         usuario,
-        comentario,
-      }).then(() => {
-        res.status(201).redirect('/respostas');
-      });
+        comentario
+    }).then(() => {
+        res.status(201).redirect('/forum');
+    });
     }
   },
 

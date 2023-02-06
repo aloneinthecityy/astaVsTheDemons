@@ -48,8 +48,8 @@ app.get('/jogar', usuarioController.jogar);
 app.get('/forum', usuarioController.forum);
 app.post('/insereComentario', usuarioController.insereComentario);
 
-app.get('/respostas', usuarioController.respostas);
-app.post('/insereRespostas', usuarioController.insereRespostas);
+app.get('/respostas/:id', usuarioController.respostas);
+app.post('/insereResposta', usuarioController.insereRespostas);
 
 
 
