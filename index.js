@@ -51,9 +51,6 @@ app.get('/forum', usuarioController.forum);
 /* Insere novos comentários no fórum */
 app.post('/insereComentario', usuarioController.insereComentario);
 
-/* Carrega respostas do comentário em específico */
-app.get('/pegaRespostas/:id', usuarioController.respostas);
-
 /* Insere novas respostas no comentário em específico */
 app.post('/insereResposta', usuarioController.insereResposta);
 

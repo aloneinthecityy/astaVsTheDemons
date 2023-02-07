@@ -2,142 +2,117 @@
 <html lang="pt-BR">
   <head>
     <%- include('head'); %>
-    <style>
-      /* ===== Scrollbar CSS ===== */
-
-      /* Chrome, Edge, and Safari */
-      *::-webkit-scrollbar {
-        width: 12px;
-      }
-
-      /* *::-webkit-scrollbar-track {
-        background: #ffffff;
-      } */
-
-      *::-webkit-scrollbar-thumb {
-        background-color: #991b1b;
-        border-radius: 10px;
-        border: 3px solid #ffffff;
-      }
-    </style>
     <script>
-      // Função para exibir/esconder o formulário de resposta
-      function toggleAnswerForm(e) {
-        e.preventDefault();
+      function toggleAnswerForm(id) {
+        const respostas = document.getElementById(`resposta-${id}`);
+        const botaoResponder = document.getElementById(`responder-${id}`);
 
-        const respostas = document.getElementById('comentariosResposta');
-        const botaoResponder = document.getElementById('botaoResponder');
-
-        if(respostas.style.display === 'block') {
-          respostas.style.display = 'none';
-          botaoResponder.style.display = 'block';
-          return;
-        } else {
+        if (respostas.style.display === 'none') {
           respostas.style.display = 'block';
-          botaoResponder.style.display = 'none';
+        } else {
+          respostas.style.display = 'none';
         }
       }
     </script>
   </head>
 
   <body class="bg-[#1B1A1A] overflow-x-hidden">
-    <!-- Div pai que define as margens laterais -->
-    <div class="flex flex-col h-full sm:mx-24 mx-4">
-      <!-- Exibe o nome do usuário  -->
-      <div class="my-8 text-2xl w-full h-8">
-        <% if (user) { %>
-        <h1 class="text-white">Olá, @<%= user %>!</h1>
-        <% } %>
-      </div>
+    <!-- Para exibir datas corretamente -->
+    <%
+      function formatDatetime(timestamp) {
+        return new Date(timestamp).toLocaleString('pt-BR', {
+          timeZone: 'America/Sao_Paulo',
+        });
+      }
+    %>
 
-      <!-- Seção de enviar comentário -->
-      <div
-        class="flex flex-col w-full h-40 rounded-xl bg-[#D9D9D9] text-white px-[5vw]"
-      >
+    <div class="flex flex-col h-full px-8 md:px-48 lg:px-48 sm:px-16 xl:px-80">
+      <div>
+        <div class="my-8 text-2xl w-full h-8">
+          <% if (user) { %>
+          <h1 class="text-white">Olá, @<%= user %>!</h1>
+          <% } %>
+        </div>
+
         <form
+          class="flex flex-col w-full h-40 rounded-xl bg-[#D9D9D9] text-white px-[5vw]"
           action="/insereComentario"
           method="POST"
-          class="flex flex-col py-3 text-left justify-start items-start"
         >
-          <!-- Campo para digitar os comentários -->
-          <textarea
-            type="text"
-            name="comentario"
-            id="comentario"
-            placeholder="Desabafe, comente, relate suas impressões do jogo. Aqui é um espaço aberto e seguro. Seu post pode ser anônimo, caso preferir."
-            class="h-full w-full my-5 outline-none resize-none text-red-900 bg-transparent rounded-lg"
-          ></textarea>
+          <div class="flex flex-col py-3 text-left justify-start items-start">
+            <textarea
+              type="text"
+              name="comentario"
+              placeholder="Desabafe, comente, relate suas impressões do jogo. Aqui é um espaço aberto e seguro. Seu post pode ser anônimo, caso preferir."
+              class="h-full w-full my-5 outline-none resize-none text-red-900 bg-transparent rounded-lg"
+            ></textarea>
 
-          <div class="flex flex-row w-full h-15 justify-between">
-            <!-- Checkbox para comentário anônimo -->
-
-            <label class="relative inline-flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                value="on"
-                id="checkbox"
-                name="checkbox"
-                class="sr-only peer"
-                checked
-              />
-              <div
-                class="w-11 h-6 bg-gray-400 rounded-full peer peer-focus:ring-4 peer-checked:after:translate-x-full after:absolute after:top-3.5 after:left-[4px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-800"
-              ></div>
-              <span class="ml-3 text-sm font-medium text-gray-900">
-                Anônimo</span
-              >
-            </label>
-
-            <button type="submit" class="py-2 px-0">
-              <svg
-                width="38"
-                height="33"
-                viewBox="0 0 46 41"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M13.6685 33.5482L13.5983 33.4843C13.3548 33.2341 13.2008 32.9105 13.1603 32.5637C13.1197 32.217 13.195 31.8665 13.3742 31.567L19.642 21.0636C19.801 20.7969 19.8781 20.4892 19.8636 20.179C19.8491 19.8688 19.7437 19.5697 19.5605 19.319L12.3409 9.44567C12.1332 9.16448 12.0245 8.82249 12.0316 8.47303C12.0387 8.12357 12.1612 7.78627 12.3801 7.51374C12.599 7.24121 12.9019 7.04877 13.2415 6.96641C13.5812 6.88406 13.9386 6.91642 14.258 7.05846L38.6702 17.8771C38.9595 17.9818 39.212 18.1684 39.3969 18.4143C39.5819 18.6602 39.6911 18.9546 39.7114 19.2616C39.7317 19.5686 39.6621 19.8748 39.5112 20.1429C39.3602 20.411 39.1344 20.6292 38.8614 20.7711L15.5641 33.8184C15.262 33.9865 14.9131 34.0511 14.5708 34.0023C14.2286 33.9535 13.9116 33.7941 13.6685 33.5482Z"
-                  fill="#590101"
+            <div class="flex flex-row w-full h-15 justify-between">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  value="on"
+                  id="checkbox"
+                  name="checkbox"
+                  class="sr-only peer"
+                  checked
                 />
-              </svg>
-            </button>
-            <input
-              type="hidden"
-              name="id"
-              value="<%= comentarios.id_comentario %>"
-            />
+                <div
+                  class="w-11 h-6 bg-gray-400 rounded-full peer peer-focus:ring-4 peer-checked:after:translate-x-full after:absolute after:top-3.5 after:left-[4px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-800"
+                ></div>
+                <span class="ml-3 text-sm font-medium text-gray-900">
+                  Anônimo</span
+                >
+              </label>
+
+              <button type="submit" class="py-2 px-0">
+                <svg
+                  width="38"
+                  height="33"
+                  viewBox="0 0 46 41"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M13.6685 33.5482L13.5983 33.4843C13.3548 33.2341 13.2008 32.9105 13.1603 32.5637C13.1197 32.217 13.195 31.8665 13.3742 31.567L19.642 21.0636C19.801 20.7969 19.8781 20.4892 19.8636 20.179C19.8491 19.8688 19.7437 19.5697 19.5605 19.319L12.3409 9.44567C12.1332 9.16448 12.0245 8.82249 12.0316 8.47303C12.0387 8.12357 12.1612 7.78627 12.3801 7.51374C12.599 7.24121 12.9019 7.04877 13.2415 6.96641C13.5812 6.88406 13.9386 6.91642 14.258 7.05846L38.6702 17.8771C38.9595 17.9818 39.212 18.1684 39.3969 18.4143C39.5819 18.6602 39.6911 18.9546 39.7114 19.2616C39.7317 19.5686 39.6621 19.8748 39.5112 20.1429C39.3602 20.411 39.1344 20.6292 38.8614 20.7711L15.5641 33.8184C15.262 33.9865 14.9131 34.0511 14.5708 34.0023C14.2286 33.9535 13.9116 33.7941 13.6685 33.5482Z"
+                    fill="#590101"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </form>
       </div>
-      <br />
 
-      <!-- Linha fina de divisão -->
       <div class="border-t border-white opacity-20"></div>
-      <br />
 
-      <!-- Exibe os comentários -->
+      <!-- Comentários -->
+      <% if(comentarios.length > 0) { %>
       <% comentarios.forEach(function(comentario) { %>
       <div
-        class="flex flex-col w-full h-44 rounded-xl my-3 bg-[#696969] text-white px-[5vw]"
+        div
+        class="flex flex-col w-full rounded-xl bg-[#696969] text-white px-[5vw] overflow-hidden my-3 items-center justify-center pb-4 pt-8"
       >
-        <!-- Comentário -->
-        <form
-          class="my-9 overflow-auto"
-        >
-          <div
-            class="h-16 w-auto overflow-auto overflow-x-hidden p-4 text-lg mb-4"
-          >
-            <h2 class="text-white">@<%= comentario.usuario%></h2>
-            <p class="text-white"><%= comentario.comentario%></p>
+        <div class="w-full">
+          <div class="flex flex-row justify-between">
+            <h2 class="font-medium text-base">@<%= comentario.usuario%></h2>
+            <h2 class="font-medium text-base">
+              <%= formatDatetime(comentario.updatedAt) %>
+            </h2>
           </div>
-          <button
-            class="bg-[#8d1414] text-white rounded-lg py-2 flex flex-row justify-between items-center px-8"
-            type="submit"
-            onclick={toggleAnswerForm()}
-            id="botaoResponder"
+          <div
+            class="text-lg py-2 text-white max-h-28 overflow-auto overflow-x-hidden break-words h-full text-justify mb-4"
           >
-            Responder
+            <p><%= comentario.comentario%></p>
+          </div>
+          <div class="border-t border-white opacity-20 my-12"></div>
+          <button
+            type="button"
+            class="bg-[#8d1414] text-white rounded-lg py-2 flex flex-row justify-between items-center px-8 w-[240px]"
+            id="responder-<%=comentario.id_comentario %>"
+            onclick="toggleAnswerForm(<%= comentario.id_comentario %>)"
+          >
+            Ocultar respostas
             <svg
               width="28"
               height="28"
@@ -164,30 +139,99 @@
               />
             </svg>
           </button>
+        </div>
+        <div
+          class="flex flex-col w-full my-4"
+          id="resposta-<%= comentario.id_comentario %>"
+        >
+          <!-- Textarea para criar novas respostas -->
+          <div class="flex flex-col w-full max-h-52 overflow-y-auto overflow-x-hidden">
+            <form
+              class="flex flex-col w-full rounded-xl bg-[#D9D9D9] text-white px-4 py-4"
+              action="/insereResposta"
+              method="POST"
+            >
+              <div class="flex flex-col text-left justify-start items-start">
+                <textarea
+                  type="text"
+                  name="comentario"
+                  placeholder="Responda os comentários por aqui"
+                  class="h-full w-full outline-none resize-none text-red-900 bg-transparent rounded-lg"
+                >
+                </textarea>
+    
+                <div class="flex flex-row w-full h-15 justify-between">
+                  <label class="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      value="on"
+                      id="checkbox"
+                      name="checkbox"
+                      class="sr-only peer"
+                      checked
+                    />
+                    <div
+                      class="w-11 h-6 bg-gray-400 rounded-full peer peer-focus:ring-4 peer-checked:after:translate-x-full after:absolute after:top-3.5 after:left-[4px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-800"
+                    ></div>
+                    <span class="ml-3 text-sm font-medium text-gray-900">
+                      Anônimo</span
+                    >
+                  </label>
+                  <input type="hidden" name="id_comentario" value="<%= comentario.id_comentario %>" />
 
-          <!-- Respostas + textarea para responder mais -->
-          <!-- TODO: exibir corretamente  -->
-          <div class="flex flex-col w-full">
-            <!-- Respostas do comentário -->
-            <div class="flex flex-col w-full" id="comentariosResposta">
-              <textarea name="" id="" cols="30" rows="1" placeholder="Escreva sua resposta aqui" class="w-full"/>
-              <% respostas.forEach((resposta) => { %> 
-                  <form class="flex flex-row w-full justify-end" action="">
-                    <h2 class="text-white">@<%= resposta.usuario%></h2>
-                    <p class="text-white"><%= resposta.comentario%></p>
-                    <button class="bg-[#1B1A1A] text-white rounded-lg px-4 py-2">
-                      Responder
-                    </button>
-                  </form>
-              <% }) %>
+                  <button type="submit" class="py-2 px-0">
+                    <svg
+                      width="38"
+                      height="33"
+                      viewBox="0 0 46 41"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13.6685 33.5482L13.5983 33.4843C13.3548 33.2341 13.2008 32.9105 13.1603 32.5637C13.1197 32.217 13.195 31.8665 13.3742 31.567L19.642 21.0636C19.801 20.7969 19.8781 20.4892 19.8636 20.179C19.8491 19.8688 19.7437 19.5697 19.5605 19.319L12.3409 9.44567C12.1332 9.16448 12.0245 8.82249 12.0316 8.47303C12.0387 8.12357 12.1612 7.78627 12.3801 7.51374C12.599 7.24121 12.9019 7.04877 13.2415 6.96641C13.5812 6.88406 13.9386 6.91642 14.258 7.05846L38.6702 17.8771C38.9595 17.9818 39.212 18.1684 39.3969 18.4143C39.5819 18.6602 39.6911 18.9546 39.7114 19.2616C39.7317 19.5686 39.6621 19.8748 39.5112 20.1429C39.3602 20.411 39.1344 20.6292 38.8614 20.7711L15.5641 33.8184C15.262 33.9865 14.9131 34.0511 14.5708 34.0023C14.2286 33.9535 13.9116 33.7941 13.6685 33.5482Z"
+                        fill="#590101"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <div class="border-t border-white opacity-20 my-4"></div>
+
+            <!-- Respostas dos comentários -->
+            <div
+              class="flex flex-col w-full justify-end my-4"
+            >
+              <% if(respostas.length > 0) { %>
+                <% respostas.forEach((resposta) => { %> <%
+                  if(resposta.id_comentario == comentario.id_comentario) { %>
+                    <div class="flex flex-col w-full justify-end mb-12 bg-[#1b1717] px-6 py-8 rounded-md border max-h-36 overflow-x-hidden overflow-y-auto">
+                      <div class="flex flex-row justify-between items-center">
+                        <h2 class="text-white my-2">@<%= resposta.usuario%></h2>
+                        <h2 class="text-white my-2">
+                          <%= formatDatetime(comentario.updatedAt) %>  
+                        </h2>
+                      </div>
+                      <p class="text-white my-2"><%= resposta.comentario%></p>
+                    </div>
+                  <% } %> 
+                <% }) %>
+              <% } else { %>
+                <span>
+                  Nenhuma resposta para esse comentário  
+                </span>
+              <% } %>
             </div>
           </div>
-          
-        </form>
+        </div>
       </div>
       <% }) %>
+      <% } else { %>
+        <span class="text-white text-md my-4">
+          Não há nenhum post no momento. 
+        </span>
+      <% } %>
     </div>
-
-    <script src="../backend/controller/usuarioController.js"></script>
   </body>
 </html>

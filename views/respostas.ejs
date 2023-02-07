@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+  <head>
+    <%- include('head'); %>
+  </head>
+  <body class="bg-[#1B1A1A] overflow-x-hidden">
+    <div class="flex flex-col h-full sm:mx-24 mx-4">
+      <% comentarios.forEach(function(c) { %>
+      <div
+        class="flex flex-col w-full h-32 rounded-3xl bg-red-800 text-white my-8 px-12 py-8"
+      >
+        <h2>Comentário realizado por: @<%= c.usuario%></h2>
+        <a> <%= c.comentario%></a>
+      </div>
 
-<head>
-  <%- include('head'); %>
-</head>
+      <div class="border-t border-white opacity-20"></div>
+      <br />
 
+      <div
+        class="flex flex-col w-full h-40 rounded-xl bg-[#D9D9D9] text-white px-[5vw] my-3"
+      >
+        <form
+          action="/insereResposta"
+          method="POST"
+          class="flex flex-col py-3 text-left justify-start items-start"
+        >
+          <textarea
+            type="text"
+            name="comentario"
+            id="comentario"
+            placeholder="Deixe aqui uma resposta... Interagir com outros usuários pode ser divertido!"
+            class="h-full w-full my-5 outline-none resize-none text-red-900 bg-transparent rounded-lg"
+          ></textarea>
 
-
-<body class="bg-[#1B1A1A] overflow-x-hidden">
-  <!-- Div pai que define as margens laterais -->
-  <div class="flex flex-col h-full sm:mx-24 mx-4">
-    <!-- Exibe o nome do usuário  -->
-    <div class="flex flex-col w-full h-32 rounded-3xl bg-red-800 text-white my-8 px-12 py-8">
-    
-        <h2> Comentário realizado por: @<%= comentarios.usuario%></h2>
-        <a> <%= comentarios.comentario%></a>
-    </div>
-
-    <div class="border-t border-white opacity-20"></div>
-    <br />
-
-    <!-- Seção de responder -->
-    <div class="flex flex-col w-full h-40 rounded-xl bg-[#D9D9D9] text-white px-[5vw] my-3">
-      <form action="/insereResposta" method="POST" class="flex flex-col py-3 text-left justify-start items-start">
-      
-        <!-- Campo para digitar os comentários -->
-        <textarea type="text" name="comentario" id="comentario"
-          placeholder="Deixe aqui uma resposta... Interagir com outros usuários pode ser divertido!"
-          class="h-full w-full my-5 outline-none resize-none text-red-900 bg-transparent rounded-lg"></textarea>
-
-        <div class="flex flex-row w-full h-15 justify-between">
-          <!-- Checkbox para comentário anônimo -->
-
+          <div class="flex flex-row w-full h-15 justify-between">
             <label class="relative inline-flex items-center cursor-pointer">
               <input
                 type="checkbox"
@@ -63,57 +64,10 @@
                 />
               </svg>
             </button>
-            <input type="hidden" name="id" value="<%= comentarios.id_comentario %>">
-
           </div>
         </form>
       </div>
-
-      <!-- Seção de comentários realizados por outros usuários -->
-      <br />
-
-      <!-- Linha fina de divisão -->
-      <div class="border-t border-white opacity-20"></div>
-      <br />
-
-      <!-- Exibe outras respostas -->
-      <% respostas.forEach(function(resposta) { %>
-
-      <div
-        class="flex flex-col w-full h-32 rounded-xl my-3 bg-[#696969] text-white px-[5vw]"
-      >
-        <div class="my-5">
-          <div class="h-16 w-auto overflow-auto overflow-x-hidden p-4 text-lg">
-              <style>
-                /* ===== Scrollbar CSS ===== */
-
-                /* Chrome, Edge, and Safari */
-                *::-webkit-scrollbar {
-                  width: 12px;
-                }
-
-                /* *::-webkit-scrollbar-track {
-                  background: #ffffff;
-                } */
-
-                *::-webkit-scrollbar-thumb {
-                  background-color: #991b1b;
-                  border-radius: 10px;
-                  border: 3px solid #ffffff;
-                }
-              </style>
-              <h2 class="text-white">@<%= resposta.usuario%></h2>
-              <p class="text-white"><%= resposta.comentario%></p>
-                        
-        </div>
-      </form>
-    </div>
-  </div>
-  <% }) %>
-
-
-
-  <script src="../backend/controller/usuarioController.js"></script>
-</body>
-
+      <% }) %>
+    <script src="../backend/controller/usuarioController.js"></script>
+  </body>
 </html>

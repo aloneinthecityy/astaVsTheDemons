@@ -143,7 +143,6 @@ module.exports = {
     res.render('../views/index.ejs');
   },
 
-  // carrega o fórum de comentários e suas respostas
   forum: async (req, res) => {
     let isAuth = req.session.loggedin;
 
@@ -151,12 +150,12 @@ module.exports = {
       if (isAuth) {
         const username = req.session.username[0];
 
-        let comentarios = await Comentarios.findAll({
+        const comentarios = await Comentarios.findAll({
           raw: true,
           order: [['updatedAt', 'DESC']],
         });
 
-        let respostas = await Respostas.findAll({
+        const respostas = await Respostas.findAll({
           raw: true,
           order: [['updatedAt', 'DESC']],
         });
@@ -164,7 +163,7 @@ module.exports = {
         res.render('../views/forum.ejs', {
           user: username,
           comentarios: comentarios,
-          respostas: respostas
+          respostas: respostas,
         });
       } else {
         const mensagem = 'Você precisa estar logado para acessar essa página!';
@@ -173,32 +172,6 @@ module.exports = {
       }
     } catch (err) {
       console.log(err);
-    }
-  },
-
-  respostas: async (req, res) => {
-    const id = req.params.id;
-
-    // busca o comentário no banco de dados
-    const comentario = await Comentarios.findOne({ where: { id } });
-
-    console.table(comentario)
-
-    // se o comentário existir no fórum
-    if (comentario) {
-      const respostas = await Respostas.findAll({
-        raw: true,
-        where: { id_comentario: id },
-        order: [['updatedAt', 'DESC']],
-      });
-
-      console.table(respostas)
-
-      // renderiza o fórum com as respostas do comentário selecionado
-      res.render('../views/forum.ejs', { respostas });
-    } else {
-      // se o comentário não existir, redireciona para a página de fórum 
-      res.redirect('/forum')
     }
   },
 
@@ -259,8 +232,6 @@ module.exports = {
       },
     });
 
-    console.log('dadosBanco: ', dadosBanco);
-
     if (dadosBanco.length == 0) {
       req.session.mensagem = 'E-mail incorreto ou não cadastrado';
       res.redirect('/login');
@@ -280,7 +251,7 @@ module.exports = {
         const username = email.split('@');
         req.session.username = username; // username ficticio com o inicio do email
 
-        console.log('Seja bem vindo', username[0], '!'); //aqui printa o nome ficticio do usuario no console!
+        console.log('Seja bem vindo,', username[0], '!'); //aqui printa o nome ficticio do usuario no console!
 
         res.redirect('/home');
       }
@@ -384,25 +355,32 @@ module.exports = {
   },
 
   insereResposta: async (req, res) => {
-    const idComentario = req.params.id;
-    if (idComentario == null) {
-      res.status(400).send('Comentário não encontrado');
-    } else {
+    try {
+      const id_comentario = req.body.id_comentario;
       const userId = req.session.userId;
       const comentario = req.body.comentario;
       const checkbox = req.body.checkbox;
       const usuario = checkbox === 'on' ? 'Anônimo' : req.session.username[0];
 
-      Respostas.create({
-        id_comentario: idComentario,
-        id_usuario: userId,
-        usuario,
-        comentario,
-      }).then((respostaCriada) => {
-        res.status(201).redirect('/forum');
-        console.log('Resposta criada com sucesso!')
-        console.log(respostaCriada.dataValues)
-      });
+      console.log(id_comentario, userId, comentario, usuario)
+
+      if (id_comentario == null) {
+        res.redirect('/forum');
+      } else {
+        Respostas.create({
+          id_respostas: null,
+          id_usuario: userId,
+          id_comentario: id_comentario,
+          usuario,
+          comentario,
+        }).then((respostaCriada) => {
+          res.status(201).redirect('/forum');
+          console.log('Resposta criada com sucesso!')
+          console.log(respostaCriada.dataValues)
+        });
+      }
+    } catch (error) {
+      console.log(error);
     }
   },
 
