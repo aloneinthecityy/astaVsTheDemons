@@ -3,7 +3,11 @@
 Web platform aimed at raising awareness about mental disorders through a Visual Novel.
 
 <p align="center">
-  <img src="./public/images/readme/concept-art-2.jpeg" width="100%">
+  <img src="./public/images/readme/start.png" width="100%">
+</p>
+
+<p align="center">
+  <img src="./public/images/readme/frame.png" width="100%">
 </p>
 
 ## Overview
@@ -19,6 +23,10 @@ In the field of technology—specifically in game development—studies have bee
 ## Project Goal
 
 Based on this, the goal of creating the web platform **"Asta vs The Demons"** emerged, along with the integration of a game into the application, in order to provide Visual Novel players with an immersive experience of empathy and identification. This is achieved through the game's protagonist, who addresses the main themes of mental disorders, psychosomatic symptoms, and somatic symptom disorders.
+
+<p align="center">
+  <img src="./public/images/readme/concept-art-3.png" width="100%">
+</p>
 
 ## Technologies Used
 
@@ -36,6 +44,10 @@ Based on this, the goal of creating the web platform **"Asta vs The Demons"** em
 ## Publication and Results
 
 The application was published on the [itch.io platform](https://itch.io) (which promotes indie games and independent developers), along with a user experience survey regarding the platform and the game, to support the academic purposes of the project. The survey received over 40 responses, revealing the meaningful impact of the user experience with this project.
+
+<p align="center">
+  <img src="./public/images/readme/concept-art-4.png" width="100%">
+</p>
 
 ## Conclusion
 
